@@ -17,6 +17,8 @@ const display = Fraunces({ variable: "--font-display", subsets: ["latin"], axes:
 export const metadata: Metadata = {
   title: "BurnCalendar · one fire record from MODIS and VIIRS",
   description: "A harmonized MODIS + VIIRS burning activity calendar and early warning for South Asia, Indonesia and Australia, built on NASA FIRMS.",
+  // The Space Apps guide asks for AI-written code to be acknowledged in metadata as well as in text.
+  other: { "ai-assistance": "Code and documentation written with Claude (Anthropic) as an AI coding assistant; reviewed by the team." },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

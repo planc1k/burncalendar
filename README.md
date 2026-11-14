@@ -27,7 +27,7 @@ Built for the NASA Space Apps Challenge 2026, challenge **"Harmonization of MODI
    |---|---|---|
    | Nov 2000 – 3 Jul 2002 | Terra alone | Terra → Terra+Aqua (fitted 2003–2007) × MODIS → S-NPP |
    | 4 Jul 2002 – 19 Jan 2012 | Terra + Aqua | MODIS → S-NPP (fitted 2012–2025) |
-   | 20 Jan 2012 – 2025 | S-NPP | 1 (reference) |
+   | 20 Jan 2012 – 2025 | S-NPP | 1 (reference). Months where S-NPP itself was down are filled from NOAA-20 |
    | 2026 onward | NOAA-20 | NOAA-20 → S-NPP (fitted Apr 2018 – 2025) |
 
    S-NPP's near-real-time feed thins during 2026 and stops on 2 November 2026, so the record hands over to NOAA-20 at the start of 2026.
@@ -52,33 +52,36 @@ Factors were fitted on even years and tested on odd years, and the reverse, for 
 
 ![Validation figure](docs/validation.png)
 
-## Checked against burned area
+## A consistency check against burned area
 
-GFED5 (Chen et al. 2023) maps burn scars from MODIS surface reflectance for 2001–2020, with no change of sensor in 2012. If the harmonization is right, a state should show the same burned area per active cell-day before and after 2012. Across 98 states, 2003–2020:
+GFED5 (Chen et al. 2023) maps burn scars from MODIS for 2001–2020, with no change of sensor in 2012. Burned area per active cell-day should be the same before and after 2012; a step would mean the factors were applied wrongly. Across 98 states, 2003–2020:
 
-| | Harmonized | Raw MODIS then raw S-NPP |
+| Step at 2012 (1 = none) | Median | Middle half of states |
 |---|---|---|
-| Step at 2012 (1 = none), median | 1.00 | 4.11 |
-| Middle half of states | 0.94 to 1.10 | 3.04 to 5.31 |
-| States with a step under 25% | 93% | 0% |
-| Do high and low years match? (median rank correlation) | 0.92 | 0.51 |
+| Harmonized record | 1.00 | 0.94 to 1.10 |
+| Raw MODIS on both sides | 1.00 | 0.93 to 1.05 |
+| Raw MODIS, then raw S-NPP | 4.11 | 3.04 to 5.31 |
 
 ![Burned-area check](docs/burned_area.png)
 
-Burned area and active-fire counts measure different things, so only the comparison across 2012 is meaningful. GFED5 also uses MODIS active fires for its small-fire correction, so it is not fully independent of our MODIS years.
+**What this does not show.** Raw MODIS alone passes the same test: the factors were fitted on the years after 2012, so they cancel out of it. The check confirms the factors were applied correctly (right era, right direction, Terra chain). It cannot confirm they hold for 2003–2011, when VIIRS did not exist. The evidence for the factors is the held-out test above.
+
+One part is a real cross-sensor check: in 2012–2020, S-NPP's high and low years match burned area with a median rank correlation of 0.92. GFED5 also uses MODIS active fires for its small-fire correction.
 
 ## What the record shows
 
 - **Trends.** Join the raw records end to end and fire appears to rise in 74 of 99 states over 2003–2025. On one scale it rises in 18, falls in 25 and shows no clear trend in 56. In 57 states the apparent rise was the sensor change.
 - **Season timing.** The main season has moved later in 6 states and earlier in 5 (of 96 with enough fire). Punjab's October season is 7.3 days later per decade, about 16 days later than in 2003–2007; neighbouring Haryana shows the same direction.
-- Trends are Theil–Sen slopes with a Mann–Kendall test at 5%. A trend that crosses 2012 carries the uncertainty of the estimated years.
+- Both findings hold on a single sensor. On MODIS alone (2003–2025) the trend verdict matches the harmonized record in 74 of 85 states and never reverses, and Punjab is 8.2 days later per decade. On S-NPP alone (2012–2025) Punjab is 5.1 days later per decade.
+- Trends are Theil–Sen slopes with a Mann–Kendall test at 5%. With 99 tests, about five would pass by chance. A trend that crosses 2012 carries the uncertainty of the estimated years. The raw splice illustrates the problem; it is not a method anyone should use.
 
 ## Sensor health
 
 Each month, one sensor's count is compared with what the other predicts for it after calibration (1.0 = they agree as in the fit years). A month outside 0.75–1.33 is flagged.
 
-- MODIS against VIIRS: August 2020 (0.54) and April 2022 (0.67). July 2024 reads 1.49 because S-NPP was low that month.
+- MODIS against VIIRS: August 2020 (0.54) and April 2022 (0.67).
 - S-NPP against NOAA-20: July 2024 (0.63), and November 2026 (0.09), when the S-NPP feed stops.
+- The record acts on the flag: July 2024, when S-NPP was the low one, is filled from calibrated NOAA-20 (24,111 cell-days over the whole area, against 15,114 from S-NPP).
 - S-NPP ran 6–16% low in several months of 2026 before stopping, which is inside the band and was not flagged.
 
 ## How good is the early warning?
@@ -95,6 +98,7 @@ The rule was replayed on every week of 2003–2025 in all 112 states (133,952 st
 - The lower "above normal" level (75th percentile) catches 51% of severe periods and is right 27% of the time.
 - Replayed on 2019, the rule first fired for New South Wales on 29 October, 64 days before the peak of the 2019–20 season.
 - This is a persistence signal, not a weather forecast. It misses about two severe periods in three.
+- Thresholds use the other years, including later ones, so this is not a true real-time test. Neighbouring weeks overlap, so there are far fewer independent cases than state-weeks, and no confidence interval is given.
 
 ## Uncertainty on estimated years
 
@@ -110,6 +114,7 @@ Single states are wider: New South Wales by month is 0.81 to 1.62.
 
 ## Limits
 
+- **The main assumption:** the relationship between MODIS and VIIRS seen in 2012–2025 is assumed to hold for 2003–2011. Fire sizes, farming practice and the ageing of MODIS could each break that, and nothing can test it directly. The likely ranges reflect 2012–2025 only, so they are probably too narrow for early years.
 - MODIS misses small fires that VIIRS sees. A factor restores the average for a state and month, not individual fires, so pre-2012 values are estimates.
 - 2000–2002 (Terra alone) is the least certain part. Medians and percentiles use 2003 onward.
 - The newest months use near-real-time data, which NASA later reprocesses. Early-warning results are provisional.

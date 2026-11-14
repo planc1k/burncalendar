@@ -341,7 +341,8 @@ export default function App() {
                 <Calendar series={series} lastMi={lastMi} yearFrom={range[0]} yearTo={range[1]} picked={month} relative={relative} svgRef={svgRef}
                   onPick={(mi) => { stop(); setMonth(mi); setMode("activity"); }}
                   eras={{ aqua: 2002, snpp: 2012, snppEnd: +meta.handover.slice(0, 4) - 1 }}
-                  band={selection.type === "region" && regionData && !loadingRegion ? regionData.band : null} />
+                  band={selection.type === "region" && regionData && !loadingRegion ? regionData.band : null}
+                  filled={health.filled.map((m: string) => toMi(+m.slice(0, 4), +m.slice(5) - 1))} />
                 <p className="note">Years marked MODIS or NOAA-20 are estimates on the S-NPP scale. Hover a month for its likely range.</p>
                 <div className="actions">
                   <button className="btn" onClick={csvMonthly}><Download />Monthly CSV</button>
@@ -410,7 +411,7 @@ export default function App() {
                   </tr>); })}
               </tbody>
             </table>
-            <p className="note">Trends are Theil–Sen slopes with a Mann–Kendall test at 5%, relative to each state's average year. Values before 2012 are estimates, so a trend that crosses 2012 carries that uncertainty. Timing is the activity-weighted centre of the five months around each state's peak month.</p>
+            <p className="note">Trends are Theil–Sen slopes with a Mann–Kendall test at 5%, relative to each state's average year. Values before 2012 are estimates, so a trend that crosses 2012 carries that uncertainty. With {fd.states} tests at 5%, about five would pass by chance. The raw splice is shown to illustrate the problem, not as a method anyone should use. Timing is the activity-weighted centre of the five months around each state's peak month.</p>
           </section>
 
           {stories.length > 0 && (
@@ -448,7 +449,7 @@ export default function App() {
                     <tr key={k}><td>{l}</td><td className="num">{pc(bt.all[k].right)}</td><td className="num">{pc(bt.all[k].caught)}</td><td className="num">{bt.all[k].lift}×</td></tr>))}
                 </tbody>
               </table>
-              <p className="note">Severe means at or above the 90th percentile for those dates. This is a persistence signal, not a weather forecast: it says burning that is already unusual tends to stay unusual, and it misses about two severe periods in three.</p>
+              <p className="note">Severe means at or above the 90th percentile for those dates. This is a persistence signal, not a weather forecast: it says burning that is already unusual tends to stay unusual, and it misses about two severe periods in three. Thresholds use the other years, including later ones, so this is not a true real-time test, and neighbouring weeks overlap, so there are far fewer independent cases than weeks.</p>
             </div>
             <table>
               <thead><tr><th>State</th><th className="num">Last {win.days} days</th><th className="num">Median</th><th className="num">Ratio</th><th>Status</th></tr></thead>
@@ -493,7 +494,7 @@ export default function App() {
               MODIS against VIIRS: {health.alarms.modis.length ? health.alarms.modis.map(alarmText).join(", ") : "no month flagged"}.<br />
               S-NPP against NOAA-20: {health.alarms.snpp.length ? health.alarms.snpp.map(alarmText).join(", ") : "no month flagged"}.
             </p>
-            <p className="note">This is what tells the record when to hand over from one sensor to the next. S-NPP stops on {meta.snppEnd}, so the record uses NOAA-20 from {meta.handover.slice(0, 4)}.</p>
+            <p className="note">The record acts on this. {health.filled.length ? `S-NPP was the low one in ${health.filled.join(", ")}, so ${health.filled.length > 1 ? "those months are" : "that month is"} filled from calibrated NOAA-20.` : "No S-NPP month needed filling."} S-NPP stops on {meta.snppEnd}, so the record uses NOAA-20 from {meta.handover.slice(0, 4)}.</p>
           </div>
         </div>
 
@@ -510,30 +511,35 @@ export default function App() {
                 <tr className="hl"><td>State and month factors</td><td className="num">{val.calibrated.median_abs_pct_err}%</td><td className="num">{val.calibrated.total_ratio}</td></tr>
               </tbody>
             </table>
-            <p className="note">Limits: MODIS misses small fires that VIIRS sees, so a factor restores the average, not individual fires. Years before 2012 are less certain than later ones, and {meta.epoch.slice(0, 4)}–2002 (Terra alone) least of all, so medians use {meta.baseYear} onward. NOAA-21 is shown in the latest hotspots but is not yet part of the record. The newest months use near-real-time data. State boundaries are from Natural Earth and are not authoritative.</p>
+            <p className="note">Limits: the method assumes the relationship between MODIS and VIIRS seen in 2012–2025 also held before 2012. Nothing can test that directly, and the likely ranges only reflect 2012–2025, so they are probably too narrow for early years. MODIS misses small fires that VIIRS sees, so a factor restores the average, not individual fires. Years before 2012 are less certain than later ones, and {meta.epoch.slice(0, 4)}–2002 (Terra alone) least of all, so medians use {meta.baseYear} onward. NOAA-21 is shown in the latest hotspots but is not yet part of the record. The newest months use near-real-time data. State boundaries are from Natural Earth and are not authoritative.</p>
           </div>
         </div>
       </section>
 
       {ba && (
         <section className="method second">
-          <h3 className="method-h">Checked against an independent record of burned area</h3>
+          <h3 className="method-h">A consistency check against burned area</h3>
           <div className="valid">
             <img src="/burned_area.png" alt="Harmonized record, raw splice and GFED5 burned area by year, and the step at 2012 per state" />
             <div>
               <p>
-                GFED5 maps burn scars from MODIS surface reflectance for {ba.years[0]}–{ba.years[1]}, with no change of sensor in {ba.split}. If our record is right,
-                a state should show the same burned area per active cell-day before and after {ba.split}.
+                GFED5 maps burn scars from MODIS for {ba.years[0]}–{ba.years[1]}, with no change of sensor in {ba.split}. Burned area per active cell-day
+                should be the same before and after {ba.split}. A step would mean the factors were applied wrongly.
               </p>
               <table>
-                <thead><tr><th>Across {ba.states} states</th><th className="num">Harmonized</th><th className="num">Raw splice</th></tr></thead>
+                <thead><tr><th>Step at {ba.split} across {ba.states} states (1 = none)</th><th className="num">Median</th><th className="num">Middle half</th></tr></thead>
                 <tbody>
-                  <tr><td>Step at {ba.split} (1 = none), median</td><td className="num">{ba.step_harmonized[1].toFixed(2)}</td><td className="num">{ba.step_naive[1].toFixed(2)}</td></tr>
-                  <tr><td>States with a step under 25%</td><td className="num">{pc(ba.within_25pct_harmonized)}</td><td className="num">{pc(ba.within_25pct_naive)}</td></tr>
-                  <tr><td>Do high and low years match? (rank correlation)</td><td className="num">{ba.rank_corr_harmonized.toFixed(2)}</td><td className="num">{ba.rank_corr_naive.toFixed(2)}</td></tr>
+                  <tr className="hl"><td>Harmonized record</td><td className="num">{ba.step_harmonized[1].toFixed(2)}</td><td className="num">{ba.step_harmonized[0]} to {ba.step_harmonized[2]}</td></tr>
+                  <tr><td>Raw MODIS on both sides</td><td className="num">{ba.step_modis_only[1].toFixed(2)}</td><td className="num">{ba.step_modis_only[0]} to {ba.step_modis_only[2]}</td></tr>
+                  <tr><td>Raw MODIS, then raw S-NPP</td><td className="num">{ba.step_naive[1].toFixed(2)}</td><td className="num">{ba.step_naive[0]} to {ba.step_naive[2]}</td></tr>
                 </tbody>
               </table>
-              <p className="note">Burned area and active-fire counts measure different things, so only the comparison across {ba.split} is meaningful, not the absolute ratio. GFED5 also uses MODIS active fires for its small-fire correction, so it is not fully independent of our MODIS years. Source: Chen et al. 2023, Zenodo 10.5281/zenodo.7668423, CC BY 4.0.</p>
+              <p>
+                <b>What this does not show.</b> Raw MODIS alone passes the same test, because the factors were fitted on the years after {ba.split} and cancel out.
+                So this confirms the factors were applied correctly; it cannot confirm they hold for the years before VIIRS existed. The held-out test above is the evidence for the factors.
+              </p>
+              <p>One part is a real cross-sensor check: in {ba.split}–{ba.years[1]}, S-NPP&rsquo;s high and low years match burned area with a rank correlation of {ba.rank_corr_snpp_late.toFixed(2)}.</p>
+              <p className="note">GFED5 also uses MODIS active fires for its small-fire correction. Source: Chen et al. 2023, Zenodo 10.5281/zenodo.7668423, CC BY 4.0.</p>
             </div>
           </div>
         </section>)}

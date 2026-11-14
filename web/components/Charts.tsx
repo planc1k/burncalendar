@@ -18,10 +18,10 @@ const at = (e: React.MouseEvent, host: HTMLElement | null) => {
 };
 
 /* ---------- burning activity calendar: month x year ---------- */
-export function Calendar({ series, lastMi, yearFrom, yearTo, picked, onPick, relative, svgRef, eras, band }: {
+export function Calendar({ series, lastMi, yearFrom, yearTo, picked, onPick, relative, svgRef, eras, band, filled }: {
   series: number[]; lastMi: number; yearFrom: number; yearTo: number; picked: number;
   onPick: (mi: number) => void; relative: boolean; svgRef: React.RefObject<SVGSVGElement | null>;
-  eras: { aqua: number; snpp: number; snppEnd: number }; band: Band | null;
+  eras: { aqua: number; snpp: number; snppEnd: number }; band: Band | null; filled: number[];
 }) {
   const host = useRef<HTMLDivElement>(null);
   const [tip, setTip] = useState<Tip>(null);
@@ -54,7 +54,8 @@ export function Calendar({ series, lastMi, yearFrom, yearTo, picked, onPick, rel
                   ...at(e, host.current), lines: [`${MONTHS_LONG[m]} ${y}${mi === lastMi ? " (month in progress)" : ""}`,
                   `${fmtFull(v)} active cell-days`,
                   med > 0 ? `${(v / med).toFixed(1)}× the ${MONTHS_LONG[m]} median (${fmtFull(med)})` : "No burning in a typical year",
-                    ...(v > 0 ? [mi >= toMi(2012, 0) && mi < toMi(2026, 0) ? "Measured by S-NPP, the reference sensor"
+                    ...(v > 0 ? [filled.includes(mi) ? `S-NPP was down this month. Estimated from NOAA-20${band ? `: likely ${fmt(v * band.n[0])} to ${fmt(v * band.n[1])}` : ""}`
+                      : mi >= toMi(2012, 0) && mi < toMi(2026, 0) ? "Measured by S-NPP, the reference sensor"
                       : band && bandFor(band, mi) ? `Estimate. Likely ${fmt(v * bandFor(band, mi)![0])} to ${fmt(v * bandFor(band, mi)![1])} (8 in 10 held-out cases)`
                       : "Estimate scaled from another sensor"] : []),
                     "Click to show this month on the map"],

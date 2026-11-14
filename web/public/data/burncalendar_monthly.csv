@@ -283,7 +283,7 @@ AU_ACT,"Australian Capital Territory",AU,state,2024,3,12.0,12.0,12.0,snpp,5,12,1
 AU_ACT,"Australian Capital Territory",AU,state,2024,4,22.0,22.0,22.0,snpp,5,22,23,493
 AU_ACT,"Australian Capital Territory",AU,state,2024,5,3.0,3.0,3.0,snpp,0,3,3,42
 AU_ACT,"Australian Capital Territory",AU,state,2024,6,4.0,4.0,4.0,snpp,0,4,2,23
-AU_ACT,"Australian Capital Territory",AU,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+AU_ACT,"Australian Capital Territory",AU,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 AU_ACT,"Australian Capital Territory",AU,state,2024,8,0.0,0.0,0.0,snpp,0,0,1,2
 AU_ACT,"Australian Capital Territory",AU,state,2024,9,1.0,1.0,1.0,snpp,1,1,3,28
 AU_ACT,"Australian Capital Territory",AU,state,2024,10,3.0,3.0,3.0,snpp,0,3,2,18
@@ -384,7 +384,7 @@ AU_NSW,"New South Wales",AU,state,2006,7,1374.1,1106.2,2227.5,terra+aqua,422,0,0
 AU_NSW,"New South Wales",AU,state,2006,8,3143.3,2530.4,5095.3,terra+aqua,1057,0,0,38462
 AU_NSW,"New South Wales",AU,state,2006,9,1755.4,1413.1,2845.5,terra+aqua,615,0,0,24190
 AU_NSW,"New South Wales",AU,state,2006,10,697.9,561.8,1131.2,terra+aqua,289,0,0,31952
-AU_NSW,"New South Wales",AU,state,2006,11,1187.8,956.2,1925.5,terra+aqua,624,0,0,380431
+AU_NSW,"New South Wales",AU,state,2006,11,1187.8,956.2,1925.5,terra+aqua,624,0,0,380430
 AU_NSW,"New South Wales",AU,state,2006,12,795.3,640.2,1289.2,terra+aqua,450,0,0,123313
 AU_NSW,"New South Wales",AU,state,2007,1,514.1,413.9,833.4,terra+aqua,261,0,0,90316
 AU_NSW,"New South Wales",AU,state,2007,2,476.4,383.5,772.3,terra+aqua,193,0,0,83988
@@ -596,7 +596,7 @@ AU_NSW,"New South Wales",AU,state,2024,3,1703.0,1703.0,1703.0,snpp,833,1703,1593
 AU_NSW,"New South Wales",AU,state,2024,4,3383.0,3383.0,3383.0,snpp,1663,3383,3340,355329
 AU_NSW,"New South Wales",AU,state,2024,5,1919.0,1919.0,1919.0,snpp,806,1919,1918,157723
 AU_NSW,"New South Wales",AU,state,2024,6,854.0,854.0,854.0,snpp,176,854,887,22044
-AU_NSW,"New South Wales",AU,state,2024,7,649.0,649.0,649.0,snpp,187,649,904,20753
+AU_NSW,"New South Wales",AU,state,2024,7,852.8,784.6,914.2,noaa20 (S-NPP gap),187,649,904,20753
 AU_NSW,"New South Wales",AU,state,2024,8,1515.0,1515.0,1515.0,snpp,372,1515,1657,61987
 AU_NSW,"New South Wales",AU,state,2024,9,2092.0,2092.0,2092.0,snpp,696,2092,2220,93675
 AU_NSW,"New South Wales",AU,state,2024,10,576.0,576.0,576.0,snpp,204,576,598,23447
@@ -726,7 +726,7 @@ AU_NT,"Northern Territory",AU,state,2008,12,402.8,357.7,493.1,terra+aqua,240,0,0
 AU_NT,"Northern Territory",AU,state,2009,1,28.4,25.2,34.7,terra+aqua,17,0,0,1624
 AU_NT,"Northern Territory",AU,state,2009,2,53.8,47.7,65.8,terra+aqua,31,0,0,3865
 AU_NT,"Northern Territory",AU,state,2009,3,421.7,374.5,516.2,terra+aqua,215,0,0,21801
-AU_NT,"Northern Territory",AU,state,2009,4,4929.7,4377.5,6033.9,terra+aqua,2384,0,0,239139
+AU_NT,"Northern Territory",AU,state,2009,4,4929.7,4377.5,6033.9,terra+aqua,2384,0,0,239140
 AU_NT,"Northern Territory",AU,state,2009,5,8367.7,7430.5,10242.1,terra+aqua,4215,0,0,351208
 AU_NT,"Northern Territory",AU,state,2009,6,6563.5,5828.4,8033.8,terra+aqua,3386,0,0,279133
 AU_NT,"Northern Territory",AU,state,2009,7,6950.9,6172.4,8507.9,terra+aqua,3627,0,0,307448
@@ -736,7 +736,7 @@ AU_NT,"Northern Territory",AU,state,2009,10,9622.7,8544.9,11778.2,terra+aqua,593
 AU_NT,"Northern Territory",AU,state,2009,11,7370.6,6545.1,9021.6,terra+aqua,4537,0,0,1067358
 AU_NT,"Northern Territory",AU,state,2009,12,1841.3,1635.1,2253.7,terra+aqua,1097,0,0,291818
 AU_NT,"Northern Territory",AU,state,2010,1,70.1,62.2,85.8,terra+aqua,42,0,0,3993
-AU_NT,"Northern Territory",AU,state,2010,2,97.1,86.2,118.9,terra+aqua,56,0,0,7796
+AU_NT,"Northern Territory",AU,state,2010,2,97.1,86.2,118.9,terra+aqua,56,0,0,7795
 AU_NT,"Northern Territory",AU,state,2010,3,182.4,162.0,223.3,terra+aqua,93,0,0,6783
 AU_NT,"Northern Territory",AU,state,2010,4,624.5,554.5,764.4,terra+aqua,302,0,0,20224
 AU_NT,"Northern Territory",AU,state,2010,5,3577.4,3176.7,4378.7,terra+aqua,1802,0,0,164081
@@ -909,7 +909,7 @@ AU_NT,"Northern Territory",AU,state,2024,3,56.0,56.0,56.0,snpp,15,56,56,5911
 AU_NT,"Northern Territory",AU,state,2024,4,3327.0,3327.0,3327.0,snpp,1759,3327,3290,617449
 AU_NT,"Northern Territory",AU,state,2024,5,9449.0,9449.0,9449.0,snpp,4546,9449,10031,1067192
 AU_NT,"Northern Territory",AU,state,2024,6,8141.0,8141.0,8141.0,snpp,4310,8141,8800,973153
-AU_NT,"Northern Territory",AU,state,2024,7,5284.0,5284.0,5284.0,snpp,3747,5284,7971,787554
+AU_NT,"Northern Territory",AU,state,2024,7,7507.1,6996.6,8205.2,noaa20 (S-NPP gap),3747,5284,7971,787554
 AU_NT,"Northern Territory",AU,state,2024,8,5993.0,5993.0,5993.0,snpp,2914,5993,6068,923058
 AU_NT,"Northern Territory",AU,state,2024,9,3970.0,3970.0,3970.0,snpp,2413,3970,4099,967639
 AU_NT,"Northern Territory",AU,state,2024,10,11121.0,11121.0,11121.0,snpp,6991,11121,11346,4242292
@@ -1118,7 +1118,7 @@ AU_QLD,"Queensland",AU,state,2015,7,3167.0,3167.0,3167.0,snpp,1432,3167,0,180579
 AU_QLD,"Queensland",AU,state,2015,8,3795.0,3795.0,3795.0,snpp,1705,3795,0,247943
 AU_QLD,"Queensland",AU,state,2015,9,5779.0,5779.0,5779.0,snpp,2560,5779,0,539916
 AU_QLD,"Queensland",AU,state,2015,10,6517.0,6517.0,6517.0,snpp,3266,6517,0,741041
-AU_QLD,"Queensland",AU,state,2015,11,7412.0,7412.0,7412.0,snpp,3286,7412,0,711775
+AU_QLD,"Queensland",AU,state,2015,11,7412.0,7412.0,7412.0,snpp,3286,7412,0,711774
 AU_QLD,"Queensland",AU,state,2015,12,3431.0,3431.0,3431.0,snpp,1371,3431,0,269202
 AU_QLD,"Queensland",AU,state,2016,1,2424.0,2424.0,2424.0,snpp,791,2424,0,128425
 AU_QLD,"Queensland",AU,state,2016,2,1489.0,1489.0,1489.0,snpp,363,1489,0,50724
@@ -1222,7 +1222,7 @@ AU_QLD,"Queensland",AU,state,2024,3,979.0,979.0,979.0,snpp,419,979,1015,100783
 AU_QLD,"Queensland",AU,state,2024,4,1402.0,1402.0,1402.0,snpp,563,1402,1475,119338
 AU_QLD,"Queensland",AU,state,2024,5,1206.0,1206.0,1206.0,snpp,499,1206,1398,72291
 AU_QLD,"Queensland",AU,state,2024,6,3338.0,3338.0,3338.0,snpp,1525,3338,3672,279625
-AU_QLD,"Queensland",AU,state,2024,7,3965.0,3965.0,3965.0,snpp,2645,3965,6127,486781
+AU_QLD,"Queensland",AU,state,2024,7,5639.0,5379.6,6022.4,noaa20 (S-NPP gap),2645,3965,6127,486781
 AU_QLD,"Queensland",AU,state,2024,8,6797.0,6797.0,6797.0,snpp,3212,6797,6905,666879
 AU_QLD,"Queensland",AU,state,2024,9,7195.0,7195.0,7195.0,snpp,3564,7195,7655,1385441
 AU_QLD,"Queensland",AU,state,2024,10,7788.0,7788.0,7788.0,snpp,4322,7788,7818,2589609
@@ -1535,7 +1535,7 @@ AU_SA,"South Australia",AU,state,2024,3,81.0,81.0,81.0,snpp,42,81,80,9645
 AU_SA,"South Australia",AU,state,2024,4,448.0,448.0,448.0,snpp,219,448,451,49621
 AU_SA,"South Australia",AU,state,2024,5,518.0,518.0,518.0,snpp,254,518,571,47834
 AU_SA,"South Australia",AU,state,2024,6,92.0,92.0,92.0,snpp,31,92,119,2506
-AU_SA,"South Australia",AU,state,2024,7,64.0,64.0,64.0,snpp,22,64,104,2792
+AU_SA,"South Australia",AU,state,2024,7,87.8,73.9,105.5,noaa20 (S-NPP gap),22,64,104,2792
 AU_SA,"South Australia",AU,state,2024,8,82.0,82.0,82.0,snpp,26,82,79,2414
 AU_SA,"South Australia",AU,state,2024,9,69.0,69.0,69.0,snpp,25,69,83,1692
 AU_SA,"South Australia",AU,state,2024,10,151.0,151.0,151.0,snpp,57,151,155,18571
@@ -1611,7 +1611,7 @@ AU_TAS,"Tasmania",AU,state,2004,6,132.2,117.4,313.8,terra+aqua,27,0,0,3158
 AU_TAS,"Tasmania",AU,state,2004,7,108.3,96.2,257.0,terra+aqua,23,0,0,1604
 AU_TAS,"Tasmania",AU,state,2004,8,86.9,77.2,206.2,terra+aqua,21,0,0,1315
 AU_TAS,"Tasmania",AU,state,2004,9,122.2,108.6,290.1,terra+aqua,35,0,0,2037
-AU_TAS,"Tasmania",AU,state,2004,10,255.6,226.9,606.5,terra+aqua,82,0,0,24395
+AU_TAS,"Tasmania",AU,state,2004,10,255.6,226.9,606.5,terra+aqua,82,0,0,24396
 AU_TAS,"Tasmania",AU,state,2004,11,30.3,26.9,71.8,terra+aqua,10,0,0,233
 AU_TAS,"Tasmania",AU,state,2004,12,30.1,26.7,71.4,terra+aqua,13,0,0,517
 AU_TAS,"Tasmania",AU,state,2005,1,28.5,25.3,67.6,terra+aqua,17,0,0,2777
@@ -1848,7 +1848,7 @@ AU_TAS,"Tasmania",AU,state,2024,3,58.0,58.0,58.0,snpp,29,58,54,4079
 AU_TAS,"Tasmania",AU,state,2024,4,252.0,252.0,252.0,snpp,98,252,265,59780
 AU_TAS,"Tasmania",AU,state,2024,5,459.0,459.0,459.0,snpp,130,459,514,48620
 AU_TAS,"Tasmania",AU,state,2024,6,146.0,146.0,146.0,snpp,24,146,168,6467
-AU_TAS,"Tasmania",AU,state,2024,7,61.0,61.0,61.0,snpp,16,61,87,2304
+AU_TAS,"Tasmania",AU,state,2024,7,79.6,70.0,91.0,noaa20 (S-NPP gap),16,61,87,2304
 AU_TAS,"Tasmania",AU,state,2024,8,45.0,45.0,45.0,snpp,2,45,34,400
 AU_TAS,"Tasmania",AU,state,2024,9,42.0,42.0,42.0,snpp,9,42,65,6630
 AU_TAS,"Tasmania",AU,state,2024,10,229.0,229.0,229.0,snpp,64,229,247,19868
@@ -1904,7 +1904,7 @@ AU_VIC,"Victoria",AU,state,2002,10,148.3,114.8,299.2,terra+aqua,44,0,0,1005
 AU_VIC,"Victoria",AU,state,2002,11,79.1,61.2,159.5,terra+aqua,30,0,0,1603
 AU_VIC,"Victoria",AU,state,2002,12,369.5,286.0,745.2,terra+aqua,187,0,0,174378
 AU_VIC,"Victoria",AU,state,2003,1,2921.3,2261.1,5892.3,terra+aqua,1825,0,0,1147762
-AU_VIC,"Victoria",AU,state,2003,2,2442.1,1890.2,4925.7,terra+aqua,1349,0,0,291111
+AU_VIC,"Victoria",AU,state,2003,2,2442.1,1890.2,4925.7,terra+aqua,1349,0,0,291112
 AU_VIC,"Victoria",AU,state,2003,3,304.0,235.3,613.1,terra+aqua,161,0,0,28538
 AU_VIC,"Victoria",AU,state,2003,4,965.1,747.0,1946.7,terra+aqua,488,0,0,38943
 AU_VIC,"Victoria",AU,state,2003,5,860.7,666.2,1736.1,terra+aqua,411,0,0,41324
@@ -2161,7 +2161,7 @@ AU_VIC,"Victoria",AU,state,2024,3,1092.0,1092.0,1092.0,snpp,580,1092,1024,166771
 AU_VIC,"Victoria",AU,state,2024,4,2674.0,2674.0,2674.0,snpp,1567,2674,2631,330957
 AU_VIC,"Victoria",AU,state,2024,5,1220.0,1220.0,1220.0,snpp,571,1220,1360,87872
 AU_VIC,"Victoria",AU,state,2024,6,212.0,212.0,212.0,snpp,74,212,254,8248
-AU_VIC,"Victoria",AU,state,2024,7,137.0,137.0,137.0,snpp,48,137,216,8668
+AU_VIC,"Victoria",AU,state,2024,7,188.1,165.5,216.7,noaa20 (S-NPP gap),48,137,216,8668
 AU_VIC,"Victoria",AU,state,2024,8,205.0,205.0,205.0,snpp,37,205,210,5045
 AU_VIC,"Victoria",AU,state,2024,9,174.0,174.0,174.0,snpp,27,174,240,2601
 AU_VIC,"Victoria",AU,state,2024,10,263.0,263.0,263.0,snpp,59,263,269,9792
@@ -2266,7 +2266,7 @@ AU_WA,"Western Australia",AU,state,2006,11,14387.0,12991.4,17134.9,terra+aqua,97
 AU_WA,"Western Australia",AU,state,2006,12,3715.3,3354.9,4424.9,terra+aqua,2358,0,0,590215
 AU_WA,"Western Australia",AU,state,2007,1,555.3,501.5,661.4,terra+aqua,363,0,0,178233
 AU_WA,"Western Australia",AU,state,2007,2,2374.1,2143.8,2827.6,terra+aqua,1439,0,0,395176
-AU_WA,"Western Australia",AU,state,2007,3,752.8,679.7,896.5,terra+aqua,397,0,0,49458
+AU_WA,"Western Australia",AU,state,2007,3,752.8,679.7,896.5,terra+aqua,397,0,0,49459
 AU_WA,"Western Australia",AU,state,2007,4,2822.9,2549.1,3362.0,terra+aqua,1345,0,0,87226
 AU_WA,"Western Australia",AU,state,2007,5,3496.3,3157.2,4164.1,terra+aqua,1795,0,0,181717
 AU_WA,"Western Australia",AU,state,2007,6,2516.3,2272.2,2996.9,terra+aqua,1298,0,0,105579
@@ -2474,7 +2474,7 @@ AU_WA,"Western Australia",AU,state,2024,3,1018.0,1018.0,1018.0,snpp,529,1018,988
 AU_WA,"Western Australia",AU,state,2024,4,8983.0,8983.0,8983.0,snpp,4170,8983,9273,846013
 AU_WA,"Western Australia",AU,state,2024,5,6440.0,6440.0,6440.0,snpp,2960,6440,6599,656475
 AU_WA,"Western Australia",AU,state,2024,6,1615.0,1615.0,1615.0,snpp,772,1615,1746,242549
-AU_WA,"Western Australia",AU,state,2024,7,1267.0,1267.0,1267.0,snpp,1153,1267,2413,264332
+AU_WA,"Western Australia",AU,state,2024,7,2139.7,1992.1,2270.2,noaa20 (S-NPP gap),1153,1267,2413,264332
 AU_WA,"Western Australia",AU,state,2024,8,1410.0,1410.0,1410.0,snpp,686,1410,1435,217418
 AU_WA,"Western Australia",AU,state,2024,9,1461.0,1461.0,1461.0,snpp,658,1461,1531,270634
 AU_WA,"Western Australia",AU,state,2024,10,2919.0,2919.0,2919.0,snpp,1733,2919,2908,774785
@@ -2787,7 +2787,7 @@ AU_X02~,"Jervis Bay Territory",AU,state,2024,3,0.0,0.0,0.0,snpp,0,0,0,0
 AU_X02~,"Jervis Bay Territory",AU,state,2024,4,0.0,0.0,0.0,snpp,0,0,0,0
 AU_X02~,"Jervis Bay Territory",AU,state,2024,5,0.0,0.0,0.0,snpp,0,0,0,0
 AU_X02~,"Jervis Bay Territory",AU,state,2024,6,0.0,0.0,0.0,snpp,0,0,0,0
-AU_X02~,"Jervis Bay Territory",AU,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+AU_X02~,"Jervis Bay Territory",AU,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 AU_X02~,"Jervis Bay Territory",AU,state,2024,8,0.0,0.0,0.0,snpp,0,0,1,4
 AU_X02~,"Jervis Bay Territory",AU,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 AU_X02~,"Jervis Bay Territory",AU,state,2024,10,0.0,0.0,0.0,snpp,0,0,0,0
@@ -3100,7 +3100,7 @@ BD_A,"Barisal",BD,state,2024,3,5.0,5.0,5.0,snpp,0,5,7,50
 BD_A,"Barisal",BD,state,2024,4,1.0,1.0,1.0,snpp,0,1,3,7
 BD_A,"Barisal",BD,state,2024,5,1.0,1.0,1.0,snpp,0,1,3,6
 BD_A,"Barisal",BD,state,2024,6,1.0,1.0,1.0,snpp,0,1,1,2
-BD_A,"Barisal",BD,state,2024,7,0.0,0.0,0.0,snpp,0,0,1,115
+BD_A,"Barisal",BD,state,2024,7,0.9,0.8,1.1,noaa20 (S-NPP gap),0,0,1,115
 BD_A,"Barisal",BD,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 BD_A,"Barisal",BD,state,2024,9,1.0,1.0,1.0,snpp,0,1,0,1
 BD_A,"Barisal",BD,state,2024,10,1.0,1.0,1.0,snpp,0,1,2,2
@@ -3413,7 +3413,7 @@ BD_B,"Chittagong",BD,state,2024,3,216.0,216.0,216.0,snpp,64,216,213,11732
 BD_B,"Chittagong",BD,state,2024,4,1631.0,1631.0,1631.0,snpp,800,1631,1573,302293
 BD_B,"Chittagong",BD,state,2024,5,70.0,70.0,70.0,snpp,24,70,79,2125
 BD_B,"Chittagong",BD,state,2024,6,0.0,0.0,0.0,snpp,1,0,4,25
-BD_B,"Chittagong",BD,state,2024,7,0.0,0.0,0.0,snpp,0,0,1,8
+BD_B,"Chittagong",BD,state,2024,7,1.0,0.7,1.2,noaa20 (S-NPP gap),0,0,1,8
 BD_B,"Chittagong",BD,state,2024,8,0.0,0.0,0.0,snpp,0,0,1,3
 BD_B,"Chittagong",BD,state,2024,9,1.0,1.0,1.0,snpp,0,1,3,11
 BD_B,"Chittagong",BD,state,2024,10,2.0,2.0,2.0,snpp,0,2,9,35
@@ -3726,7 +3726,7 @@ BD_C,"Dhaka",BD,state,2024,3,38.0,38.0,38.0,snpp,3,38,66,555
 BD_C,"Dhaka",BD,state,2024,4,60.0,60.0,60.0,snpp,6,60,65,896
 BD_C,"Dhaka",BD,state,2024,5,28.0,28.0,28.0,snpp,4,28,30,326
 BD_C,"Dhaka",BD,state,2024,6,1.0,1.0,1.0,snpp,0,1,1,14
-BD_C,"Dhaka",BD,state,2024,7,2.0,2.0,2.0,snpp,2,2,1,40
+BD_C,"Dhaka",BD,state,2024,7,1.0,0.7,1.4,noaa20 (S-NPP gap),2,2,1,40
 BD_C,"Dhaka",BD,state,2024,8,6.0,6.0,6.0,snpp,4,6,7,236
 BD_C,"Dhaka",BD,state,2024,9,0.0,0.0,0.0,snpp,1,0,5,17
 BD_C,"Dhaka",BD,state,2024,10,9.0,9.0,9.0,snpp,1,9,9,104
@@ -4039,7 +4039,7 @@ BD_D,"Khulna",BD,state,2024,3,49.0,49.0,49.0,snpp,3,49,46,577
 BD_D,"Khulna",BD,state,2024,4,41.0,41.0,41.0,snpp,5,41,70,933
 BD_D,"Khulna",BD,state,2024,5,7.0,7.0,7.0,snpp,0,7,8,41
 BD_D,"Khulna",BD,state,2024,6,0.0,0.0,0.0,snpp,3,0,0,30
-BD_D,"Khulna",BD,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+BD_D,"Khulna",BD,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 BD_D,"Khulna",BD,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 BD_D,"Khulna",BD,state,2024,9,0.0,0.0,0.0,snpp,1,0,0,9
 BD_D,"Khulna",BD,state,2024,10,0.0,0.0,0.0,snpp,0,0,0,0
@@ -4352,7 +4352,7 @@ BD_E,"Rajshahi",BD,state,2024,3,34.0,34.0,34.0,snpp,2,34,31,288
 BD_E,"Rajshahi",BD,state,2024,4,68.0,68.0,68.0,snpp,8,68,78,1310
 BD_E,"Rajshahi",BD,state,2024,5,7.0,7.0,7.0,snpp,4,7,9,129
 BD_E,"Rajshahi",BD,state,2024,6,0.0,0.0,0.0,snpp,3,0,0,29
-BD_E,"Rajshahi",BD,state,2024,7,1.0,1.0,1.0,snpp,0,1,0,1
+BD_E,"Rajshahi",BD,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,1,0,1
 BD_E,"Rajshahi",BD,state,2024,8,2.0,2.0,2.0,snpp,1,2,1,13
 BD_E,"Rajshahi",BD,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 BD_E,"Rajshahi",BD,state,2024,10,1.0,1.0,1.0,snpp,0,1,1,9
@@ -4665,7 +4665,7 @@ BD_F,"Rangpur",BD,state,2024,3,7.0,7.0,7.0,snpp,3,7,7,168
 BD_F,"Rangpur",BD,state,2024,4,22.0,22.0,22.0,snpp,6,22,27,352
 BD_F,"Rangpur",BD,state,2024,5,16.0,16.0,16.0,snpp,5,16,24,332
 BD_F,"Rangpur",BD,state,2024,6,0.0,0.0,0.0,snpp,0,0,0,0
-BD_F,"Rangpur",BD,state,2024,7,0.0,0.0,0.0,snpp,0,0,1,1
+BD_F,"Rangpur",BD,state,2024,7,0.9,0.8,1.1,noaa20 (S-NPP gap),0,0,1,1
 BD_F,"Rangpur",BD,state,2024,8,4.0,4.0,4.0,snpp,0,4,0,17
 BD_F,"Rangpur",BD,state,2024,9,2.0,2.0,2.0,snpp,1,2,1,15
 BD_F,"Rangpur",BD,state,2024,10,0.0,0.0,0.0,snpp,0,0,1,1
@@ -4734,7 +4734,7 @@ BD_G,"Sylhet",BD,state,2003,11,12.7,8.8,28.8,terra+aqua,2,0,0,28
 BD_G,"Sylhet",BD,state,2003,12,55.9,38.6,126.4,terra+aqua,7,0,0,74
 BD_G,"Sylhet",BD,state,2004,1,62.5,43.2,141.4,terra+aqua,9,0,0,108
 BD_G,"Sylhet",BD,state,2004,2,120.2,83.1,271.9,terra+aqua,21,0,0,296
-BD_G,"Sylhet",BD,state,2004,3,95.0,65.6,214.8,terra+aqua,20,0,0,510
+BD_G,"Sylhet",BD,state,2004,3,95.0,65.6,214.8,terra+aqua,20,0,0,509
 BD_G,"Sylhet",BD,state,2004,4,0.0,0.0,0.0,terra+aqua,0,0,0,0
 BD_G,"Sylhet",BD,state,2004,5,10.8,7.5,24.5,terra+aqua,3,0,0,13
 BD_G,"Sylhet",BD,state,2004,6,0.0,0.0,0.0,terra+aqua,0,0,0,0
@@ -4978,7 +4978,7 @@ BD_G,"Sylhet",BD,state,2024,3,30.0,30.0,30.0,snpp,2,30,25,136
 BD_G,"Sylhet",BD,state,2024,4,4.0,4.0,4.0,snpp,2,4,7,51
 BD_G,"Sylhet",BD,state,2024,5,7.0,7.0,7.0,snpp,0,7,7,27
 BD_G,"Sylhet",BD,state,2024,6,1.0,1.0,1.0,snpp,0,1,2,8
-BD_G,"Sylhet",BD,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+BD_G,"Sylhet",BD,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 BD_G,"Sylhet",BD,state,2024,8,0.0,0.0,0.0,snpp,2,0,1,16
 BD_G,"Sylhet",BD,state,2024,9,1.0,1.0,1.0,snpp,1,1,1,25
 BD_G,"Sylhet",BD,state,2024,10,0.0,0.0,0.0,snpp,0,0,2,5
@@ -5291,7 +5291,7 @@ ID_AC,"Aceh",ID,state,2024,3,126.0,126.0,126.0,snpp,12,126,152,2581
 ID_AC,"Aceh",ID,state,2024,4,92.0,92.0,92.0,snpp,9,92,112,2088
 ID_AC,"Aceh",ID,state,2024,5,56.0,56.0,56.0,snpp,12,56,59,1364
 ID_AC,"Aceh",ID,state,2024,6,107.0,107.0,107.0,snpp,5,107,115,1551
-ID_AC,"Aceh",ID,state,2024,7,214.0,214.0,214.0,snpp,45,214,301,5552
+ID_AC,"Aceh",ID,state,2024,7,272.8,204.3,376.8,noaa20 (S-NPP gap),45,214,301,5552
 ID_AC,"Aceh",ID,state,2024,8,76.0,76.0,76.0,snpp,16,76,51,1714
 ID_AC,"Aceh",ID,state,2024,9,55.0,55.0,55.0,snpp,18,55,86,1496
 ID_AC,"Aceh",ID,state,2024,10,112.0,112.0,112.0,snpp,14,112,154,2236
@@ -5604,7 +5604,7 @@ ID_BA,"Bali",ID,state,2024,3,1.0,1.0,1.0,snpp,0,1,0,4
 ID_BA,"Bali",ID,state,2024,4,1.0,1.0,1.0,snpp,0,1,0,6
 ID_BA,"Bali",ID,state,2024,5,0.0,0.0,0.0,snpp,0,0,1,3
 ID_BA,"Bali",ID,state,2024,6,0.0,0.0,0.0,snpp,0,0,0,0
-ID_BA,"Bali",ID,state,2024,7,3.0,3.0,3.0,snpp,0,3,3,23
+ID_BA,"Bali",ID,state,2024,7,2.9,2.6,3.3,noaa20 (S-NPP gap),0,3,3,23
 ID_BA,"Bali",ID,state,2024,8,11.0,11.0,11.0,snpp,0,11,7,72
 ID_BA,"Bali",ID,state,2024,9,6.0,6.0,6.0,snpp,0,6,7,121
 ID_BA,"Bali",ID,state,2024,10,18.0,18.0,18.0,snpp,1,18,17,487
@@ -5745,7 +5745,7 @@ ID_BB,"Bangka-Belitung",ID,state,2009,11,57.7,43.5,123.7,terra+aqua,14,0,0,278
 ID_BB,"Bangka-Belitung",ID,state,2009,12,0.0,0.0,0.0,terra+aqua,0,0,0,0
 ID_BB,"Bangka-Belitung",ID,state,2010,1,31.7,23.9,67.9,terra+aqua,8,0,0,202
 ID_BB,"Bangka-Belitung",ID,state,2010,2,19.1,14.4,41.0,terra+aqua,4,0,0,109
-ID_BB,"Bangka-Belitung",ID,state,2010,3,138.1,104.1,296.1,terra+aqua,32,0,0,723
+ID_BB,"Bangka-Belitung",ID,state,2010,3,138.1,104.1,296.1,terra+aqua,32,0,0,722
 ID_BB,"Bangka-Belitung",ID,state,2010,4,36.6,27.6,78.6,terra+aqua,7,0,0,135
 ID_BB,"Bangka-Belitung",ID,state,2010,5,39.6,29.9,85.0,terra+aqua,9,0,0,132
 ID_BB,"Bangka-Belitung",ID,state,2010,6,25.8,19.4,55.2,terra+aqua,7,0,0,76
@@ -5917,7 +5917,7 @@ ID_BB,"Bangka-Belitung",ID,state,2024,3,50.0,50.0,50.0,snpp,11,50,71,1422
 ID_BB,"Bangka-Belitung",ID,state,2024,4,7.0,7.0,7.0,snpp,2,7,4,79
 ID_BB,"Bangka-Belitung",ID,state,2024,5,24.0,24.0,24.0,snpp,3,24,37,471
 ID_BB,"Bangka-Belitung",ID,state,2024,6,28.0,28.0,28.0,snpp,8,28,29,642
-ID_BB,"Bangka-Belitung",ID,state,2024,7,121.0,121.0,121.0,snpp,145,121,352,10944
+ID_BB,"Bangka-Belitung",ID,state,2024,7,310.7,227.7,486.8,noaa20 (S-NPP gap),145,121,352,10944
 ID_BB,"Bangka-Belitung",ID,state,2024,8,341.0,341.0,341.0,snpp,109,341,380,15950
 ID_BB,"Bangka-Belitung",ID,state,2024,9,365.0,365.0,365.0,snpp,113,365,364,11039
 ID_BB,"Bangka-Belitung",ID,state,2024,10,280.0,280.0,280.0,snpp,51,280,295,7631
@@ -6178,7 +6178,7 @@ ID_BE,"Bengkulu",ID,state,2019,11,128.0,128.0,128.0,snpp,24,128,166,2830
 ID_BE,"Bengkulu",ID,state,2019,12,12.0,12.0,12.0,snpp,1,12,14,148
 ID_BE,"Bengkulu",ID,state,2020,1,19.0,19.0,19.0,snpp,3,19,17,205
 ID_BE,"Bengkulu",ID,state,2020,2,49.0,49.0,49.0,snpp,4,49,38,1252
-ID_BE,"Bengkulu",ID,state,2020,3,8.0,8.0,8.0,snpp,1,8,25,332
+ID_BE,"Bengkulu",ID,state,2020,3,8.0,8.0,8.0,snpp,1,8,25,333
 ID_BE,"Bengkulu",ID,state,2020,4,17.0,17.0,17.0,snpp,5,17,27,328
 ID_BE,"Bengkulu",ID,state,2020,5,46.0,46.0,46.0,snpp,6,46,48,844
 ID_BE,"Bengkulu",ID,state,2020,6,37.0,37.0,37.0,snpp,4,37,40,601
@@ -6230,7 +6230,7 @@ ID_BE,"Bengkulu",ID,state,2024,3,61.0,61.0,61.0,snpp,10,61,81,2099
 ID_BE,"Bengkulu",ID,state,2024,4,5.0,5.0,5.0,snpp,0,5,19,174
 ID_BE,"Bengkulu",ID,state,2024,5,13.0,13.0,13.0,snpp,5,13,23,279
 ID_BE,"Bengkulu",ID,state,2024,6,14.0,14.0,14.0,snpp,1,14,21,202
-ID_BE,"Bengkulu",ID,state,2024,7,79.0,79.0,79.0,snpp,40,79,164,2748
+ID_BE,"Bengkulu",ID,state,2024,7,142.9,116.2,196.5,noaa20 (S-NPP gap),40,79,164,2748
 ID_BE,"Bengkulu",ID,state,2024,8,61.0,61.0,61.0,snpp,11,61,74,1148
 ID_BE,"Bengkulu",ID,state,2024,9,100.0,100.0,100.0,snpp,22,100,100,2837
 ID_BE,"Bengkulu",ID,state,2024,10,173.0,173.0,173.0,snpp,36,173,185,4770
@@ -6543,7 +6543,7 @@ ID_BT,"Banten",ID,state,2024,3,26.0,26.0,26.0,snpp,2,26,18,90
 ID_BT,"Banten",ID,state,2024,4,5.0,5.0,5.0,snpp,0,5,13,30
 ID_BT,"Banten",ID,state,2024,5,25.0,25.0,25.0,snpp,1,25,15,91
 ID_BT,"Banten",ID,state,2024,6,31.0,31.0,31.0,snpp,3,31,21,113
-ID_BT,"Banten",ID,state,2024,7,24.0,24.0,24.0,snpp,2,24,34,155
+ID_BT,"Banten",ID,state,2024,7,32.0,25.0,46.2,noaa20 (S-NPP gap),2,24,34,155
 ID_BT,"Banten",ID,state,2024,8,50.0,50.0,50.0,snpp,4,50,62,459
 ID_BT,"Banten",ID,state,2024,9,157.0,157.0,157.0,snpp,26,157,163,2949
 ID_BT,"Banten",ID,state,2024,10,94.0,94.0,94.0,snpp,5,94,78,773
@@ -6856,7 +6856,7 @@ ID_GO,"Gorontalo",ID,state,2024,3,35.0,35.0,35.0,snpp,11,35,38,737
 ID_GO,"Gorontalo",ID,state,2024,4,36.0,36.0,36.0,snpp,5,36,27,335
 ID_GO,"Gorontalo",ID,state,2024,5,12.0,12.0,12.0,snpp,4,12,16,159
 ID_GO,"Gorontalo",ID,state,2024,6,3.0,3.0,3.0,snpp,2,3,11,145
-ID_GO,"Gorontalo",ID,state,2024,7,5.0,5.0,5.0,snpp,2,5,11,95
+ID_GO,"Gorontalo",ID,state,2024,7,9.2,8.6,13.9,noaa20 (S-NPP gap),2,5,11,95
 ID_GO,"Gorontalo",ID,state,2024,8,36.0,36.0,36.0,snpp,1,36,22,328
 ID_GO,"Gorontalo",ID,state,2024,9,85.0,85.0,85.0,snpp,8,85,100,1777
 ID_GO,"Gorontalo",ID,state,2024,10,82.0,82.0,82.0,snpp,4,82,65,934
@@ -7006,7 +7006,7 @@ ID_JA,"Jambi",ID,state,2010,8,287.9,200.4,804.9,terra+aqua,93,0,0,2894
 ID_JA,"Jambi",ID,state,2010,9,271.9,189.3,760.4,terra+aqua,98,0,0,3756
 ID_JA,"Jambi",ID,state,2010,10,339.6,236.4,949.5,terra+aqua,105,0,0,7500
 ID_JA,"Jambi",ID,state,2010,11,11.2,7.8,31.4,terra+aqua,3,0,0,46
-ID_JA,"Jambi",ID,state,2010,12,130.4,90.8,364.6,terra+aqua,27,0,0,434
+ID_JA,"Jambi",ID,state,2010,12,130.4,90.8,364.6,terra+aqua,27,0,0,433
 ID_JA,"Jambi",ID,state,2011,1,23.0,16.0,64.4,terra+aqua,5,0,0,106
 ID_JA,"Jambi",ID,state,2011,2,519.9,361.8,1453.6,terra+aqua,99,0,0,3546
 ID_JA,"Jambi",ID,state,2011,3,127.9,89.0,357.5,terra+aqua,32,0,0,1390
@@ -7169,7 +7169,7 @@ ID_JA,"Jambi",ID,state,2024,3,49.0,49.0,49.0,snpp,7,49,52,623
 ID_JA,"Jambi",ID,state,2024,4,24.0,24.0,24.0,snpp,6,24,31,250
 ID_JA,"Jambi",ID,state,2024,5,45.0,45.0,45.0,snpp,10,45,58,557
 ID_JA,"Jambi",ID,state,2024,6,72.0,72.0,72.0,snpp,9,72,61,587
-ID_JA,"Jambi",ID,state,2024,7,153.0,153.0,153.0,snpp,86,153,377,5338
+ID_JA,"Jambi",ID,state,2024,7,327.4,261.6,456.0,noaa20 (S-NPP gap),86,153,377,5338
 ID_JA,"Jambi",ID,state,2024,8,308.0,308.0,308.0,snpp,69,308,367,16276
 ID_JA,"Jambi",ID,state,2024,9,261.0,261.0,261.0,snpp,92,261,221,12170
 ID_JA,"Jambi",ID,state,2024,10,338.0,338.0,338.0,snpp,85,338,342,6727
@@ -7482,7 +7482,7 @@ ID_JB,"Jawa Barat",ID,state,2024,3,12.0,12.0,12.0,snpp,8,12,30,267
 ID_JB,"Jawa Barat",ID,state,2024,4,10.0,10.0,10.0,snpp,6,10,13,143
 ID_JB,"Jawa Barat",ID,state,2024,5,34.0,34.0,34.0,snpp,11,34,40,322
 ID_JB,"Jawa Barat",ID,state,2024,6,31.0,31.0,31.0,snpp,4,31,35,199
-ID_JB,"Jawa Barat",ID,state,2024,7,41.0,41.0,41.0,snpp,14,41,106,773
+ID_JB,"Jawa Barat",ID,state,2024,7,93.6,74.0,120.9,noaa20 (S-NPP gap),14,41,106,773
 ID_JB,"Jawa Barat",ID,state,2024,8,292.0,292.0,292.0,snpp,56,292,287,4169
 ID_JB,"Jawa Barat",ID,state,2024,9,278.0,278.0,278.0,snpp,55,278,291,4523
 ID_JB,"Jawa Barat",ID,state,2024,10,107.0,107.0,107.0,snpp,11,107,94,955
@@ -7621,7 +7621,7 @@ ID_JI,"Jawa Timur",ID,state,2009,9,698.9,486.4,1378.9,terra+aqua,112,0,0,4187
 ID_JI,"Jawa Timur",ID,state,2009,10,614.5,427.7,1212.4,terra+aqua,108,0,0,3258
 ID_JI,"Jawa Timur",ID,state,2009,11,263.0,183.0,518.8,terra+aqua,44,0,0,2154
 ID_JI,"Jawa Timur",ID,state,2009,12,31.9,22.2,62.9,terra+aqua,7,0,0,185
-ID_JI,"Jawa Timur",ID,state,2010,1,13.9,9.6,27.3,terra+aqua,3,0,0,82
+ID_JI,"Jawa Timur",ID,state,2010,1,13.9,9.6,27.3,terra+aqua,3,0,0,81
 ID_JI,"Jawa Timur",ID,state,2010,2,28.0,19.5,55.3,terra+aqua,8,0,0,83
 ID_JI,"Jawa Timur",ID,state,2010,3,45.2,31.4,89.1,terra+aqua,12,0,0,109
 ID_JI,"Jawa Timur",ID,state,2010,4,11.2,7.8,22.1,terra+aqua,3,0,0,20
@@ -7795,7 +7795,7 @@ ID_JI,"Jawa Timur",ID,state,2024,3,14.0,14.0,14.0,snpp,9,14,15,161
 ID_JI,"Jawa Timur",ID,state,2024,4,11.0,11.0,11.0,snpp,5,11,13,131
 ID_JI,"Jawa Timur",ID,state,2024,5,56.0,56.0,56.0,snpp,12,56,63,553
 ID_JI,"Jawa Timur",ID,state,2024,6,174.0,174.0,174.0,snpp,51,174,190,2606
-ID_JI,"Jawa Timur",ID,state,2024,7,298.0,298.0,298.0,snpp,130,298,711,6572
+ID_JI,"Jawa Timur",ID,state,2024,7,617.4,511.2,802.6,noaa20 (S-NPP gap),130,298,711,6572
 ID_JI,"Jawa Timur",ID,state,2024,8,1139.0,1139.0,1139.0,snpp,166,1139,1194,16313
 ID_JI,"Jawa Timur",ID,state,2024,9,806.0,806.0,806.0,snpp,126,806,900,13900
 ID_JI,"Jawa Timur",ID,state,2024,10,427.0,427.0,427.0,snpp,76,427,490,7392
@@ -8108,7 +8108,7 @@ ID_JK,"Jakarta Raya",ID,state,2024,3,2.0,2.0,2.0,snpp,0,2,1,2
 ID_JK,"Jakarta Raya",ID,state,2024,4,0.0,0.0,0.0,snpp,0,0,0,0
 ID_JK,"Jakarta Raya",ID,state,2024,5,3.0,3.0,3.0,snpp,0,3,4,13
 ID_JK,"Jakarta Raya",ID,state,2024,6,2.0,2.0,2.0,snpp,0,2,0,8
-ID_JK,"Jakarta Raya",ID,state,2024,7,1.0,1.0,1.0,snpp,0,1,5,11
+ID_JK,"Jakarta Raya",ID,state,2024,7,4.3,3.9,4.9,noaa20 (S-NPP gap),0,1,5,11
 ID_JK,"Jakarta Raya",ID,state,2024,8,3.0,3.0,3.0,snpp,0,3,3,16
 ID_JK,"Jakarta Raya",ID,state,2024,9,6.0,6.0,6.0,snpp,0,6,11,43
 ID_JK,"Jakarta Raya",ID,state,2024,10,9.0,9.0,9.0,snpp,0,9,12,127
@@ -8421,7 +8421,7 @@ ID_JT,"Jawa Tengah",ID,state,2024,3,12.0,12.0,12.0,snpp,7,12,5,110
 ID_JT,"Jawa Tengah",ID,state,2024,4,10.0,10.0,10.0,snpp,6,10,11,150
 ID_JT,"Jawa Tengah",ID,state,2024,5,37.0,37.0,37.0,snpp,8,37,32,282
 ID_JT,"Jawa Tengah",ID,state,2024,6,42.0,42.0,42.0,snpp,9,42,35,284
-ID_JT,"Jawa Tengah",ID,state,2024,7,99.0,99.0,99.0,snpp,32,99,210,1551
+ID_JT,"Jawa Tengah",ID,state,2024,7,192.8,143.5,232.2,noaa20 (S-NPP gap),32,99,210,1551
 ID_JT,"Jawa Tengah",ID,state,2024,8,450.0,450.0,450.0,snpp,46,450,448,4403
 ID_JT,"Jawa Tengah",ID,state,2024,9,209.0,209.0,209.0,snpp,41,209,277,3046
 ID_JT,"Jawa Tengah",ID,state,2024,10,81.0,81.0,81.0,snpp,8,81,85,789
@@ -8543,7 +8543,7 @@ ID_KB,"Kalimantan Barat",ID,state,2008,4,101.0,74.8,165.3,terra+aqua,27,0,0,718
 ID_KB,"Kalimantan Barat",ID,state,2008,5,1104.6,817.4,1807.1,terra+aqua,325,0,0,30830
 ID_KB,"Kalimantan Barat",ID,state,2008,6,597.0,441.8,976.6,terra+aqua,183,0,0,5816
 ID_KB,"Kalimantan Barat",ID,state,2008,7,243.1,179.9,397.7,terra+aqua,95,0,0,2925
-ID_KB,"Kalimantan Barat",ID,state,2008,8,2656.8,1966.1,4346.6,terra+aqua,881,0,0,58793
+ID_KB,"Kalimantan Barat",ID,state,2008,8,2656.8,1966.1,4346.6,terra+aqua,881,0,0,58794
 ID_KB,"Kalimantan Barat",ID,state,2008,9,4190.4,3100.9,6855.5,terra+aqua,1395,0,0,85025
 ID_KB,"Kalimantan Barat",ID,state,2008,10,170.9,126.5,279.6,terra+aqua,49,0,0,1428
 ID_KB,"Kalimantan Barat",ID,state,2008,11,153.6,113.6,251.2,terra+aqua,45,0,0,1507
@@ -8572,7 +8572,7 @@ ID_KB,"Kalimantan Barat",ID,state,2010,9,1438.8,1064.7,2354.0,terra+aqua,479,0,0
 ID_KB,"Kalimantan Barat",ID,state,2010,10,1248.8,924.1,2043.0,terra+aqua,358,0,0,13267
 ID_KB,"Kalimantan Barat",ID,state,2010,11,44.4,32.8,72.6,terra+aqua,13,0,0,500
 ID_KB,"Kalimantan Barat",ID,state,2010,12,72.0,53.3,117.8,terra+aqua,16,0,0,710
-ID_KB,"Kalimantan Barat",ID,state,2011,1,120.4,89.1,197.0,terra+aqua,32,0,0,957
+ID_KB,"Kalimantan Barat",ID,state,2011,1,120.4,89.1,197.0,terra+aqua,32,0,0,958
 ID_KB,"Kalimantan Barat",ID,state,2011,2,240.2,177.8,393.0,terra+aqua,75,0,0,3421
 ID_KB,"Kalimantan Barat",ID,state,2011,3,158.8,117.5,259.8,terra+aqua,44,0,0,1893
 ID_KB,"Kalimantan Barat",ID,state,2011,4,621.1,459.6,1016.1,terra+aqua,166,0,0,10880
@@ -8734,7 +8734,7 @@ ID_KB,"Kalimantan Barat",ID,state,2024,3,144.0,144.0,144.0,snpp,41,144,125,5459
 ID_KB,"Kalimantan Barat",ID,state,2024,4,54.0,54.0,54.0,snpp,15,54,48,1094
 ID_KB,"Kalimantan Barat",ID,state,2024,5,63.0,63.0,63.0,snpp,19,63,70,1597
 ID_KB,"Kalimantan Barat",ID,state,2024,6,121.0,121.0,121.0,snpp,35,121,116,2980
-ID_KB,"Kalimantan Barat",ID,state,2024,7,392.0,392.0,392.0,snpp,428,392,1698,64197
+ID_KB,"Kalimantan Barat",ID,state,2024,7,1421.7,1111.8,2118.4,noaa20 (S-NPP gap),428,392,1698,64197
 ID_KB,"Kalimantan Barat",ID,state,2024,8,1323.0,1323.0,1323.0,snpp,390,1323,1400,73023
 ID_KB,"Kalimantan Barat",ID,state,2024,9,4641.0,4641.0,4641.0,snpp,1802,4641,4459,307456
 ID_KB,"Kalimantan Barat",ID,state,2024,10,418.0,418.0,418.0,snpp,108,418,456,16421
@@ -9047,7 +9047,7 @@ ID_KI,"Kalimantan Timur",ID,state,2024,3,344.0,344.0,344.0,snpp,72,344,397,9498
 ID_KI,"Kalimantan Timur",ID,state,2024,4,698.0,698.0,698.0,snpp,248,698,782,28258
 ID_KI,"Kalimantan Timur",ID,state,2024,5,207.0,207.0,207.0,snpp,63,207,194,3094
 ID_KI,"Kalimantan Timur",ID,state,2024,6,118.0,118.0,118.0,snpp,4,118,114,1007
-ID_KI,"Kalimantan Timur",ID,state,2024,7,132.0,132.0,132.0,snpp,98,132,377,8008
+ID_KI,"Kalimantan Timur",ID,state,2024,7,340.8,286.0,427.4,noaa20 (S-NPP gap),98,132,377,8008
 ID_KI,"Kalimantan Timur",ID,state,2024,8,450.0,450.0,450.0,snpp,67,450,501,13737
 ID_KI,"Kalimantan Timur",ID,state,2024,9,1701.0,1701.0,1701.0,snpp,480,1701,1954,82621
 ID_KI,"Kalimantan Timur",ID,state,2024,10,845.0,845.0,845.0,snpp,243,845,847,25717
@@ -9360,7 +9360,7 @@ ID_KR,"Kepulauan Riau",ID,state,2024,3,43.0,43.0,43.0,snpp,9,43,39,2606
 ID_KR,"Kepulauan Riau",ID,state,2024,4,23.0,23.0,23.0,snpp,2,23,23,515
 ID_KR,"Kepulauan Riau",ID,state,2024,5,5.0,5.0,5.0,snpp,0,5,3,38
 ID_KR,"Kepulauan Riau",ID,state,2024,6,1.0,1.0,1.0,snpp,0,1,1,10
-ID_KR,"Kepulauan Riau",ID,state,2024,7,10.0,10.0,10.0,snpp,12,10,28,715
+ID_KR,"Kepulauan Riau",ID,state,2024,7,20.2,15.5,25.6,noaa20 (S-NPP gap),12,10,28,715
 ID_KR,"Kepulauan Riau",ID,state,2024,8,10.0,10.0,10.0,snpp,0,10,14,203
 ID_KR,"Kepulauan Riau",ID,state,2024,9,11.0,11.0,11.0,snpp,3,11,6,362
 ID_KR,"Kepulauan Riau",ID,state,2024,10,3.0,3.0,3.0,snpp,1,3,5,59
@@ -9673,7 +9673,7 @@ ID_KS,"Kalimantan Selatan",ID,state,2024,3,44.0,44.0,44.0,snpp,1,44,51,486
 ID_KS,"Kalimantan Selatan",ID,state,2024,4,76.0,76.0,76.0,snpp,3,76,60,623
 ID_KS,"Kalimantan Selatan",ID,state,2024,5,40.0,40.0,40.0,snpp,2,40,55,344
 ID_KS,"Kalimantan Selatan",ID,state,2024,6,40.0,40.0,40.0,snpp,1,40,52,299
-ID_KS,"Kalimantan Selatan",ID,state,2024,7,54.0,54.0,54.0,snpp,11,54,104,681
+ID_KS,"Kalimantan Selatan",ID,state,2024,7,96.7,74.3,126.1,noaa20 (S-NPP gap),11,54,104,681
 ID_KS,"Kalimantan Selatan",ID,state,2024,8,117.0,117.0,117.0,snpp,30,117,115,2105
 ID_KS,"Kalimantan Selatan",ID,state,2024,9,457.0,457.0,457.0,snpp,120,457,613,14591
 ID_KS,"Kalimantan Selatan",ID,state,2024,10,339.0,339.0,339.0,snpp,44,339,369,7613
@@ -9796,7 +9796,7 @@ ID_KT,"Kalimantan Tengah",ID,state,2008,5,339.3,248.7,675.2,terra+aqua,88,0,0,26
 ID_KT,"Kalimantan Tengah",ID,state,2008,6,344.3,252.3,685.1,terra+aqua,83,0,0,2187
 ID_KT,"Kalimantan Tengah",ID,state,2008,7,110.1,80.7,219.2,terra+aqua,35,0,0,1578
 ID_KT,"Kalimantan Tengah",ID,state,2008,8,169.6,124.3,337.4,terra+aqua,60,0,0,1640
-ID_KT,"Kalimantan Tengah",ID,state,2008,9,1700.7,1246.6,3384.4,terra+aqua,665,0,0,41536
+ID_KT,"Kalimantan Tengah",ID,state,2008,9,1700.7,1246.6,3384.4,terra+aqua,665,0,0,41537
 ID_KT,"Kalimantan Tengah",ID,state,2008,10,1245.1,912.7,2477.8,terra+aqua,418,0,0,26245
 ID_KT,"Kalimantan Tengah",ID,state,2008,11,173.9,127.5,346.1,terra+aqua,58,0,0,1373
 ID_KT,"Kalimantan Tengah",ID,state,2008,12,30.9,22.7,61.6,terra+aqua,8,0,0,175
@@ -9986,7 +9986,7 @@ ID_KT,"Kalimantan Tengah",ID,state,2024,3,61.0,61.0,61.0,snpp,15,61,54,939
 ID_KT,"Kalimantan Tengah",ID,state,2024,4,29.0,29.0,29.0,snpp,11,29,25,420
 ID_KT,"Kalimantan Tengah",ID,state,2024,5,20.0,20.0,20.0,snpp,10,20,23,319
 ID_KT,"Kalimantan Tengah",ID,state,2024,6,45.0,45.0,45.0,snpp,5,45,39,572
-ID_KT,"Kalimantan Tengah",ID,state,2024,7,67.0,67.0,67.0,snpp,58,67,283,4179
+ID_KT,"Kalimantan Tengah",ID,state,2024,7,229.8,168.2,350.5,noaa20 (S-NPP gap),58,67,283,4179
 ID_KT,"Kalimantan Tengah",ID,state,2024,8,165.0,165.0,165.0,snpp,35,165,160,3429
 ID_KT,"Kalimantan Tengah",ID,state,2024,9,1367.0,1367.0,1367.0,snpp,527,1367,1443,77673
 ID_KT,"Kalimantan Tengah",ID,state,2024,10,679.0,679.0,679.0,snpp,187,679,624,31426
@@ -10269,7 +10269,7 @@ ID_LA,"Lampung",ID,state,2021,9,121.0,121.0,121.0,snpp,24,121,142,2273
 ID_LA,"Lampung",ID,state,2021,10,133.0,133.0,133.0,snpp,27,133,132,2551
 ID_LA,"Lampung",ID,state,2021,11,17.0,17.0,17.0,snpp,4,17,10,168
 ID_LA,"Lampung",ID,state,2021,12,14.0,14.0,14.0,snpp,5,14,21,425
-ID_LA,"Lampung",ID,state,2022,1,11.0,11.0,11.0,snpp,1,11,19,213
+ID_LA,"Lampung",ID,state,2022,1,11.0,11.0,11.0,snpp,1,11,19,212
 ID_LA,"Lampung",ID,state,2022,2,11.0,11.0,11.0,snpp,5,11,12,366
 ID_LA,"Lampung",ID,state,2022,3,11.0,11.0,11.0,snpp,0,11,10,180
 ID_LA,"Lampung",ID,state,2022,4,38.0,38.0,38.0,snpp,6,38,44,825
@@ -10299,7 +10299,7 @@ ID_LA,"Lampung",ID,state,2024,3,8.0,8.0,8.0,snpp,1,8,19,130
 ID_LA,"Lampung",ID,state,2024,4,8.0,8.0,8.0,snpp,0,8,9,34
 ID_LA,"Lampung",ID,state,2024,5,25.0,25.0,25.0,snpp,10,25,38,490
 ID_LA,"Lampung",ID,state,2024,6,32.0,32.0,32.0,snpp,14,32,28,652
-ID_LA,"Lampung",ID,state,2024,7,71.0,71.0,71.0,snpp,51,71,137,2602
+ID_LA,"Lampung",ID,state,2024,7,123.7,91.1,157.4,noaa20 (S-NPP gap),51,71,137,2602
 ID_LA,"Lampung",ID,state,2024,8,176.0,176.0,176.0,snpp,59,176,213,4662
 ID_LA,"Lampung",ID,state,2024,9,290.0,290.0,290.0,snpp,91,290,328,11180
 ID_LA,"Lampung",ID,state,2024,10,270.0,270.0,270.0,snpp,67,270,269,6793
@@ -10347,7 +10347,7 @@ ID_MA,"Maluku",ID,state,2002,2,16.9,10.4,45.1,terra,2,0,0,31
 ID_MA,"Maluku",ID,state,2002,3,0.0,0.0,0.0,terra,0,0,0,0
 ID_MA,"Maluku",ID,state,2002,4,61.8,38.1,165.3,terra,6,0,0,83
 ID_MA,"Maluku",ID,state,2002,5,74.3,45.9,199.0,terra,6,0,0,144
-ID_MA,"Maluku",ID,state,2002,6,56.9,35.1,152.3,terra,5,0,0,108
+ID_MA,"Maluku",ID,state,2002,6,56.9,35.1,152.3,terra,5,0,0,109
 ID_MA,"Maluku",ID,state,2002,7,365.9,289.8,696.6,terra+aqua,81,0,0,1671
 ID_MA,"Maluku",ID,state,2002,8,918.6,727.6,1749.1,terra+aqua,242,0,0,7367
 ID_MA,"Maluku",ID,state,2002,9,1619.1,1282.3,3082.7,terra+aqua,404,0,0,24524
@@ -10612,7 +10612,7 @@ ID_MA,"Maluku",ID,state,2024,3,8.0,8.0,8.0,snpp,5,8,10,159
 ID_MA,"Maluku",ID,state,2024,4,9.0,9.0,9.0,snpp,7,9,14,317
 ID_MA,"Maluku",ID,state,2024,5,9.0,9.0,9.0,snpp,6,9,12,189
 ID_MA,"Maluku",ID,state,2024,6,27.0,27.0,27.0,snpp,3,27,29,313
-ID_MA,"Maluku",ID,state,2024,7,20.0,20.0,20.0,snpp,5,20,48,602
+ID_MA,"Maluku",ID,state,2024,7,41.6,35.3,55.0,noaa20 (S-NPP gap),5,20,48,602
 ID_MA,"Maluku",ID,state,2024,8,158.0,158.0,158.0,snpp,52,158,172,3923
 ID_MA,"Maluku",ID,state,2024,9,198.0,198.0,198.0,snpp,17,198,225,4882
 ID_MA,"Maluku",ID,state,2024,10,415.0,415.0,415.0,snpp,54,415,418,11772
@@ -10925,7 +10925,7 @@ ID_MU,"Maluku Utara",ID,state,2024,3,20.0,20.0,20.0,snpp,0,20,25,168
 ID_MU,"Maluku Utara",ID,state,2024,4,20.0,20.0,20.0,snpp,2,20,18,182
 ID_MU,"Maluku Utara",ID,state,2024,5,20.0,20.0,20.0,snpp,0,20,10,143
 ID_MU,"Maluku Utara",ID,state,2024,6,3.0,3.0,3.0,snpp,0,3,9,21
-ID_MU,"Maluku Utara",ID,state,2024,7,12.0,12.0,12.0,snpp,0,12,14,97
+ID_MU,"Maluku Utara",ID,state,2024,7,12.6,10.2,17.1,noaa20 (S-NPP gap),0,12,14,97
 ID_MU,"Maluku Utara",ID,state,2024,8,16.0,16.0,16.0,snpp,0,16,12,313
 ID_MU,"Maluku Utara",ID,state,2024,9,48.0,48.0,48.0,snpp,3,48,41,596
 ID_MU,"Maluku Utara",ID,state,2024,10,54.0,54.0,54.0,snpp,9,54,60,875
@@ -11047,7 +11047,7 @@ ID_NB,"Nusa Tenggara Barat",ID,state,2008,4,4.7,3.7,11.3,terra+aqua,1,0,0,16
 ID_NB,"Nusa Tenggara Barat",ID,state,2008,5,70.2,55.0,169.8,terra+aqua,10,0,0,123
 ID_NB,"Nusa Tenggara Barat",ID,state,2008,6,75.0,58.7,181.3,terra+aqua,11,0,0,222
 ID_NB,"Nusa Tenggara Barat",ID,state,2008,7,255.9,200.3,618.4,terra+aqua,46,0,0,976
-ID_NB,"Nusa Tenggara Barat",ID,state,2008,8,240.4,188.2,580.9,terra+aqua,34,0,0,1721
+ID_NB,"Nusa Tenggara Barat",ID,state,2008,8,240.4,188.2,580.9,terra+aqua,34,0,0,1720
 ID_NB,"Nusa Tenggara Barat",ID,state,2008,9,690.5,540.6,1668.8,terra+aqua,105,0,0,5107
 ID_NB,"Nusa Tenggara Barat",ID,state,2008,10,768.9,602.0,1858.4,terra+aqua,113,0,0,6218
 ID_NB,"Nusa Tenggara Barat",ID,state,2008,11,206.7,161.9,499.6,terra+aqua,29,0,0,814
@@ -11238,7 +11238,7 @@ ID_NB,"Nusa Tenggara Barat",ID,state,2024,3,5.0,5.0,5.0,snpp,2,5,6,60
 ID_NB,"Nusa Tenggara Barat",ID,state,2024,4,11.0,11.0,11.0,snpp,0,11,8,64
 ID_NB,"Nusa Tenggara Barat",ID,state,2024,5,93.0,93.0,93.0,snpp,9,93,112,806
 ID_NB,"Nusa Tenggara Barat",ID,state,2024,6,242.0,242.0,242.0,snpp,35,242,324,4322
-ID_NB,"Nusa Tenggara Barat",ID,state,2024,7,165.0,165.0,165.0,snpp,43,165,395,5753
+ID_NB,"Nusa Tenggara Barat",ID,state,2024,7,329.0,271.7,404.7,noaa20 (S-NPP gap),43,165,395,5753
 ID_NB,"Nusa Tenggara Barat",ID,state,2024,8,517.0,517.0,517.0,snpp,50,517,539,11499
 ID_NB,"Nusa Tenggara Barat",ID,state,2024,9,646.0,646.0,646.0,snpp,81,646,788,18434
 ID_NB,"Nusa Tenggara Barat",ID,state,2024,10,965.0,965.0,965.0,snpp,97,965,939,30378
@@ -11551,7 +11551,7 @@ ID_NT,"Nusa Tenggara Timur",ID,state,2024,3,23.0,23.0,23.0,snpp,2,23,19,476
 ID_NT,"Nusa Tenggara Timur",ID,state,2024,4,23.0,23.0,23.0,snpp,2,23,24,376
 ID_NT,"Nusa Tenggara Timur",ID,state,2024,5,71.0,71.0,71.0,snpp,10,71,95,1397
 ID_NT,"Nusa Tenggara Timur",ID,state,2024,6,257.0,257.0,257.0,snpp,59,257,273,6288
-ID_NT,"Nusa Tenggara Timur",ID,state,2024,7,385.0,385.0,385.0,snpp,202,385,839,21630
+ID_NT,"Nusa Tenggara Timur",ID,state,2024,7,727.1,572.3,881.3,noaa20 (S-NPP gap),202,385,839,21630
 ID_NT,"Nusa Tenggara Timur",ID,state,2024,8,1440.0,1440.0,1440.0,snpp,259,1440,1587,36581
 ID_NT,"Nusa Tenggara Timur",ID,state,2024,9,1869.0,1869.0,1869.0,snpp,325,1869,1988,49628
 ID_NT,"Nusa Tenggara Timur",ID,state,2024,10,2498.0,2498.0,2498.0,snpp,338,2498,2701,72839
@@ -11864,7 +11864,7 @@ ID_PA,"Papua",ID,state,2024,3,10.0,10.0,10.0,snpp,7,10,16,288
 ID_PA,"Papua",ID,state,2024,4,51.0,51.0,51.0,snpp,8,51,48,884
 ID_PA,"Papua",ID,state,2024,5,32.0,32.0,32.0,snpp,5,32,47,651
 ID_PA,"Papua",ID,state,2024,6,55.0,55.0,55.0,snpp,15,55,62,1145
-ID_PA,"Papua",ID,state,2024,7,88.0,88.0,88.0,snpp,20,88,94,1997
+ID_PA,"Papua",ID,state,2024,7,98.4,74.9,122.5,noaa20 (S-NPP gap),20,88,94,1997
 ID_PA,"Papua",ID,state,2024,8,214.0,214.0,214.0,snpp,63,214,282,6599
 ID_PA,"Papua",ID,state,2024,9,583.0,583.0,583.0,snpp,143,583,574,21792
 ID_PA,"Papua",ID,state,2024,10,774.0,774.0,774.0,snpp,329,774,961,45055
@@ -12177,7 +12177,7 @@ ID_PB,"Papua Barat",ID,state,2024,3,6.0,6.0,6.0,snpp,1,6,8,102
 ID_PB,"Papua Barat",ID,state,2024,4,6.0,6.0,6.0,snpp,1,6,10,85
 ID_PB,"Papua Barat",ID,state,2024,5,6.0,6.0,6.0,snpp,3,6,15,181
 ID_PB,"Papua Barat",ID,state,2024,6,11.0,11.0,11.0,snpp,4,11,18,238
-ID_PB,"Papua Barat",ID,state,2024,7,10.0,10.0,10.0,snpp,4,10,11,174
+ID_PB,"Papua Barat",ID,state,2024,7,11.1,8.2,15.8,noaa20 (S-NPP gap),4,10,11,174
 ID_PB,"Papua Barat",ID,state,2024,8,24.0,24.0,24.0,snpp,1,24,31,393
 ID_PB,"Papua Barat",ID,state,2024,9,29.0,29.0,29.0,snpp,7,29,26,503
 ID_PB,"Papua Barat",ID,state,2024,10,21.0,21.0,21.0,snpp,9,21,38,474
@@ -12317,10 +12317,10 @@ ID_RI,"Riau",ID,state,2009,10,642.6,283.4,847.7,terra+aqua,223,0,0,6718
 ID_RI,"Riau",ID,state,2009,11,416.9,183.9,549.9,terra+aqua,196,0,0,8434
 ID_RI,"Riau",ID,state,2009,12,93.7,41.3,123.5,terra+aqua,38,0,0,748
 ID_RI,"Riau",ID,state,2010,1,260.1,114.7,343.0,terra+aqua,92,0,0,2554
-ID_RI,"Riau",ID,state,2010,2,1117.2,492.7,1473.6,terra+aqua,453,0,0,29421
+ID_RI,"Riau",ID,state,2010,2,1117.2,492.7,1473.6,terra+aqua,453,0,0,29422
 ID_RI,"Riau",ID,state,2010,3,302.2,133.3,398.6,terra+aqua,123,0,0,3420
 ID_RI,"Riau",ID,state,2010,4,210.3,92.8,277.5,terra+aqua,122,0,0,2506
-ID_RI,"Riau",ID,state,2010,5,579.7,255.7,764.7,terra+aqua,312,0,0,15900
+ID_RI,"Riau",ID,state,2010,5,579.7,255.7,764.7,terra+aqua,312,0,0,15901
 ID_RI,"Riau",ID,state,2010,6,368.8,162.6,486.4,terra+aqua,159,0,0,5360
 ID_RI,"Riau",ID,state,2010,7,227.9,100.5,300.6,terra+aqua,94,0,0,1916
 ID_RI,"Riau",ID,state,2010,8,590.9,260.6,779.4,terra+aqua,245,0,0,8479
@@ -12490,7 +12490,7 @@ ID_RI,"Riau",ID,state,2024,3,209.0,209.0,209.0,snpp,126,209,210,12154
 ID_RI,"Riau",ID,state,2024,4,50.0,50.0,50.0,snpp,105,50,52,2257
 ID_RI,"Riau",ID,state,2024,5,29.0,29.0,29.0,snpp,44,29,22,760
 ID_RI,"Riau",ID,state,2024,6,54.0,54.0,54.0,snpp,23,54,55,716
-ID_RI,"Riau",ID,state,2024,7,139.0,139.0,139.0,snpp,128,139,369,13942
+ID_RI,"Riau",ID,state,2024,7,319.0,237.0,415.3,noaa20 (S-NPP gap),128,139,369,13942
 ID_RI,"Riau",ID,state,2024,8,140.0,140.0,140.0,snpp,67,140,172,9683
 ID_RI,"Riau",ID,state,2024,9,109.0,109.0,109.0,snpp,83,109,93,3680
 ID_RI,"Riau",ID,state,2024,10,248.0,248.0,248.0,snpp,99,248,257,7146
@@ -12803,7 +12803,7 @@ ID_SA,"Sulawesi Utara",ID,state,2024,3,6.0,6.0,6.0,snpp,1,6,7,70
 ID_SA,"Sulawesi Utara",ID,state,2024,4,11.0,11.0,11.0,snpp,2,11,17,158
 ID_SA,"Sulawesi Utara",ID,state,2024,5,3.0,3.0,3.0,snpp,3,3,5,45
 ID_SA,"Sulawesi Utara",ID,state,2024,6,2.0,2.0,2.0,snpp,0,2,2,30
-ID_SA,"Sulawesi Utara",ID,state,2024,7,7.0,7.0,7.0,snpp,2,7,3,41
+ID_SA,"Sulawesi Utara",ID,state,2024,7,3.0,2.5,4.1,noaa20 (S-NPP gap),2,7,3,41
 ID_SA,"Sulawesi Utara",ID,state,2024,8,10.0,10.0,10.0,snpp,3,10,8,98
 ID_SA,"Sulawesi Utara",ID,state,2024,9,51.0,51.0,51.0,snpp,11,51,41,935
 ID_SA,"Sulawesi Utara",ID,state,2024,10,38.0,38.0,38.0,snpp,7,38,20,369
@@ -12893,7 +12893,7 @@ ID_SB,"Sumatera Barat",ID,state,2005,8,262.4,195.8,526.7,terra+aqua,70,0,0,6705
 ID_SB,"Sumatera Barat",ID,state,2005,9,181.4,135.3,364.0,terra+aqua,50,0,0,1883
 ID_SB,"Sumatera Barat",ID,state,2005,10,9.7,7.3,19.6,terra+aqua,2,0,0,45
 ID_SB,"Sumatera Barat",ID,state,2005,11,28.2,21.0,56.5,terra+aqua,6,0,0,145
-ID_SB,"Sumatera Barat",ID,state,2005,12,98.5,73.4,197.6,terra+aqua,21,0,0,468
+ID_SB,"Sumatera Barat",ID,state,2005,12,98.5,73.4,197.6,terra+aqua,21,0,0,467
 ID_SB,"Sumatera Barat",ID,state,2006,1,211.1,157.5,423.6,terra+aqua,49,0,0,1610
 ID_SB,"Sumatera Barat",ID,state,2006,2,58.3,43.5,117.0,terra+aqua,11,0,0,782
 ID_SB,"Sumatera Barat",ID,state,2006,3,85.3,63.6,171.1,terra+aqua,20,0,0,3550
@@ -13116,7 +13116,7 @@ ID_SB,"Sumatera Barat",ID,state,2024,3,75.0,75.0,75.0,snpp,16,75,72,3385
 ID_SB,"Sumatera Barat",ID,state,2024,4,15.0,15.0,15.0,snpp,0,15,17,563
 ID_SB,"Sumatera Barat",ID,state,2024,5,19.0,19.0,19.0,snpp,0,19,27,296
 ID_SB,"Sumatera Barat",ID,state,2024,6,34.0,34.0,34.0,snpp,7,34,38,421
-ID_SB,"Sumatera Barat",ID,state,2024,7,99.0,99.0,99.0,snpp,41,99,267,4472
+ID_SB,"Sumatera Barat",ID,state,2024,7,225.3,167.6,342.2,noaa20 (S-NPP gap),41,99,267,4472
 ID_SB,"Sumatera Barat",ID,state,2024,8,48.0,48.0,48.0,snpp,13,48,48,899
 ID_SB,"Sumatera Barat",ID,state,2024,9,104.0,104.0,104.0,snpp,24,104,80,2576
 ID_SB,"Sumatera Barat",ID,state,2024,10,250.0,250.0,250.0,snpp,50,250,233,9037
@@ -13429,7 +13429,7 @@ ID_SG,"Sulawesi Tenggara",ID,state,2024,3,8.0,8.0,8.0,snpp,1,8,7,102
 ID_SG,"Sulawesi Tenggara",ID,state,2024,4,6.0,6.0,6.0,snpp,0,6,5,66
 ID_SG,"Sulawesi Tenggara",ID,state,2024,5,6.0,6.0,6.0,snpp,0,6,5,43
 ID_SG,"Sulawesi Tenggara",ID,state,2024,6,8.0,8.0,8.0,snpp,2,8,8,92
-ID_SG,"Sulawesi Tenggara",ID,state,2024,7,15.0,15.0,15.0,snpp,3,15,25,326
+ID_SG,"Sulawesi Tenggara",ID,state,2024,7,24.4,19.3,33.1,noaa20 (S-NPP gap),3,15,25,326
 ID_SG,"Sulawesi Tenggara",ID,state,2024,8,70.0,70.0,70.0,snpp,5,70,71,930
 ID_SG,"Sulawesi Tenggara",ID,state,2024,9,243.0,243.0,243.0,snpp,27,243,271,5668
 ID_SG,"Sulawesi Tenggara",ID,state,2024,10,513.0,513.0,513.0,snpp,62,513,485,13423
@@ -13742,7 +13742,7 @@ ID_SN,"Sulawesi Selatan",ID,state,2024,3,19.0,19.0,19.0,snpp,3,19,15,247
 ID_SN,"Sulawesi Selatan",ID,state,2024,4,10.0,10.0,10.0,snpp,1,10,18,115
 ID_SN,"Sulawesi Selatan",ID,state,2024,5,16.0,16.0,16.0,snpp,2,16,24,239
 ID_SN,"Sulawesi Selatan",ID,state,2024,6,10.0,10.0,10.0,snpp,1,10,17,194
-ID_SN,"Sulawesi Selatan",ID,state,2024,7,17.0,17.0,17.0,snpp,6,17,28,215
+ID_SN,"Sulawesi Selatan",ID,state,2024,7,25.6,20.7,35.8,noaa20 (S-NPP gap),6,17,28,215
 ID_SN,"Sulawesi Selatan",ID,state,2024,8,127.0,127.0,127.0,snpp,25,127,155,1928
 ID_SN,"Sulawesi Selatan",ID,state,2024,9,278.0,278.0,278.0,snpp,44,278,278,4629
 ID_SN,"Sulawesi Selatan",ID,state,2024,10,271.0,271.0,271.0,snpp,42,271,276,5207
@@ -14019,7 +14019,7 @@ ID_SR,"Sulawesi Barat",ID,state,2021,3,34.0,34.0,34.0,snpp,5,34,26,511
 ID_SR,"Sulawesi Barat",ID,state,2021,4,37.0,37.0,37.0,snpp,8,37,51,784
 ID_SR,"Sulawesi Barat",ID,state,2021,5,7.0,7.0,7.0,snpp,0,7,13,107
 ID_SR,"Sulawesi Barat",ID,state,2021,6,19.0,19.0,19.0,snpp,5,19,24,269
-ID_SR,"Sulawesi Barat",ID,state,2021,7,22.0,22.0,22.0,snpp,3,22,33,375
+ID_SR,"Sulawesi Barat",ID,state,2021,7,22.0,22.0,22.0,snpp,3,22,33,376
 ID_SR,"Sulawesi Barat",ID,state,2021,8,15.0,15.0,15.0,snpp,1,15,7,129
 ID_SR,"Sulawesi Barat",ID,state,2021,9,20.0,20.0,20.0,snpp,1,20,28,501
 ID_SR,"Sulawesi Barat",ID,state,2021,10,25.0,25.0,25.0,snpp,6,25,20,422
@@ -14055,7 +14055,7 @@ ID_SR,"Sulawesi Barat",ID,state,2024,3,11.0,11.0,11.0,snpp,1,11,10,120
 ID_SR,"Sulawesi Barat",ID,state,2024,4,13.0,13.0,13.0,snpp,0,13,13,124
 ID_SR,"Sulawesi Barat",ID,state,2024,5,7.0,7.0,7.0,snpp,1,7,7,86
 ID_SR,"Sulawesi Barat",ID,state,2024,6,1.0,1.0,1.0,snpp,0,1,5,23
-ID_SR,"Sulawesi Barat",ID,state,2024,7,17.0,17.0,17.0,snpp,4,17,37,327
+ID_SR,"Sulawesi Barat",ID,state,2024,7,31.3,26.6,39.4,noaa20 (S-NPP gap),4,17,37,327
 ID_SR,"Sulawesi Barat",ID,state,2024,8,14.0,14.0,14.0,snpp,2,14,13,281
 ID_SR,"Sulawesi Barat",ID,state,2024,9,137.0,137.0,137.0,snpp,17,137,131,3574
 ID_SR,"Sulawesi Barat",ID,state,2024,10,70.0,70.0,70.0,snpp,16,70,57,1317
@@ -14287,7 +14287,7 @@ ID_SS,"Sumatera Selatan",ID,state,2017,6,149.0,149.0,149.0,snpp,41,149,0,2837
 ID_SS,"Sumatera Selatan",ID,state,2017,7,235.0,235.0,235.0,snpp,80,235,0,5701
 ID_SS,"Sumatera Selatan",ID,state,2017,8,380.0,380.0,380.0,snpp,107,380,0,6585
 ID_SS,"Sumatera Selatan",ID,state,2017,9,655.0,655.0,655.0,snpp,177,655,0,14236
-ID_SS,"Sumatera Selatan",ID,state,2017,10,258.0,258.0,258.0,snpp,47,258,0,3540
+ID_SS,"Sumatera Selatan",ID,state,2017,10,258.0,258.0,258.0,snpp,47,258,0,3541
 ID_SS,"Sumatera Selatan",ID,state,2017,11,54.0,54.0,54.0,snpp,15,54,0,520
 ID_SS,"Sumatera Selatan",ID,state,2017,12,30.0,30.0,30.0,snpp,20,30,0,610
 ID_SS,"Sumatera Selatan",ID,state,2018,1,85.0,85.0,85.0,snpp,16,85,0,775
@@ -14368,7 +14368,7 @@ ID_SS,"Sumatera Selatan",ID,state,2024,3,47.0,47.0,47.0,snpp,22,47,54,1142
 ID_SS,"Sumatera Selatan",ID,state,2024,4,49.0,49.0,49.0,snpp,9,49,59,745
 ID_SS,"Sumatera Selatan",ID,state,2024,5,113.0,113.0,113.0,snpp,19,113,105,2206
 ID_SS,"Sumatera Selatan",ID,state,2024,6,126.0,126.0,126.0,snpp,23,126,105,1973
-ID_SS,"Sumatera Selatan",ID,state,2024,7,265.0,265.0,265.0,snpp,165,265,533,11403
+ID_SS,"Sumatera Selatan",ID,state,2024,7,491.8,342.3,646.3,noaa20 (S-NPP gap),165,265,533,11403
 ID_SS,"Sumatera Selatan",ID,state,2024,8,647.0,647.0,647.0,snpp,174,647,687,19991
 ID_SS,"Sumatera Selatan",ID,state,2024,9,836.0,836.0,836.0,snpp,222,836,851,22572
 ID_SS,"Sumatera Selatan",ID,state,2024,10,718.0,718.0,718.0,snpp,226,718,770,21745
@@ -14487,7 +14487,7 @@ ID_ST,"Sulawesi Tengah",ID,state,2008,1,121.1,102.6,315.8,terra+aqua,24,0,0,867
 ID_ST,"Sulawesi Tengah",ID,state,2008,2,38.1,32.2,99.2,terra+aqua,8,0,0,140
 ID_ST,"Sulawesi Tengah",ID,state,2008,3,87.0,73.7,227.0,terra+aqua,16,0,0,204
 ID_ST,"Sulawesi Tengah",ID,state,2008,4,43.7,37.0,113.9,terra+aqua,8,0,0,115
-ID_ST,"Sulawesi Tengah",ID,state,2008,5,135.7,114.9,353.8,terra+aqua,23,0,0,459
+ID_ST,"Sulawesi Tengah",ID,state,2008,5,135.7,114.9,353.8,terra+aqua,23,0,0,458
 ID_ST,"Sulawesi Tengah",ID,state,2008,6,25.9,21.9,67.5,terra+aqua,5,0,0,41
 ID_ST,"Sulawesi Tengah",ID,state,2008,7,23.5,19.9,61.3,terra+aqua,4,0,0,28
 ID_ST,"Sulawesi Tengah",ID,state,2008,8,56.3,47.7,146.7,terra+aqua,12,0,0,177
@@ -14681,7 +14681,7 @@ ID_ST,"Sulawesi Tengah",ID,state,2024,3,77.0,77.0,77.0,snpp,8,77,96,1281
 ID_ST,"Sulawesi Tengah",ID,state,2024,4,68.0,68.0,68.0,snpp,5,68,61,696
 ID_ST,"Sulawesi Tengah",ID,state,2024,5,38.0,38.0,38.0,snpp,5,38,36,367
 ID_ST,"Sulawesi Tengah",ID,state,2024,6,20.0,20.0,20.0,snpp,2,20,29,155
-ID_ST,"Sulawesi Tengah",ID,state,2024,7,27.0,27.0,27.0,snpp,4,27,48,344
+ID_ST,"Sulawesi Tengah",ID,state,2024,7,39.4,29.3,51.6,noaa20 (S-NPP gap),4,27,48,344
 ID_ST,"Sulawesi Tengah",ID,state,2024,8,87.0,87.0,87.0,snpp,26,87,107,1412
 ID_ST,"Sulawesi Tengah",ID,state,2024,9,267.0,267.0,267.0,snpp,40,267,298,5353
 ID_ST,"Sulawesi Tengah",ID,state,2024,10,462.0,462.0,462.0,snpp,93,462,459,12413
@@ -14812,7 +14812,7 @@ ID_SU,"Sumatera Utara",ID,state,2009,1,420.3,315.2,948.2,terra+aqua,80,0,0,3348
 ID_SU,"Sumatera Utara",ID,state,2009,2,545.4,409.0,1230.4,terra+aqua,129,0,0,4270
 ID_SU,"Sumatera Utara",ID,state,2009,3,140.4,105.3,316.6,terra+aqua,31,0,0,1090
 ID_SU,"Sumatera Utara",ID,state,2009,4,309.6,232.2,698.4,terra+aqua,65,0,0,2076
-ID_SU,"Sumatera Utara",ID,state,2009,5,1131.1,848.3,2551.7,terra+aqua,249,0,0,15894
+ID_SU,"Sumatera Utara",ID,state,2009,5,1131.1,848.3,2551.7,terra+aqua,249,0,0,15895
 ID_SU,"Sumatera Utara",ID,state,2009,6,956.6,717.4,2158.0,terra+aqua,243,0,0,11218
 ID_SU,"Sumatera Utara",ID,state,2009,7,1154.0,865.5,2603.3,terra+aqua,309,0,0,15809
 ID_SU,"Sumatera Utara",ID,state,2009,8,539.6,404.7,1217.3,terra+aqua,135,0,0,5773
@@ -14994,7 +14994,7 @@ ID_SU,"Sumatera Utara",ID,state,2024,3,118.0,118.0,118.0,snpp,18,118,121,2097
 ID_SU,"Sumatera Utara",ID,state,2024,4,79.0,79.0,79.0,snpp,16,79,80,1632
 ID_SU,"Sumatera Utara",ID,state,2024,5,33.0,33.0,33.0,snpp,1,33,41,421
 ID_SU,"Sumatera Utara",ID,state,2024,6,89.0,89.0,89.0,snpp,9,89,70,1542
-ID_SU,"Sumatera Utara",ID,state,2024,7,272.0,272.0,272.0,snpp,76,272,498,9815
+ID_SU,"Sumatera Utara",ID,state,2024,7,401.2,285.2,532.0,noaa20 (S-NPP gap),76,272,498,9815
 ID_SU,"Sumatera Utara",ID,state,2024,8,57.0,57.0,57.0,snpp,18,57,61,1934
 ID_SU,"Sumatera Utara",ID,state,2024,9,47.0,47.0,47.0,snpp,8,47,41,896
 ID_SU,"Sumatera Utara",ID,state,2024,10,150.0,150.0,150.0,snpp,31,150,146,3473
@@ -15307,7 +15307,7 @@ ID_YO,"Yogyakarta",ID,state,2024,3,0.0,0.0,0.0,snpp,0,0,0,0
 ID_YO,"Yogyakarta",ID,state,2024,4,0.0,0.0,0.0,snpp,0,0,0,0
 ID_YO,"Yogyakarta",ID,state,2024,5,0.0,0.0,0.0,snpp,0,0,2,11
 ID_YO,"Yogyakarta",ID,state,2024,6,3.0,3.0,3.0,snpp,0,3,0,7
-ID_YO,"Yogyakarta",ID,state,2024,7,1.0,1.0,1.0,snpp,0,1,1,21
+ID_YO,"Yogyakarta",ID,state,2024,7,0.8,0.8,0.9,noaa20 (S-NPP gap),0,1,1,21
 ID_YO,"Yogyakarta",ID,state,2024,8,18.0,18.0,18.0,snpp,1,18,18,161
 ID_YO,"Yogyakarta",ID,state,2024,9,11.0,11.0,11.0,snpp,0,11,5,69
 ID_YO,"Yogyakarta",ID,state,2024,10,5.0,5.0,5.0,snpp,0,5,6,41
@@ -15620,7 +15620,7 @@ IN_AN,"Andaman and Nicobar",IN,state,2024,3,6.0,6.0,6.0,snpp,1,6,5,539
 IN_AN,"Andaman and Nicobar",IN,state,2024,4,5.0,5.0,5.0,snpp,2,5,8,182
 IN_AN,"Andaman and Nicobar",IN,state,2024,5,2.0,2.0,2.0,snpp,0,2,4,47
 IN_AN,"Andaman and Nicobar",IN,state,2024,6,1.0,1.0,1.0,snpp,0,1,1,15
-IN_AN,"Andaman and Nicobar",IN,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+IN_AN,"Andaman and Nicobar",IN,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 IN_AN,"Andaman and Nicobar",IN,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 IN_AN,"Andaman and Nicobar",IN,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 IN_AN,"Andaman and Nicobar",IN,state,2024,10,0.0,0.0,0.0,snpp,0,0,1,2
@@ -15933,7 +15933,7 @@ IN_AP,"Andhra Pradesh",IN,state,2024,3,3566.0,3566.0,3566.0,snpp,584,3566,3666,8
 IN_AP,"Andhra Pradesh",IN,state,2024,4,4392.0,4392.0,4392.0,snpp,630,4392,4479,125653
 IN_AP,"Andhra Pradesh",IN,state,2024,5,1168.0,1168.0,1168.0,snpp,195,1168,1386,35952
 IN_AP,"Andhra Pradesh",IN,state,2024,6,125.0,125.0,125.0,snpp,20,125,155,1822
-IN_AP,"Andhra Pradesh",IN,state,2024,7,4.0,4.0,4.0,snpp,1,4,24,156
+IN_AP,"Andhra Pradesh",IN,state,2024,7,18.3,15.7,22.3,noaa20 (S-NPP gap),1,4,24,156
 IN_AP,"Andhra Pradesh",IN,state,2024,8,68.0,68.0,68.0,snpp,9,68,68,633
 IN_AP,"Andhra Pradesh",IN,state,2024,9,113.0,113.0,113.0,snpp,8,113,110,1202
 IN_AP,"Andhra Pradesh",IN,state,2024,10,200.0,200.0,200.0,snpp,22,200,229,2214
@@ -16012,7 +16012,7 @@ IN_AR,"Arunachal Pradesh",IN,state,2004,9,10.7,7.0,16.1,terra+aqua,3,0,0,55
 IN_AR,"Arunachal Pradesh",IN,state,2004,10,191.5,126.4,289.4,terra+aqua,41,0,0,1040
 IN_AR,"Arunachal Pradesh",IN,state,2004,11,165.2,109.1,249.7,terra+aqua,43,0,0,1382
 IN_AR,"Arunachal Pradesh",IN,state,2004,12,312.5,206.2,472.2,terra+aqua,104,0,0,4305
-IN_AR,"Arunachal Pradesh",IN,state,2005,1,229.3,151.3,346.4,terra+aqua,85,0,0,3489
+IN_AR,"Arunachal Pradesh",IN,state,2005,1,229.3,151.3,346.4,terra+aqua,85,0,0,3490
 IN_AR,"Arunachal Pradesh",IN,state,2005,2,85.1,56.2,128.6,terra+aqua,30,0,0,1111
 IN_AR,"Arunachal Pradesh",IN,state,2005,3,223.1,147.2,337.1,terra+aqua,86,0,0,4347
 IN_AR,"Arunachal Pradesh",IN,state,2005,4,456.8,301.5,690.3,terra+aqua,178,0,0,9450
@@ -16246,7 +16246,7 @@ IN_AR,"Arunachal Pradesh",IN,state,2024,3,348.0,348.0,348.0,snpp,155,348,395,187
 IN_AR,"Arunachal Pradesh",IN,state,2024,4,288.0,288.0,288.0,snpp,132,288,320,23925
 IN_AR,"Arunachal Pradesh",IN,state,2024,5,148.0,148.0,148.0,snpp,49,148,115,6712
 IN_AR,"Arunachal Pradesh",IN,state,2024,6,2.0,2.0,2.0,snpp,2,2,1,40
-IN_AR,"Arunachal Pradesh",IN,state,2024,7,0.0,0.0,0.0,snpp,6,0,3,115
+IN_AR,"Arunachal Pradesh",IN,state,2024,7,2.7,2.2,3.5,noaa20 (S-NPP gap),6,0,3,115
 IN_AR,"Arunachal Pradesh",IN,state,2024,8,11.0,11.0,11.0,snpp,6,11,11,176
 IN_AR,"Arunachal Pradesh",IN,state,2024,9,74.0,74.0,74.0,snpp,15,74,81,1581
 IN_AR,"Arunachal Pradesh",IN,state,2024,10,33.0,33.0,33.0,snpp,5,33,21,541
@@ -16559,7 +16559,7 @@ IN_AS,"Assam",IN,state,2024,3,1609.0,1609.0,1609.0,snpp,562,1609,1707,96069
 IN_AS,"Assam",IN,state,2024,4,1749.0,1749.0,1749.0,snpp,705,1749,1946,182174
 IN_AS,"Assam",IN,state,2024,5,367.0,367.0,367.0,snpp,77,367,335,11522
 IN_AS,"Assam",IN,state,2024,6,13.0,13.0,13.0,snpp,6,13,12,391
-IN_AS,"Assam",IN,state,2024,7,0.0,0.0,0.0,snpp,2,0,12,63
+IN_AS,"Assam",IN,state,2024,7,9.9,8.5,12.0,noaa20 (S-NPP gap),2,0,12,63
 IN_AS,"Assam",IN,state,2024,8,5.0,5.0,5.0,snpp,1,5,7,48
 IN_AS,"Assam",IN,state,2024,9,29.0,29.0,29.0,snpp,13,29,28,502
 IN_AS,"Assam",IN,state,2024,10,13.0,13.0,13.0,snpp,3,13,20,68
@@ -16641,7 +16641,7 @@ IN_BR,"Bihar",IN,state,2004,12,189.6,162.8,320.6,terra+aqua,44,0,0,434
 IN_BR,"Bihar",IN,state,2005,1,175.2,150.5,296.2,terra+aqua,30,0,0,461
 IN_BR,"Bihar",IN,state,2005,2,366.8,315.1,620.3,terra+aqua,63,0,0,1194
 IN_BR,"Bihar",IN,state,2005,3,151.7,130.3,256.5,terra+aqua,29,0,0,2036
-IN_BR,"Bihar",IN,state,2005,4,357.6,307.1,604.6,terra+aqua,97,0,0,4024
+IN_BR,"Bihar",IN,state,2005,4,357.6,307.1,604.6,terra+aqua,97,0,0,4025
 IN_BR,"Bihar",IN,state,2005,5,63.8,54.8,107.9,terra+aqua,9,0,0,160
 IN_BR,"Bihar",IN,state,2005,6,136.3,117.1,230.5,terra+aqua,14,0,0,572
 IN_BR,"Bihar",IN,state,2005,7,0.0,0.0,0.0,terra+aqua,0,0,0,0
@@ -16872,7 +16872,7 @@ IN_BR,"Bihar",IN,state,2024,3,290.0,290.0,290.0,snpp,45,290,273,4604
 IN_BR,"Bihar",IN,state,2024,4,2069.0,2069.0,2069.0,snpp,576,2069,2205,103819
 IN_BR,"Bihar",IN,state,2024,5,1072.0,1072.0,1072.0,snpp,173,1072,1145,21090
 IN_BR,"Bihar",IN,state,2024,6,98.0,98.0,98.0,snpp,9,98,120,1966
-IN_BR,"Bihar",IN,state,2024,7,2.0,2.0,2.0,snpp,1,2,7,60
+IN_BR,"Bihar",IN,state,2024,7,5.3,4.7,6.3,noaa20 (S-NPP gap),1,2,7,60
 IN_BR,"Bihar",IN,state,2024,8,2.0,2.0,2.0,snpp,1,2,2,19
 IN_BR,"Bihar",IN,state,2024,9,4.0,4.0,4.0,snpp,1,4,1,16
 IN_BR,"Bihar",IN,state,2024,10,15.0,15.0,15.0,snpp,0,15,14,118
@@ -17185,7 +17185,7 @@ IN_CH,"Chandigarh",IN,state,2024,3,0.0,0.0,0.0,snpp,0,0,0,0
 IN_CH,"Chandigarh",IN,state,2024,4,0.0,0.0,0.0,snpp,0,0,0,0
 IN_CH,"Chandigarh",IN,state,2024,5,0.0,0.0,0.0,snpp,0,0,0,0
 IN_CH,"Chandigarh",IN,state,2024,6,1.0,1.0,1.0,snpp,0,1,1,25
-IN_CH,"Chandigarh",IN,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+IN_CH,"Chandigarh",IN,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 IN_CH,"Chandigarh",IN,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 IN_CH,"Chandigarh",IN,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 IN_CH,"Chandigarh",IN,state,2024,10,1.0,1.0,1.0,snpp,0,1,1,4
@@ -17498,7 +17498,7 @@ IN_CT,"Chhattisgarh",IN,state,2024,3,3101.0,3101.0,3101.0,snpp,356,3101,3118,489
 IN_CT,"Chhattisgarh",IN,state,2024,4,4124.0,4124.0,4124.0,snpp,510,4124,4252,88828
 IN_CT,"Chhattisgarh",IN,state,2024,5,1341.0,1341.0,1341.0,snpp,243,1341,1679,57704
 IN_CT,"Chhattisgarh",IN,state,2024,6,460.0,460.0,460.0,snpp,107,460,699,12339
-IN_CT,"Chhattisgarh",IN,state,2024,7,8.0,8.0,8.0,snpp,5,8,14,78
+IN_CT,"Chhattisgarh",IN,state,2024,7,14.4,11.9,17.5,noaa20 (S-NPP gap),5,8,14,78
 IN_CT,"Chhattisgarh",IN,state,2024,8,14.0,14.0,14.0,snpp,2,14,18,208
 IN_CT,"Chhattisgarh",IN,state,2024,9,37.0,37.0,37.0,snpp,20,37,45,637
 IN_CT,"Chhattisgarh",IN,state,2024,10,99.0,99.0,99.0,snpp,67,99,149,2280
@@ -17804,14 +17804,14 @@ IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2023,8,0.0,0.0,0.0,snp
 IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2023,9,0.0,0.0,0.0,snpp,0,0,0,0
 IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2023,10,0.0,0.0,0.0,snpp,0,0,2,48
 IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2023,11,1.0,1.0,1.0,snpp,0,1,0,2
-IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2023,12,5.0,5.0,5.0,snpp,0,5,1,15
+IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2023,12,5.0,5.0,5.0,snpp,0,5,1,14
 IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2024,1,2.0,2.0,2.0,snpp,1,2,3,25
 IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2024,2,3.0,3.0,3.0,snpp,0,3,3,26
 IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2024,3,3.0,3.0,3.0,snpp,0,3,2,3
 IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2024,4,8.0,8.0,8.0,snpp,0,8,7,25
 IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2024,5,4.0,4.0,4.0,snpp,0,4,6,34
 IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2024,6,0.0,0.0,0.0,snpp,0,0,0,0
-IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 IN_DH,"Dadra and Nagar Haveli and Daman and Diu",IN,state,2024,10,0.0,0.0,0.0,snpp,0,0,0,0
@@ -18124,7 +18124,7 @@ IN_DL,"Delhi",IN,state,2024,3,16.0,16.0,16.0,snpp,0,16,23,69
 IN_DL,"Delhi",IN,state,2024,4,14.0,14.0,14.0,snpp,1,14,18,253
 IN_DL,"Delhi",IN,state,2024,5,31.0,31.0,31.0,snpp,6,31,30,599
 IN_DL,"Delhi",IN,state,2024,6,9.0,9.0,9.0,snpp,0,9,8,74
-IN_DL,"Delhi",IN,state,2024,7,6.0,6.0,6.0,snpp,0,6,4,27
+IN_DL,"Delhi",IN,state,2024,7,3.9,3.6,4.2,noaa20 (S-NPP gap),0,6,4,27
 IN_DL,"Delhi",IN,state,2024,8,2.0,2.0,2.0,snpp,1,2,5,18
 IN_DL,"Delhi",IN,state,2024,9,3.0,3.0,3.0,snpp,0,3,9,19
 IN_DL,"Delhi",IN,state,2024,10,15.0,15.0,15.0,snpp,0,15,21,90
@@ -18437,7 +18437,7 @@ IN_GA,"Goa",IN,state,2024,3,21.0,21.0,21.0,snpp,0,21,29,270
 IN_GA,"Goa",IN,state,2024,4,12.0,12.0,12.0,snpp,0,12,25,223
 IN_GA,"Goa",IN,state,2024,5,14.0,14.0,14.0,snpp,1,14,10,119
 IN_GA,"Goa",IN,state,2024,6,0.0,0.0,0.0,snpp,0,0,0,0
-IN_GA,"Goa",IN,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+IN_GA,"Goa",IN,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 IN_GA,"Goa",IN,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 IN_GA,"Goa",IN,state,2024,9,1.0,1.0,1.0,snpp,0,1,0,2
 IN_GA,"Goa",IN,state,2024,10,1.0,1.0,1.0,snpp,0,1,4,4
@@ -18750,7 +18750,7 @@ IN_GJ,"Gujarat",IN,state,2024,3,1370.0,1370.0,1370.0,snpp,339,1370,1508,29466
 IN_GJ,"Gujarat",IN,state,2024,4,1068.0,1068.0,1068.0,snpp,172,1068,1088,20144
 IN_GJ,"Gujarat",IN,state,2024,5,844.0,844.0,844.0,snpp,90,844,879,16381
 IN_GJ,"Gujarat",IN,state,2024,6,323.0,323.0,323.0,snpp,42,323,424,8904
-IN_GJ,"Gujarat",IN,state,2024,7,8.0,8.0,8.0,snpp,5,8,21,295
+IN_GJ,"Gujarat",IN,state,2024,7,19.4,17.2,23.0,noaa20 (S-NPP gap),5,8,21,295
 IN_GJ,"Gujarat",IN,state,2024,8,16.0,16.0,16.0,snpp,3,16,12,158
 IN_GJ,"Gujarat",IN,state,2024,9,37.0,37.0,37.0,snpp,5,37,56,323
 IN_GJ,"Gujarat",IN,state,2024,10,120.0,120.0,120.0,snpp,23,120,137,3082
@@ -19063,7 +19063,7 @@ IN_HP,"Himachal Pradesh",IN,state,2024,3,70.0,70.0,70.0,snpp,12,70,73,1244
 IN_HP,"Himachal Pradesh",IN,state,2024,4,91.0,91.0,91.0,snpp,11,91,120,1061
 IN_HP,"Himachal Pradesh",IN,state,2024,5,1590.0,1590.0,1590.0,snpp,575,1590,1809,59436
 IN_HP,"Himachal Pradesh",IN,state,2024,6,1006.0,1006.0,1006.0,snpp,317,1006,1357,35902
-IN_HP,"Himachal Pradesh",IN,state,2024,7,4.0,4.0,4.0,snpp,1,4,10,79
+IN_HP,"Himachal Pradesh",IN,state,2024,7,8.6,7.4,9.9,noaa20 (S-NPP gap),1,4,10,79
 IN_HP,"Himachal Pradesh",IN,state,2024,8,2.0,2.0,2.0,snpp,0,2,2,4
 IN_HP,"Himachal Pradesh",IN,state,2024,9,4.0,4.0,4.0,snpp,1,4,5,70
 IN_HP,"Himachal Pradesh",IN,state,2024,10,48.0,48.0,48.0,snpp,13,48,45,1776
@@ -19376,7 +19376,7 @@ IN_HR,"Haryana",IN,state,2024,3,128.0,128.0,128.0,snpp,15,128,136,1635
 IN_HR,"Haryana",IN,state,2024,4,204.0,204.0,204.0,snpp,32,204,253,5020
 IN_HR,"Haryana",IN,state,2024,5,2067.0,2067.0,2067.0,snpp,537,2067,1987,67405
 IN_HR,"Haryana",IN,state,2024,6,119.0,119.0,119.0,snpp,27,119,135,2592
-IN_HR,"Haryana",IN,state,2024,7,8.0,8.0,8.0,snpp,4,8,16,147
+IN_HR,"Haryana",IN,state,2024,7,12.9,10.8,15.8,noaa20 (S-NPP gap),4,8,16,147
 IN_HR,"Haryana",IN,state,2024,8,12.0,12.0,12.0,snpp,9,12,12,188
 IN_HR,"Haryana",IN,state,2024,9,87.0,87.0,87.0,snpp,11,87,80,784
 IN_HR,"Haryana",IN,state,2024,10,642.0,642.0,642.0,snpp,76,642,741,8095
@@ -19434,7 +19434,7 @@ IN_JH,"Jharkhand",IN,state,2002,12,168.8,113.8,542.0,terra+aqua,15,0,0,220
 IN_JH,"Jharkhand",IN,state,2003,1,220.1,148.3,706.6,terra+aqua,22,0,0,324
 IN_JH,"Jharkhand",IN,state,2003,2,40.5,27.3,130.2,terra+aqua,4,0,0,44
 IN_JH,"Jharkhand",IN,state,2003,3,302.8,204.1,972.4,terra+aqua,37,0,0,675
-IN_JH,"Jharkhand",IN,state,2003,4,1376.3,927.6,4419.4,terra+aqua,164,0,0,3254
+IN_JH,"Jharkhand",IN,state,2003,4,1376.3,927.6,4419.4,terra+aqua,164,0,0,3255
 IN_JH,"Jharkhand",IN,state,2003,5,239.3,161.3,768.4,terra+aqua,31,0,0,1236
 IN_JH,"Jharkhand",IN,state,2003,6,21.3,14.4,68.4,terra+aqua,3,0,0,39
 IN_JH,"Jharkhand",IN,state,2003,7,42.1,28.4,135.3,terra+aqua,8,0,0,56
@@ -19689,7 +19689,7 @@ IN_JH,"Jharkhand",IN,state,2024,3,365.0,365.0,365.0,snpp,22,365,347,2606
 IN_JH,"Jharkhand",IN,state,2024,4,2476.0,2476.0,2476.0,snpp,195,2476,2461,38375
 IN_JH,"Jharkhand",IN,state,2024,5,733.0,733.0,733.0,snpp,63,733,762,13077
 IN_JH,"Jharkhand",IN,state,2024,6,105.0,105.0,105.0,snpp,19,105,140,2020
-IN_JH,"Jharkhand",IN,state,2024,7,29.0,29.0,29.0,snpp,3,29,39,499
+IN_JH,"Jharkhand",IN,state,2024,7,35.5,27.6,59.0,noaa20 (S-NPP gap),3,29,39,499
 IN_JH,"Jharkhand",IN,state,2024,8,12.0,12.0,12.0,snpp,0,12,20,44
 IN_JH,"Jharkhand",IN,state,2024,9,50.0,50.0,50.0,snpp,4,50,44,157
 IN_JH,"Jharkhand",IN,state,2024,10,97.0,97.0,97.0,snpp,9,97,87,322
@@ -20002,7 +20002,7 @@ IN_JK,"Jammu and Kashmir",IN,state,2024,3,38.0,38.0,38.0,snpp,5,38,43,1544
 IN_JK,"Jammu and Kashmir",IN,state,2024,4,26.0,26.0,26.0,snpp,12,26,27,592
 IN_JK,"Jammu and Kashmir",IN,state,2024,5,477.0,477.0,477.0,snpp,200,477,621,24230
 IN_JK,"Jammu and Kashmir",IN,state,2024,6,644.0,644.0,644.0,snpp,187,644,884,19225
-IN_JK,"Jammu and Kashmir",IN,state,2024,7,13.0,13.0,13.0,snpp,5,13,29,224
+IN_JK,"Jammu and Kashmir",IN,state,2024,7,22.0,18.1,27.3,noaa20 (S-NPP gap),5,13,29,224
 IN_JK,"Jammu and Kashmir",IN,state,2024,8,6.0,6.0,6.0,snpp,3,6,6,88
 IN_JK,"Jammu and Kashmir",IN,state,2024,9,14.0,14.0,14.0,snpp,3,14,11,190
 IN_JK,"Jammu and Kashmir",IN,state,2024,10,94.0,94.0,94.0,snpp,22,94,107,2385
@@ -20315,7 +20315,7 @@ IN_KA,"Karnataka",IN,state,2024,3,2249.0,2249.0,2249.0,snpp,379,2249,2386,43273
 IN_KA,"Karnataka",IN,state,2024,4,1184.0,1184.0,1184.0,snpp,137,1184,1254,26235
 IN_KA,"Karnataka",IN,state,2024,5,420.0,420.0,420.0,snpp,26,420,406,7569
 IN_KA,"Karnataka",IN,state,2024,6,29.0,29.0,29.0,snpp,3,29,42,298
-IN_KA,"Karnataka",IN,state,2024,7,4.0,4.0,4.0,snpp,0,4,10,37
+IN_KA,"Karnataka",IN,state,2024,7,9.7,8.8,11.7,noaa20 (S-NPP gap),0,4,10,37
 IN_KA,"Karnataka",IN,state,2024,8,12.0,12.0,12.0,snpp,4,12,12,165
 IN_KA,"Karnataka",IN,state,2024,9,46.0,46.0,46.0,snpp,5,46,70,346
 IN_KA,"Karnataka",IN,state,2024,10,60.0,60.0,60.0,snpp,54,60,66,1805
@@ -20565,7 +20565,7 @@ IN_KL,"Kerala",IN,state,2018,12,13.0,13.0,13.0,snpp,3,13,17,302
 IN_KL,"Kerala",IN,state,2019,1,121.0,121.0,121.0,snpp,19,121,130,2330
 IN_KL,"Kerala",IN,state,2019,2,248.0,248.0,248.0,snpp,43,248,258,7577
 IN_KL,"Kerala",IN,state,2019,3,326.0,326.0,326.0,snpp,61,326,334,14723
-IN_KL,"Kerala",IN,state,2019,4,197.0,197.0,197.0,snpp,23,197,211,7443
+IN_KL,"Kerala",IN,state,2019,4,197.0,197.0,197.0,snpp,23,197,211,7444
 IN_KL,"Kerala",IN,state,2019,5,40.0,40.0,40.0,snpp,3,40,57,787
 IN_KL,"Kerala",IN,state,2019,6,3.0,3.0,3.0,snpp,0,3,1,13
 IN_KL,"Kerala",IN,state,2019,7,1.0,1.0,1.0,snpp,0,1,1,1
@@ -20628,7 +20628,7 @@ IN_KL,"Kerala",IN,state,2024,3,286.0,286.0,286.0,snpp,33,286,271,7618
 IN_KL,"Kerala",IN,state,2024,4,178.0,178.0,178.0,snpp,33,178,211,4904
 IN_KL,"Kerala",IN,state,2024,5,39.0,39.0,39.0,snpp,2,39,42,484
 IN_KL,"Kerala",IN,state,2024,6,2.0,2.0,2.0,snpp,0,2,0,3
-IN_KL,"Kerala",IN,state,2024,7,0.0,0.0,0.0,snpp,1,0,0,11
+IN_KL,"Kerala",IN,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),1,0,0,11
 IN_KL,"Kerala",IN,state,2024,8,1.0,1.0,1.0,snpp,0,1,0,9
 IN_KL,"Kerala",IN,state,2024,9,5.0,5.0,5.0,snpp,1,5,8,60
 IN_KL,"Kerala",IN,state,2024,10,6.0,6.0,6.0,snpp,4,6,7,114
@@ -20941,7 +20941,7 @@ IN_LA,"Ladakh",IN,state,2024,3,0.0,0.0,0.0,snpp,0,0,0,0
 IN_LA,"Ladakh",IN,state,2024,4,0.0,0.0,0.0,snpp,0,0,0,0
 IN_LA,"Ladakh",IN,state,2024,5,0.0,0.0,0.0,snpp,0,0,0,0
 IN_LA,"Ladakh",IN,state,2024,6,0.0,0.0,0.0,snpp,0,0,0,0
-IN_LA,"Ladakh",IN,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+IN_LA,"Ladakh",IN,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 IN_LA,"Ladakh",IN,state,2024,8,1.0,1.0,1.0,snpp,0,1,0,1
 IN_LA,"Ladakh",IN,state,2024,9,0.0,0.0,0.0,snpp,0,0,3,3
 IN_LA,"Ladakh",IN,state,2024,10,0.0,0.0,0.0,snpp,0,0,1,3
@@ -21254,7 +21254,7 @@ IN_MH,"Maharashtra",IN,state,2024,3,5585.0,5585.0,5585.0,snpp,1194,5585,5733,109
 IN_MH,"Maharashtra",IN,state,2024,4,4083.0,4083.0,4083.0,snpp,563,4083,4226,85993
 IN_MH,"Maharashtra",IN,state,2024,5,1648.0,1648.0,1648.0,snpp,196,1648,1754,33001
 IN_MH,"Maharashtra",IN,state,2024,6,177.0,177.0,177.0,snpp,25,177,265,3269
-IN_MH,"Maharashtra",IN,state,2024,7,2.0,2.0,2.0,snpp,1,2,2,16
+IN_MH,"Maharashtra",IN,state,2024,7,1.7,1.6,1.9,noaa20 (S-NPP gap),1,2,2,16
 IN_MH,"Maharashtra",IN,state,2024,8,11.0,11.0,11.0,snpp,5,11,15,89
 IN_MH,"Maharashtra",IN,state,2024,9,26.0,26.0,26.0,snpp,18,26,26,499
 IN_MH,"Maharashtra",IN,state,2024,10,170.0,170.0,170.0,snpp,68,170,169,3026
@@ -21567,7 +21567,7 @@ IN_ML,"Meghalaya",IN,state,2024,3,1126.0,1126.0,1126.0,snpp,369,1126,1230,89888
 IN_ML,"Meghalaya",IN,state,2024,4,1117.0,1117.0,1117.0,snpp,369,1117,1209,58050
 IN_ML,"Meghalaya",IN,state,2024,5,132.0,132.0,132.0,snpp,21,132,123,1807
 IN_ML,"Meghalaya",IN,state,2024,6,0.0,0.0,0.0,snpp,0,0,1,1
-IN_ML,"Meghalaya",IN,state,2024,7,1.0,1.0,1.0,snpp,0,1,0,1
+IN_ML,"Meghalaya",IN,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,1,0,1
 IN_ML,"Meghalaya",IN,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 IN_ML,"Meghalaya",IN,state,2024,9,2.0,2.0,2.0,snpp,0,2,2,5
 IN_ML,"Meghalaya",IN,state,2024,10,5.0,5.0,5.0,snpp,0,5,5,26
@@ -21649,7 +21649,7 @@ IN_MN,"Manipur",IN,state,2004,12,150.9,121.7,273.6,terra+aqua,29,0,0,329
 IN_MN,"Manipur",IN,state,2005,1,154.2,124.4,279.7,terra+aqua,37,0,0,650
 IN_MN,"Manipur",IN,state,2005,2,948.6,765.5,1720.7,terra+aqua,275,0,0,8909
 IN_MN,"Manipur",IN,state,2005,3,694.2,560.2,1259.2,terra+aqua,291,0,0,67089
-IN_MN,"Manipur",IN,state,2005,4,2440.4,1969.4,4426.9,terra+aqua,778,0,0,244854
+IN_MN,"Manipur",IN,state,2005,4,2440.4,1969.4,4426.9,terra+aqua,778,0,0,244853
 IN_MN,"Manipur",IN,state,2005,5,15.7,12.7,28.5,terra+aqua,4,0,0,151
 IN_MN,"Manipur",IN,state,2005,6,31.7,25.6,57.5,terra+aqua,5,0,0,79
 IN_MN,"Manipur",IN,state,2005,7,0.0,0.0,0.0,terra+aqua,0,0,0,0
@@ -21698,7 +21698,7 @@ IN_MN,"Manipur",IN,state,2009,1,362.5,292.5,657.6,terra+aqua,87,0,0,1462
 IN_MN,"Manipur",IN,state,2009,2,1924.7,1553.2,3491.4,terra+aqua,558,0,0,36201
 IN_MN,"Manipur",IN,state,2009,3,3179.8,2566.1,5768.1,terra+aqua,1333,0,0,185735
 IN_MN,"Manipur",IN,state,2009,4,903.4,729.0,1638.8,terra+aqua,288,0,0,76108
-IN_MN,"Manipur",IN,state,2009,5,62.8,50.7,113.9,terra+aqua,16,0,0,495
+IN_MN,"Manipur",IN,state,2009,5,62.8,50.7,113.9,terra+aqua,16,0,0,494
 IN_MN,"Manipur",IN,state,2009,6,0.0,0.0,0.0,terra+aqua,0,0,0,0
 IN_MN,"Manipur",IN,state,2009,7,0.0,0.0,0.0,terra+aqua,0,0,0,0
 IN_MN,"Manipur",IN,state,2009,8,0.0,0.0,0.0,terra+aqua,0,0,0,0
@@ -21880,7 +21880,7 @@ IN_MN,"Manipur",IN,state,2024,3,1272.0,1272.0,1272.0,snpp,705,1272,1329,393733
 IN_MN,"Manipur",IN,state,2024,4,658.0,658.0,658.0,snpp,216,658,702,83280
 IN_MN,"Manipur",IN,state,2024,5,38.0,38.0,38.0,snpp,2,38,41,792
 IN_MN,"Manipur",IN,state,2024,6,1.0,1.0,1.0,snpp,0,1,2,10
-IN_MN,"Manipur",IN,state,2024,7,0.0,0.0,0.0,snpp,0,0,1,1
+IN_MN,"Manipur",IN,state,2024,7,0.9,0.7,1.1,noaa20 (S-NPP gap),0,0,1,1
 IN_MN,"Manipur",IN,state,2024,8,0.0,0.0,0.0,snpp,0,0,1,4
 IN_MN,"Manipur",IN,state,2024,9,3.0,3.0,3.0,snpp,0,3,1,16
 IN_MN,"Manipur",IN,state,2024,10,4.0,4.0,4.0,snpp,0,4,3,41
@@ -22193,7 +22193,7 @@ IN_MP,"Madhya Pradesh",IN,state,2024,3,3946.0,3946.0,3946.0,snpp,981,3946,4084,9
 IN_MP,"Madhya Pradesh",IN,state,2024,4,7537.0,7537.0,7537.0,snpp,1572,7537,7855,213077
 IN_MP,"Madhya Pradesh",IN,state,2024,5,2984.0,2984.0,2984.0,snpp,642,2984,3122,96325
 IN_MP,"Madhya Pradesh",IN,state,2024,6,311.0,311.0,311.0,snpp,32,311,404,9711
-IN_MP,"Madhya Pradesh",IN,state,2024,7,19.0,19.0,19.0,snpp,2,19,18,121
+IN_MP,"Madhya Pradesh",IN,state,2024,7,19.0,17.5,21.0,noaa20 (S-NPP gap),2,19,18,121
 IN_MP,"Madhya Pradesh",IN,state,2024,8,20.0,20.0,20.0,snpp,2,20,8,68
 IN_MP,"Madhya Pradesh",IN,state,2024,9,23.0,23.0,23.0,snpp,1,23,27,106
 IN_MP,"Madhya Pradesh",IN,state,2024,10,1575.0,1575.0,1575.0,snpp,220,1575,1717,21188
@@ -22506,7 +22506,7 @@ IN_MZ,"Mizoram",IN,state,2024,3,1713.0,1713.0,1713.0,snpp,1107,1713,1585,662757
 IN_MZ,"Mizoram",IN,state,2024,4,589.0,589.0,589.0,snpp,207,589,546,52326
 IN_MZ,"Mizoram",IN,state,2024,5,19.0,19.0,19.0,snpp,4,19,15,259
 IN_MZ,"Mizoram",IN,state,2024,6,0.0,0.0,0.0,snpp,0,0,1,5
-IN_MZ,"Mizoram",IN,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+IN_MZ,"Mizoram",IN,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 IN_MZ,"Mizoram",IN,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 IN_MZ,"Mizoram",IN,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 IN_MZ,"Mizoram",IN,state,2024,10,1.0,1.0,1.0,snpp,0,1,1,9
@@ -22819,7 +22819,7 @@ IN_NL,"Nagaland",IN,state,2024,3,660.0,660.0,660.0,snpp,311,660,643,104526
 IN_NL,"Nagaland",IN,state,2024,4,312.0,312.0,312.0,snpp,101,312,351,36004
 IN_NL,"Nagaland",IN,state,2024,5,41.0,41.0,41.0,snpp,4,41,32,641
 IN_NL,"Nagaland",IN,state,2024,6,0.0,0.0,0.0,snpp,0,0,0,0
-IN_NL,"Nagaland",IN,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+IN_NL,"Nagaland",IN,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 IN_NL,"Nagaland",IN,state,2024,8,1.0,1.0,1.0,snpp,0,1,0,2
 IN_NL,"Nagaland",IN,state,2024,9,2.0,2.0,2.0,snpp,0,2,1,13
 IN_NL,"Nagaland",IN,state,2024,10,0.0,0.0,0.0,snpp,0,0,3,8
@@ -23132,7 +23132,7 @@ IN_OR,"Odisha",IN,state,2024,3,2346.0,2346.0,2346.0,snpp,279,2346,2282,47970
 IN_OR,"Odisha",IN,state,2024,4,5839.0,5839.0,5839.0,snpp,677,5839,6095,137177
 IN_OR,"Odisha",IN,state,2024,5,1786.0,1786.0,1786.0,snpp,249,1786,1954,52358
 IN_OR,"Odisha",IN,state,2024,6,230.0,230.0,230.0,snpp,35,230,310,4307
-IN_OR,"Odisha",IN,state,2024,7,9.0,9.0,9.0,snpp,6,9,26,114
+IN_OR,"Odisha",IN,state,2024,7,22.2,18.3,26.9,noaa20 (S-NPP gap),6,9,26,114
 IN_OR,"Odisha",IN,state,2024,8,10.0,10.0,10.0,snpp,2,10,6,46
 IN_OR,"Odisha",IN,state,2024,9,34.0,34.0,34.0,snpp,13,34,51,284
 IN_OR,"Odisha",IN,state,2024,10,83.0,83.0,83.0,snpp,45,83,106,915
@@ -23445,7 +23445,7 @@ IN_PB,"Punjab",IN,state,2024,3,234.0,234.0,234.0,snpp,39,234,192,2957
 IN_PB,"Punjab",IN,state,2024,4,147.0,147.0,147.0,snpp,57,147,155,2987
 IN_PB,"Punjab",IN,state,2024,5,6393.0,6393.0,6393.0,snpp,1988,6393,6007,268545
 IN_PB,"Punjab",IN,state,2024,6,640.0,640.0,640.0,snpp,161,640,709,18436
-IN_PB,"Punjab",IN,state,2024,7,57.0,57.0,57.0,snpp,16,57,86,900
+IN_PB,"Punjab",IN,state,2024,7,74.5,60.0,93.6,noaa20 (S-NPP gap),16,57,86,900
 IN_PB,"Punjab",IN,state,2024,8,8.0,8.0,8.0,snpp,9,8,8,175
 IN_PB,"Punjab",IN,state,2024,9,139.0,139.0,139.0,snpp,22,139,146,2458
 IN_PB,"Punjab",IN,state,2024,10,1682.0,1682.0,1682.0,snpp,461,1682,1881,32995
@@ -23758,7 +23758,7 @@ IN_PY,"Puducherry",IN,state,2024,3,2.0,2.0,2.0,snpp,1,2,2,38
 IN_PY,"Puducherry",IN,state,2024,4,3.0,3.0,3.0,snpp,0,3,5,53
 IN_PY,"Puducherry",IN,state,2024,5,0.0,0.0,0.0,snpp,0,0,2,19
 IN_PY,"Puducherry",IN,state,2024,6,0.0,0.0,0.0,snpp,0,0,3,16
-IN_PY,"Puducherry",IN,state,2024,7,3.0,3.0,3.0,snpp,0,3,5,34
+IN_PY,"Puducherry",IN,state,2024,7,4.2,3.9,4.6,noaa20 (S-NPP gap),0,3,5,34
 IN_PY,"Puducherry",IN,state,2024,8,0.0,0.0,0.0,snpp,0,0,1,2
 IN_PY,"Puducherry",IN,state,2024,9,1.0,1.0,1.0,snpp,0,1,3,21
 IN_PY,"Puducherry",IN,state,2024,10,0.0,0.0,0.0,snpp,1,0,0,11
@@ -24071,7 +24071,7 @@ IN_RJ,"Rajasthan",IN,state,2024,3,930.0,930.0,930.0,snpp,132,930,956,18214
 IN_RJ,"Rajasthan",IN,state,2024,4,1268.0,1268.0,1268.0,snpp,270,1268,1391,33970
 IN_RJ,"Rajasthan",IN,state,2024,5,1042.0,1042.0,1042.0,snpp,188,1042,1021,29415
 IN_RJ,"Rajasthan",IN,state,2024,6,165.0,165.0,165.0,snpp,23,165,191,3762
-IN_RJ,"Rajasthan",IN,state,2024,7,20.0,20.0,20.0,snpp,23,20,26,896
+IN_RJ,"Rajasthan",IN,state,2024,7,21.7,19.0,24.2,noaa20 (S-NPP gap),23,20,26,896
 IN_RJ,"Rajasthan",IN,state,2024,8,16.0,16.0,16.0,snpp,19,16,14,469
 IN_RJ,"Rajasthan",IN,state,2024,9,43.0,43.0,43.0,snpp,15,43,37,641
 IN_RJ,"Rajasthan",IN,state,2024,10,741.0,741.0,741.0,snpp,146,741,797,17776
@@ -24384,7 +24384,7 @@ IN_SK,"Sikkim",IN,state,2024,3,55.0,55.0,55.0,snpp,14,55,69,1192
 IN_SK,"Sikkim",IN,state,2024,4,1.0,1.0,1.0,snpp,0,1,1,3
 IN_SK,"Sikkim",IN,state,2024,5,1.0,1.0,1.0,snpp,0,1,1,2
 IN_SK,"Sikkim",IN,state,2024,6,0.0,0.0,0.0,snpp,0,0,0,0
-IN_SK,"Sikkim",IN,state,2024,7,1.0,1.0,1.0,snpp,0,1,0,13
+IN_SK,"Sikkim",IN,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,1,0,13
 IN_SK,"Sikkim",IN,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 IN_SK,"Sikkim",IN,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 IN_SK,"Sikkim",IN,state,2024,10,0.0,0.0,0.0,snpp,0,0,0,0
@@ -24697,7 +24697,7 @@ IN_TG,"Telangana",IN,state,2024,3,2933.0,2933.0,2933.0,snpp,361,2933,2981,58568
 IN_TG,"Telangana",IN,state,2024,4,3213.0,3213.0,3213.0,snpp,378,3213,3310,66942
 IN_TG,"Telangana",IN,state,2024,5,1786.0,1786.0,1786.0,snpp,147,1786,1855,35685
 IN_TG,"Telangana",IN,state,2024,6,166.0,166.0,166.0,snpp,18,166,208,2430
-IN_TG,"Telangana",IN,state,2024,7,5.0,5.0,5.0,snpp,2,5,11,98
+IN_TG,"Telangana",IN,state,2024,7,9.2,7.9,10.5,noaa20 (S-NPP gap),2,5,11,98
 IN_TG,"Telangana",IN,state,2024,8,19.0,19.0,19.0,snpp,3,19,23,348
 IN_TG,"Telangana",IN,state,2024,9,40.0,40.0,40.0,snpp,2,40,38,235
 IN_TG,"Telangana",IN,state,2024,10,167.0,167.0,167.0,snpp,47,167,182,2441
@@ -25010,7 +25010,7 @@ IN_TN,"Tamil Nadu",IN,state,2024,3,2047.0,2047.0,2047.0,snpp,366,2047,2047,59878
 IN_TN,"Tamil Nadu",IN,state,2024,4,1828.0,1828.0,1828.0,snpp,286,1828,1894,73318
 IN_TN,"Tamil Nadu",IN,state,2024,5,419.0,419.0,419.0,snpp,47,419,498,8288
 IN_TN,"Tamil Nadu",IN,state,2024,6,138.0,138.0,138.0,snpp,13,138,176,1946
-IN_TN,"Tamil Nadu",IN,state,2024,7,128.0,128.0,128.0,snpp,27,128,246,2783
+IN_TN,"Tamil Nadu",IN,state,2024,7,197.4,159.1,238.3,noaa20 (S-NPP gap),27,128,246,2783
 IN_TN,"Tamil Nadu",IN,state,2024,8,155.0,155.0,155.0,snpp,22,155,176,2097
 IN_TN,"Tamil Nadu",IN,state,2024,9,378.0,378.0,378.0,snpp,29,378,426,5161
 IN_TN,"Tamil Nadu",IN,state,2024,10,117.0,117.0,117.0,snpp,23,117,128,1404
@@ -25323,7 +25323,7 @@ IN_TR,"Tripura",IN,state,2024,3,123.0,123.0,123.0,snpp,47,123,134,13127
 IN_TR,"Tripura",IN,state,2024,4,602.0,602.0,602.0,snpp,301,602,542,91562
 IN_TR,"Tripura",IN,state,2024,5,18.0,18.0,18.0,snpp,3,18,23,270
 IN_TR,"Tripura",IN,state,2024,6,0.0,0.0,0.0,snpp,0,0,0,0
-IN_TR,"Tripura",IN,state,2024,7,1.0,1.0,1.0,snpp,0,1,4,705
+IN_TR,"Tripura",IN,state,2024,7,3.3,3.0,3.9,noaa20 (S-NPP gap),0,1,4,705
 IN_TR,"Tripura",IN,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 IN_TR,"Tripura",IN,state,2024,9,2.0,2.0,2.0,snpp,0,2,1,13
 IN_TR,"Tripura",IN,state,2024,10,0.0,0.0,0.0,snpp,0,0,2,3
@@ -25636,7 +25636,7 @@ IN_UP,"Uttar Pradesh",IN,state,2024,3,829.0,829.0,829.0,snpp,191,829,835,13795
 IN_UP,"Uttar Pradesh",IN,state,2024,4,4617.0,4617.0,4617.0,snpp,1326,4617,5159,255336
 IN_UP,"Uttar Pradesh",IN,state,2024,5,3621.0,3621.0,3621.0,snpp,624,3621,3989,78362
 IN_UP,"Uttar Pradesh",IN,state,2024,6,471.0,471.0,471.0,snpp,75,471,584,11655
-IN_UP,"Uttar Pradesh",IN,state,2024,7,19.0,19.0,19.0,snpp,9,19,36,369
+IN_UP,"Uttar Pradesh",IN,state,2024,7,32.4,29.3,39.3,noaa20 (S-NPP gap),9,19,36,369
 IN_UP,"Uttar Pradesh",IN,state,2024,8,17.0,17.0,17.0,snpp,0,17,10,99
 IN_UP,"Uttar Pradesh",IN,state,2024,9,13.0,13.0,13.0,snpp,4,13,19,135
 IN_UP,"Uttar Pradesh",IN,state,2024,10,884.0,884.0,884.0,snpp,132,884,1095,9788
@@ -25949,7 +25949,7 @@ IN_UT,"Uttarakhand",IN,state,2024,3,396.0,396.0,396.0,snpp,57,396,392,5373
 IN_UT,"Uttarakhand",IN,state,2024,4,3167.0,3167.0,3167.0,snpp,571,3167,3331,67526
 IN_UT,"Uttarakhand",IN,state,2024,5,2180.0,2180.0,2180.0,snpp,604,2180,2553,70437
 IN_UT,"Uttarakhand",IN,state,2024,6,974.0,974.0,974.0,snpp,306,974,1156,36897
-IN_UT,"Uttarakhand",IN,state,2024,7,0.0,0.0,0.0,snpp,3,0,2,71
+IN_UT,"Uttarakhand",IN,state,2024,7,1.7,1.5,1.9,noaa20 (S-NPP gap),3,0,2,71
 IN_UT,"Uttarakhand",IN,state,2024,8,2.0,2.0,2.0,snpp,3,2,2,37
 IN_UT,"Uttarakhand",IN,state,2024,9,0.0,0.0,0.0,snpp,1,0,1,10
 IN_UT,"Uttarakhand",IN,state,2024,10,157.0,157.0,157.0,snpp,47,157,184,2857
@@ -26262,7 +26262,7 @@ IN_WB,"West Bengal",IN,state,2024,3,656.0,656.0,656.0,snpp,152,656,685,13267
 IN_WB,"West Bengal",IN,state,2024,4,998.0,998.0,998.0,snpp,204,998,1029,25345
 IN_WB,"West Bengal",IN,state,2024,5,288.0,288.0,288.0,snpp,40,288,290,4599
 IN_WB,"West Bengal",IN,state,2024,6,14.0,14.0,14.0,snpp,4,14,13,123
-IN_WB,"West Bengal",IN,state,2024,7,6.0,6.0,6.0,snpp,5,6,6,58
+IN_WB,"West Bengal",IN,state,2024,7,5.7,4.8,7.0,noaa20 (S-NPP gap),5,6,6,58
 IN_WB,"West Bengal",IN,state,2024,8,1.0,1.0,1.0,snpp,5,1,7,60
 IN_WB,"West Bengal",IN,state,2024,9,20.0,20.0,20.0,snpp,8,20,18,169
 IN_WB,"West Bengal",IN,state,2024,10,34.0,34.0,34.0,snpp,14,34,52,293
@@ -26357,7 +26357,7 @@ MM_01,"Sagaing",MM,state,2006,1,491.9,332.5,785.6,terra+aqua,117,0,0,11479
 MM_01,"Sagaing",MM,state,2006,2,978.0,661.1,1561.9,terra+aqua,209,0,0,10794
 MM_01,"Sagaing",MM,state,2006,3,8352.3,5646.1,13338.5,terra+aqua,1837,0,0,89827
 MM_01,"Sagaing",MM,state,2006,4,3452.2,2333.7,5513.2,terra+aqua,710,0,0,63064
-MM_01,"Sagaing",MM,state,2006,5,377.5,255.2,602.9,terra+aqua,74,0,0,16718
+MM_01,"Sagaing",MM,state,2006,5,377.5,255.2,602.9,terra+aqua,74,0,0,16719
 MM_01,"Sagaing",MM,state,2006,6,0.0,0.0,0.0,terra+aqua,0,0,0,0
 MM_01,"Sagaing",MM,state,2006,7,0.0,0.0,0.0,terra+aqua,0,0,0,0
 MM_01,"Sagaing",MM,state,2006,8,3.8,2.6,6.1,terra+aqua,1,0,0,7
@@ -26575,7 +26575,7 @@ MM_01,"Sagaing",MM,state,2024,3,5090.0,5090.0,5090.0,snpp,1098,5090,5564,186364
 MM_01,"Sagaing",MM,state,2024,4,6333.0,6333.0,6333.0,snpp,1481,6333,6748,219888
 MM_01,"Sagaing",MM,state,2024,5,391.0,391.0,391.0,snpp,72,391,440,10888
 MM_01,"Sagaing",MM,state,2024,6,20.0,20.0,20.0,snpp,7,20,17,470
-MM_01,"Sagaing",MM,state,2024,7,8.0,8.0,8.0,snpp,3,8,17,211
+MM_01,"Sagaing",MM,state,2024,7,12.2,10.5,14.8,noaa20 (S-NPP gap),3,8,17,211
 MM_01,"Sagaing",MM,state,2024,8,10.0,10.0,10.0,snpp,1,10,12,159
 MM_01,"Sagaing",MM,state,2024,9,15.0,15.0,15.0,snpp,11,15,18,450
 MM_01,"Sagaing",MM,state,2024,10,6.0,6.0,6.0,snpp,3,6,11,282
@@ -26888,7 +26888,7 @@ MM_02,"Bago",MM,state,2024,3,3310.0,3310.0,3310.0,snpp,738,3310,3422,151850
 MM_02,"Bago",MM,state,2024,4,1868.0,1868.0,1868.0,snpp,786,1868,1864,230852
 MM_02,"Bago",MM,state,2024,5,404.0,404.0,404.0,snpp,53,404,406,7799
 MM_02,"Bago",MM,state,2024,6,1.0,1.0,1.0,snpp,0,1,1,6
-MM_02,"Bago",MM,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+MM_02,"Bago",MM,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 MM_02,"Bago",MM,state,2024,8,0.0,0.0,0.0,snpp,2,0,4,414
 MM_02,"Bago",MM,state,2024,9,1.0,1.0,1.0,snpp,0,1,5,27
 MM_02,"Bago",MM,state,2024,10,20.0,20.0,20.0,snpp,5,20,32,227
@@ -27098,7 +27098,7 @@ MM_03,"Magway",MM,state,2015,8,26.0,26.0,26.0,snpp,2,26,0,137
 MM_03,"Magway",MM,state,2015,9,9.0,9.0,9.0,snpp,12,9,0,276
 MM_03,"Magway",MM,state,2015,10,0.0,0.0,0.0,snpp,6,0,0,81
 MM_03,"Magway",MM,state,2015,11,9.0,9.0,9.0,snpp,1,9,0,36
-MM_03,"Magway",MM,state,2015,12,44.0,44.0,44.0,snpp,12,44,0,375
+MM_03,"Magway",MM,state,2015,12,44.0,44.0,44.0,snpp,12,44,0,374
 MM_03,"Magway",MM,state,2016,1,578.0,578.0,578.0,snpp,123,578,0,4597
 MM_03,"Magway",MM,state,2016,2,3124.0,3124.0,3124.0,snpp,555,3124,0,42804
 MM_03,"Magway",MM,state,2016,3,5153.0,5153.0,5153.0,snpp,1231,5153,0,158435
@@ -27201,7 +27201,7 @@ MM_03,"Magway",MM,state,2024,3,5862.0,5862.0,5862.0,snpp,1540,5862,6064,302035
 MM_03,"Magway",MM,state,2024,4,2445.0,2445.0,2445.0,snpp,761,2445,2429,175939
 MM_03,"Magway",MM,state,2024,5,198.0,198.0,198.0,snpp,30,198,172,5097
 MM_03,"Magway",MM,state,2024,6,0.0,0.0,0.0,snpp,0,0,1,8
-MM_03,"Magway",MM,state,2024,7,3.0,3.0,3.0,snpp,0,3,5,20
+MM_03,"Magway",MM,state,2024,7,3.9,3.3,4.6,noaa20 (S-NPP gap),0,3,5,20
 MM_03,"Magway",MM,state,2024,8,3.0,3.0,3.0,snpp,1,3,2,60
 MM_03,"Magway",MM,state,2024,9,2.0,2.0,2.0,snpp,1,2,0,15
 MM_03,"Magway",MM,state,2024,10,8.0,8.0,8.0,snpp,2,8,6,47
@@ -27347,7 +27347,7 @@ MM_04,"Mandalay",MM,state,2010,4,1143.0,912.1,2133.9,terra+aqua,220,0,0,20294
 MM_04,"Mandalay",MM,state,2010,5,245.9,196.2,459.0,terra+aqua,31,0,0,1130
 MM_04,"Mandalay",MM,state,2010,6,0.0,0.0,0.0,terra+aqua,0,0,0,0
 MM_04,"Mandalay",MM,state,2010,7,0.0,0.0,0.0,terra+aqua,0,0,0,0
-MM_04,"Mandalay",MM,state,2010,8,10.1,8.1,18.9,terra+aqua,3,0,0,48
+MM_04,"Mandalay",MM,state,2010,8,10.1,8.1,18.9,terra+aqua,3,0,0,47
 MM_04,"Mandalay",MM,state,2010,9,16.8,13.4,31.4,terra+aqua,4,0,0,52
 MM_04,"Mandalay",MM,state,2010,10,0.0,0.0,0.0,terra+aqua,0,0,0,0
 MM_04,"Mandalay",MM,state,2010,11,18.9,15.1,35.3,terra+aqua,2,0,0,17
@@ -27514,7 +27514,7 @@ MM_04,"Mandalay",MM,state,2024,3,3599.0,3599.0,3599.0,snpp,624,3599,3896,114518
 MM_04,"Mandalay",MM,state,2024,4,1615.0,1615.0,1615.0,snpp,331,1615,1596,82689
 MM_04,"Mandalay",MM,state,2024,5,135.0,135.0,135.0,snpp,16,135,131,2432
 MM_04,"Mandalay",MM,state,2024,6,20.0,20.0,20.0,snpp,3,20,14,266
-MM_04,"Mandalay",MM,state,2024,7,10.0,10.0,10.0,snpp,0,10,15,159
+MM_04,"Mandalay",MM,state,2024,7,10.2,8.5,12.6,noaa20 (S-NPP gap),0,10,15,159
 MM_04,"Mandalay",MM,state,2024,8,2.0,2.0,2.0,snpp,0,2,3,17
 MM_04,"Mandalay",MM,state,2024,9,1.0,1.0,1.0,snpp,1,1,3,67
 MM_04,"Mandalay",MM,state,2024,10,5.0,5.0,5.0,snpp,1,5,6,51
@@ -27827,7 +27827,7 @@ MM_05,"Tanintharyi",MM,state,2024,3,486.0,486.0,486.0,snpp,147,486,516,28764
 MM_05,"Tanintharyi",MM,state,2024,4,1285.0,1285.0,1285.0,snpp,598,1285,1338,78190
 MM_05,"Tanintharyi",MM,state,2024,5,508.0,508.0,508.0,snpp,211,508,576,27824
 MM_05,"Tanintharyi",MM,state,2024,6,9.0,9.0,9.0,snpp,2,9,8,164
-MM_05,"Tanintharyi",MM,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+MM_05,"Tanintharyi",MM,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 MM_05,"Tanintharyi",MM,state,2024,8,0.0,0.0,0.0,snpp,0,0,1,5
 MM_05,"Tanintharyi",MM,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 MM_05,"Tanintharyi",MM,state,2024,10,3.0,3.0,3.0,snpp,2,3,2,23
@@ -28140,7 +28140,7 @@ MM_06,"Yangon",MM,state,2024,3,258.0,258.0,258.0,snpp,34,258,279,10708
 MM_06,"Yangon",MM,state,2024,4,299.0,299.0,299.0,snpp,58,299,315,7545
 MM_06,"Yangon",MM,state,2024,5,289.0,289.0,289.0,snpp,58,289,269,6966
 MM_06,"Yangon",MM,state,2024,6,0.0,0.0,0.0,snpp,2,0,0,24
-MM_06,"Yangon",MM,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+MM_06,"Yangon",MM,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 MM_06,"Yangon",MM,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 MM_06,"Yangon",MM,state,2024,9,0.0,0.0,0.0,snpp,1,0,0,16
 MM_06,"Yangon",MM,state,2024,10,0.0,0.0,0.0,snpp,1,0,4,32
@@ -28453,7 +28453,7 @@ MM_07,"Ayeyarwady",MM,state,2024,3,2361.0,2361.0,2361.0,snpp,465,2361,2388,75699
 MM_07,"Ayeyarwady",MM,state,2024,4,2227.0,2227.0,2227.0,snpp,359,2227,2306,65142
 MM_07,"Ayeyarwady",MM,state,2024,5,1601.0,1601.0,1601.0,snpp,234,1601,1627,39762
 MM_07,"Ayeyarwady",MM,state,2024,6,0.0,0.0,0.0,snpp,0,0,0,0
-MM_07,"Ayeyarwady",MM,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+MM_07,"Ayeyarwady",MM,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 MM_07,"Ayeyarwady",MM,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 MM_07,"Ayeyarwady",MM,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 MM_07,"Ayeyarwady",MM,state,2024,10,12.0,12.0,12.0,snpp,1,12,6,73
@@ -28766,7 +28766,7 @@ MM_11,"Kachin",MM,state,2024,3,1054.0,1054.0,1054.0,snpp,386,1054,1101,56475
 MM_11,"Kachin",MM,state,2024,4,2368.0,2368.0,2368.0,snpp,896,2368,2573,173533
 MM_11,"Kachin",MM,state,2024,5,612.0,612.0,612.0,snpp,126,612,608,27028
 MM_11,"Kachin",MM,state,2024,6,1.0,1.0,1.0,snpp,1,1,3,46
-MM_11,"Kachin",MM,state,2024,7,0.0,0.0,0.0,snpp,0,0,1,11
+MM_11,"Kachin",MM,state,2024,7,0.7,0.6,0.9,noaa20 (S-NPP gap),0,0,1,11
 MM_11,"Kachin",MM,state,2024,8,6.0,6.0,6.0,snpp,1,6,14,130
 MM_11,"Kachin",MM,state,2024,9,9.0,9.0,9.0,snpp,7,9,13,484
 MM_11,"Kachin",MM,state,2024,10,14.0,14.0,14.0,snpp,0,14,24,183
@@ -29079,7 +29079,7 @@ MM_12,"Kayah",MM,state,2024,3,2538.0,2538.0,2538.0,snpp,673,2538,2580,159178
 MM_12,"Kayah",MM,state,2024,4,613.0,613.0,613.0,snpp,140,613,656,43355
 MM_12,"Kayah",MM,state,2024,5,48.0,48.0,48.0,snpp,6,48,44,744
 MM_12,"Kayah",MM,state,2024,6,0.0,0.0,0.0,snpp,0,0,1,10
-MM_12,"Kayah",MM,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+MM_12,"Kayah",MM,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 MM_12,"Kayah",MM,state,2024,8,0.0,0.0,0.0,snpp,0,0,1,5
 MM_12,"Kayah",MM,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 MM_12,"Kayah",MM,state,2024,10,0.0,0.0,0.0,snpp,0,0,0,0
@@ -29392,7 +29392,7 @@ MM_13,"Kayin",MM,state,2024,3,2239.0,2239.0,2239.0,snpp,755,2239,2311,179773
 MM_13,"Kayin",MM,state,2024,4,2393.0,2393.0,2393.0,snpp,1136,2393,2294,370442
 MM_13,"Kayin",MM,state,2024,5,285.0,285.0,285.0,snpp,54,285,297,5231
 MM_13,"Kayin",MM,state,2024,6,0.0,0.0,0.0,snpp,0,0,0,0
-MM_13,"Kayin",MM,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+MM_13,"Kayin",MM,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 MM_13,"Kayin",MM,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 MM_13,"Kayin",MM,state,2024,9,0.0,0.0,0.0,snpp,0,0,1,2
 MM_13,"Kayin",MM,state,2024,10,2.0,2.0,2.0,snpp,0,2,1,14
@@ -29705,7 +29705,7 @@ MM_14,"Chin",MM,state,2024,3,2078.0,2078.0,2078.0,snpp,717,2078,2158,313121
 MM_14,"Chin",MM,state,2024,4,3713.0,3713.0,3713.0,snpp,1236,3713,3873,648298
 MM_14,"Chin",MM,state,2024,5,79.0,79.0,79.0,snpp,28,79,88,3527
 MM_14,"Chin",MM,state,2024,6,0.0,0.0,0.0,snpp,0,0,3,10
-MM_14,"Chin",MM,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+MM_14,"Chin",MM,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 MM_14,"Chin",MM,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 MM_14,"Chin",MM,state,2024,9,1.0,1.0,1.0,snpp,0,1,0,4
 MM_14,"Chin",MM,state,2024,10,2.0,2.0,2.0,snpp,0,2,0,9
@@ -30018,7 +30018,7 @@ MM_15,"Mon",MM,state,2024,3,402.0,402.0,402.0,snpp,81,402,393,10009
 MM_15,"Mon",MM,state,2024,4,417.0,417.0,417.0,snpp,168,417,414,27005
 MM_15,"Mon",MM,state,2024,5,113.0,113.0,113.0,snpp,31,113,126,2576
 MM_15,"Mon",MM,state,2024,6,0.0,0.0,0.0,snpp,0,0,0,0
-MM_15,"Mon",MM,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+MM_15,"Mon",MM,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 MM_15,"Mon",MM,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 MM_15,"Mon",MM,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 MM_15,"Mon",MM,state,2024,10,0.0,0.0,0.0,snpp,0,0,3,6
@@ -30331,7 +30331,7 @@ MM_16,"Rakhine",MM,state,2024,3,1358.0,1358.0,1358.0,snpp,226,1358,1406,51433
 MM_16,"Rakhine",MM,state,2024,4,2121.0,2121.0,2121.0,snpp,676,2121,2117,258907
 MM_16,"Rakhine",MM,state,2024,5,1023.0,1023.0,1023.0,snpp,259,1023,1050,54734
 MM_16,"Rakhine",MM,state,2024,6,1.0,1.0,1.0,snpp,0,1,2,13
-MM_16,"Rakhine",MM,state,2024,7,1.0,1.0,1.0,snpp,0,1,0,2
+MM_16,"Rakhine",MM,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,1,0,2
 MM_16,"Rakhine",MM,state,2024,8,1.0,1.0,1.0,snpp,0,1,0,5
 MM_16,"Rakhine",MM,state,2024,9,1.0,1.0,1.0,snpp,0,1,0,5
 MM_16,"Rakhine",MM,state,2024,10,5.0,5.0,5.0,snpp,0,5,3,41
@@ -30455,7 +30455,7 @@ MM_17,"Shan",MM,state,2008,6,3.5,2.6,5.9,terra+aqua,1,0,0,8
 MM_17,"Shan",MM,state,2008,7,0.0,0.0,0.0,terra+aqua,0,0,0,0
 MM_17,"Shan",MM,state,2008,8,3.5,2.6,5.9,terra+aqua,1,0,0,15
 MM_17,"Shan",MM,state,2008,9,15.3,11.3,25.9,terra+aqua,3,0,0,21
-MM_17,"Shan",MM,state,2008,10,62.9,46.6,106.6,terra+aqua,8,0,0,93
+MM_17,"Shan",MM,state,2008,10,62.9,46.6,106.6,terra+aqua,8,0,0,92
 MM_17,"Shan",MM,state,2008,11,477.8,354.5,810.4,terra+aqua,54,0,0,854
 MM_17,"Shan",MM,state,2008,12,284.9,211.4,483.2,terra+aqua,49,0,0,838
 MM_17,"Shan",MM,state,2009,1,1725.3,1280.2,2926.1,terra+aqua,385,0,0,7198
@@ -30644,7 +30644,7 @@ MM_17,"Shan",MM,state,2024,3,21278.0,21278.0,21278.0,snpp,5353,21278,22082,12318
 MM_17,"Shan",MM,state,2024,4,14680.0,14680.0,14680.0,snpp,4176,14680,14826,1244815
 MM_17,"Shan",MM,state,2024,5,1027.0,1027.0,1027.0,snpp,106,1027,1070,18536
 MM_17,"Shan",MM,state,2024,6,19.0,19.0,19.0,snpp,5,19,14,279
-MM_17,"Shan",MM,state,2024,7,1.0,1.0,1.0,snpp,2,1,8,64
+MM_17,"Shan",MM,state,2024,7,5.8,4.8,7.3,noaa20 (S-NPP gap),2,1,8,64
 MM_17,"Shan",MM,state,2024,8,4.0,4.0,4.0,snpp,3,4,6,467
 MM_17,"Shan",MM,state,2024,9,30.0,30.0,30.0,snpp,5,30,41,402
 MM_17,"Shan",MM,state,2024,10,65.0,65.0,65.0,snpp,5,65,65,689
@@ -30670,7 +30670,7 @@ MM_17,"Shan",MM,state,2026,5,234.0,195.4,298.3,noaa20,64,227,235,9427
 MM_17,"Shan",MM,state,2026,6,36.8,30.8,47.0,noaa20,4,27,35,893
 MM_17,"Shan",MM,state,2026,7,0.7,0.6,0.9,noaa20,1,6,1,122
 MM_17,"Shan",MM,state,2026,8,6.5,5.5,8.3,noaa20,0,9,8,126
-MM_17,"Shan",MM,state,2026,9,96.8,80.8,123.4,noaa20,12,93,106,1705
+MM_17,"Shan",MM,state,2026,9,96.8,80.8,123.4,noaa20,12,93,106,1704
 MM_17,"Shan",MM,state,2026,10,246.2,205.6,313.9,noaa20,23,162,248,3982
 MM_17,"Shan",MM,state,2026,11,29.8,24.9,38.0,noaa20,5,7,32,552
 NP_BA,"Bagmati",NP,state,2000,11,0.0,0.0,0.0,terra,0,0,0,0
@@ -30957,7 +30957,7 @@ NP_BA,"Bagmati",NP,state,2024,3,206.0,206.0,206.0,snpp,39,206,218,4427
 NP_BA,"Bagmati",NP,state,2024,4,728.0,728.0,728.0,snpp,96,728,723,11667
 NP_BA,"Bagmati",NP,state,2024,5,199.0,199.0,199.0,snpp,34,199,228,7594
 NP_BA,"Bagmati",NP,state,2024,6,2.0,2.0,2.0,snpp,0,2,0,19
-NP_BA,"Bagmati",NP,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+NP_BA,"Bagmati",NP,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 NP_BA,"Bagmati",NP,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP_BA,"Bagmati",NP,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 NP_BA,"Bagmati",NP,state,2024,10,0.0,0.0,0.0,snpp,0,0,0,0
@@ -31088,7 +31088,7 @@ NP_BH,"Bheri",NP,state,2009,1,20.0,14.1,36.1,terra+aqua,6,0,0,89
 NP_BH,"Bheri",NP,state,2009,2,69.1,48.5,124.6,terra+aqua,18,0,0,749
 NP_BH,"Bheri",NP,state,2009,3,185.3,130.1,334.0,terra+aqua,45,0,0,849
 NP_BH,"Bheri",NP,state,2009,4,1317.0,924.5,2374.5,terra+aqua,377,0,0,7990
-NP_BH,"Bheri",NP,state,2009,5,95.4,67.0,172.1,terra+aqua,24,0,0,887
+NP_BH,"Bheri",NP,state,2009,5,95.4,67.0,172.1,terra+aqua,24,0,0,888
 NP_BH,"Bheri",NP,state,2009,6,16.1,11.3,29.0,terra+aqua,3,0,0,38
 NP_BH,"Bheri",NP,state,2009,7,2.4,1.7,4.3,terra+aqua,1,0,0,14
 NP_BH,"Bheri",NP,state,2009,8,0.0,0.0,0.0,terra+aqua,0,0,0,0
@@ -31270,7 +31270,7 @@ NP_BH,"Bheri",NP,state,2024,3,63.0,63.0,63.0,snpp,11,63,76,1523
 NP_BH,"Bheri",NP,state,2024,4,2104.0,2104.0,2104.0,snpp,566,2104,2156,61377
 NP_BH,"Bheri",NP,state,2024,5,413.0,413.0,413.0,snpp,114,413,443,11397
 NP_BH,"Bheri",NP,state,2024,6,49.0,49.0,49.0,snpp,7,49,51,975
-NP_BH,"Bheri",NP,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+NP_BH,"Bheri",NP,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 NP_BH,"Bheri",NP,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP_BH,"Bheri",NP,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 NP_BH,"Bheri",NP,state,2024,10,7.0,7.0,7.0,snpp,2,7,4,138
@@ -31583,7 +31583,7 @@ NP_DH,"Dhawalagiri",NP,state,2024,3,55.0,55.0,55.0,snpp,12,55,60,1286
 NP_DH,"Dhawalagiri",NP,state,2024,4,249.0,249.0,249.0,snpp,58,249,253,7960
 NP_DH,"Dhawalagiri",NP,state,2024,5,83.0,83.0,83.0,snpp,25,83,88,2332
 NP_DH,"Dhawalagiri",NP,state,2024,6,2.0,2.0,2.0,snpp,0,2,3,36
-NP_DH,"Dhawalagiri",NP,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+NP_DH,"Dhawalagiri",NP,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 NP_DH,"Dhawalagiri",NP,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP_DH,"Dhawalagiri",NP,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 NP_DH,"Dhawalagiri",NP,state,2024,10,0.0,0.0,0.0,snpp,0,0,0,0
@@ -31896,7 +31896,7 @@ NP_GA,"Gandaki",NP,state,2024,3,181.0,181.0,181.0,snpp,25,181,171,3177
 NP_GA,"Gandaki",NP,state,2024,4,449.0,449.0,449.0,snpp,50,449,479,5298
 NP_GA,"Gandaki",NP,state,2024,5,219.0,219.0,219.0,snpp,26,219,220,2576
 NP_GA,"Gandaki",NP,state,2024,6,2.0,2.0,2.0,snpp,0,2,3,24
-NP_GA,"Gandaki",NP,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+NP_GA,"Gandaki",NP,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 NP_GA,"Gandaki",NP,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP_GA,"Gandaki",NP,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 NP_GA,"Gandaki",NP,state,2024,10,0.0,0.0,0.0,snpp,1,0,1,16
@@ -32209,7 +32209,7 @@ NP_JA,"Janakpur",NP,state,2024,3,228.0,228.0,228.0,snpp,79,228,271,5550
 NP_JA,"Janakpur",NP,state,2024,4,778.0,778.0,778.0,snpp,137,778,811,16593
 NP_JA,"Janakpur",NP,state,2024,5,181.0,181.0,181.0,snpp,50,181,186,6068
 NP_JA,"Janakpur",NP,state,2024,6,1.0,1.0,1.0,snpp,0,1,0,4
-NP_JA,"Janakpur",NP,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+NP_JA,"Janakpur",NP,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 NP_JA,"Janakpur",NP,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP_JA,"Janakpur",NP,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 NP_JA,"Janakpur",NP,state,2024,10,0.0,0.0,0.0,snpp,2,0,2,15
@@ -32522,7 +32522,7 @@ NP_KA,"Karnali",NP,state,2024,3,30.0,30.0,30.0,snpp,5,30,64,1325
 NP_KA,"Karnali",NP,state,2024,4,138.0,138.0,138.0,snpp,25,138,146,8277
 NP_KA,"Karnali",NP,state,2024,5,75.0,75.0,75.0,snpp,18,75,87,4078
 NP_KA,"Karnali",NP,state,2024,6,50.0,50.0,50.0,snpp,8,50,38,1867
-NP_KA,"Karnali",NP,state,2024,7,1.0,1.0,1.0,snpp,0,1,0,12
+NP_KA,"Karnali",NP,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,1,0,12
 NP_KA,"Karnali",NP,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP_KA,"Karnali",NP,state,2024,9,0.0,0.0,0.0,snpp,1,0,0,14
 NP_KA,"Karnali",NP,state,2024,10,4.0,4.0,4.0,snpp,1,4,2,279
@@ -32746,7 +32746,7 @@ NP_KO,"Bhojpur",NP,state,2016,10,0.0,0.0,0.0,snpp,2,0,0,16
 NP_KO,"Bhojpur",NP,state,2016,11,5.0,5.0,5.0,snpp,1,5,0,126
 NP_KO,"Bhojpur",NP,state,2016,12,11.0,11.0,11.0,snpp,3,11,0,344
 NP_KO,"Bhojpur",NP,state,2017,1,19.0,19.0,19.0,snpp,8,19,0,263
-NP_KO,"Bhojpur",NP,state,2017,2,32.0,32.0,32.0,snpp,6,32,0,414
+NP_KO,"Bhojpur",NP,state,2017,2,32.0,32.0,32.0,snpp,6,32,0,413
 NP_KO,"Bhojpur",NP,state,2017,3,33.0,33.0,33.0,snpp,11,33,0,697
 NP_KO,"Bhojpur",NP,state,2017,4,87.0,87.0,87.0,snpp,24,87,0,1322
 NP_KO,"Bhojpur",NP,state,2017,5,6.0,6.0,6.0,snpp,0,6,0,28
@@ -32835,7 +32835,7 @@ NP_KO,"Bhojpur",NP,state,2024,3,262.0,262.0,262.0,snpp,70,262,287,8298
 NP_KO,"Bhojpur",NP,state,2024,4,287.0,287.0,287.0,snpp,48,287,299,4766
 NP_KO,"Bhojpur",NP,state,2024,5,159.0,159.0,159.0,snpp,17,159,132,1736
 NP_KO,"Bhojpur",NP,state,2024,6,0.0,0.0,0.0,snpp,0,0,0,0
-NP_KO,"Bhojpur",NP,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+NP_KO,"Bhojpur",NP,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 NP_KO,"Bhojpur",NP,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP_KO,"Bhojpur",NP,state,2024,9,0.0,0.0,0.0,snpp,0,0,2,8
 NP_KO,"Bhojpur",NP,state,2024,10,1.0,1.0,1.0,snpp,0,1,2,4
@@ -33148,7 +33148,7 @@ NP_LU,"Lumbini",NP,state,2024,3,78.0,78.0,78.0,snpp,10,78,58,1059
 NP_LU,"Lumbini",NP,state,2024,4,1504.0,1504.0,1504.0,snpp,346,1504,1594,42526
 NP_LU,"Lumbini",NP,state,2024,5,209.0,209.0,209.0,snpp,54,209,255,6216
 NP_LU,"Lumbini",NP,state,2024,6,4.0,4.0,4.0,snpp,0,4,4,38
-NP_LU,"Lumbini",NP,state,2024,7,0.0,0.0,0.0,snpp,0,0,1,5
+NP_LU,"Lumbini",NP,state,2024,7,0.9,0.8,1.4,noaa20 (S-NPP gap),0,0,1,5
 NP_LU,"Lumbini",NP,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP_LU,"Lumbini",NP,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 NP_LU,"Lumbini",NP,state,2024,10,5.0,5.0,5.0,snpp,0,5,4,25
@@ -33461,7 +33461,7 @@ NP_MA,"Mahakali",NP,state,2024,3,47.0,47.0,47.0,snpp,16,47,55,3463
 NP_MA,"Mahakali",NP,state,2024,4,918.0,918.0,918.0,snpp,208,918,961,22012
 NP_MA,"Mahakali",NP,state,2024,5,294.0,294.0,294.0,snpp,62,294,320,7066
 NP_MA,"Mahakali",NP,state,2024,6,31.0,31.0,31.0,snpp,2,31,27,698
-NP_MA,"Mahakali",NP,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+NP_MA,"Mahakali",NP,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 NP_MA,"Mahakali",NP,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP_MA,"Mahakali",NP,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 NP_MA,"Mahakali",NP,state,2024,10,0.0,0.0,0.0,snpp,0,0,0,0
@@ -33774,7 +33774,7 @@ NP_ME,"Mechi",NP,state,2024,3,230.0,230.0,230.0,snpp,56,230,261,7901
 NP_ME,"Mechi",NP,state,2024,4,145.0,145.0,145.0,snpp,27,145,136,2759
 NP_ME,"Mechi",NP,state,2024,5,79.0,79.0,79.0,snpp,13,79,77,1387
 NP_ME,"Mechi",NP,state,2024,6,0.0,0.0,0.0,snpp,0,0,0,0
-NP_ME,"Mechi",NP,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+NP_ME,"Mechi",NP,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 NP_ME,"Mechi",NP,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP_ME,"Mechi",NP,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 NP_ME,"Mechi",NP,state,2024,10,0.0,0.0,0.0,snpp,0,0,0,0
@@ -33856,7 +33856,7 @@ NP_NA,"Narayani",NP,state,2004,12,17.3,12.7,29.1,terra+aqua,4,0,0,46
 NP_NA,"Narayani",NP,state,2005,1,3.6,2.6,6.0,terra+aqua,1,0,0,5
 NP_NA,"Narayani",NP,state,2005,2,75.3,55.5,127.0,terra+aqua,22,0,0,1189
 NP_NA,"Narayani",NP,state,2005,3,191.8,141.4,323.2,terra+aqua,53,0,0,985
-NP_NA,"Narayani",NP,state,2005,4,710.3,523.5,1196.9,terra+aqua,152,0,0,3745
+NP_NA,"Narayani",NP,state,2005,4,710.3,523.5,1196.9,terra+aqua,152,0,0,3744
 NP_NA,"Narayani",NP,state,2005,5,0.0,0.0,0.0,terra+aqua,0,0,0,0
 NP_NA,"Narayani",NP,state,2005,6,5.4,4.0,9.1,terra+aqua,1,0,0,11
 NP_NA,"Narayani",NP,state,2005,7,0.0,0.0,0.0,terra+aqua,0,0,0,0
@@ -34087,7 +34087,7 @@ NP_NA,"Narayani",NP,state,2024,3,275.0,275.0,275.0,snpp,80,275,257,7585
 NP_NA,"Narayani",NP,state,2024,4,1392.0,1392.0,1392.0,snpp,310,1392,1445,45665
 NP_NA,"Narayani",NP,state,2024,5,171.0,171.0,171.0,snpp,22,171,177,2085
 NP_NA,"Narayani",NP,state,2024,6,0.0,0.0,0.0,snpp,0,0,2,8
-NP_NA,"Narayani",NP,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+NP_NA,"Narayani",NP,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 NP_NA,"Narayani",NP,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP_NA,"Narayani",NP,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 NP_NA,"Narayani",NP,state,2024,10,2.0,2.0,2.0,snpp,0,2,2,10
@@ -34400,7 +34400,7 @@ NP_RA,"Rapti",NP,state,2024,3,56.0,56.0,56.0,snpp,12,56,56,1367
 NP_RA,"Rapti",NP,state,2024,4,1312.0,1312.0,1312.0,snpp,424,1312,1396,59286
 NP_RA,"Rapti",NP,state,2024,5,204.0,204.0,204.0,snpp,78,204,209,12404
 NP_RA,"Rapti",NP,state,2024,6,28.0,28.0,28.0,snpp,6,28,32,637
-NP_RA,"Rapti",NP,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+NP_RA,"Rapti",NP,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 NP_RA,"Rapti",NP,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP_RA,"Rapti",NP,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 NP_RA,"Rapti",NP,state,2024,10,1.0,1.0,1.0,snpp,1,1,3,61
@@ -34713,7 +34713,7 @@ NP_SA,"Sagarmatha",NP,state,2024,3,288.0,288.0,288.0,snpp,83,288,332,8776
 NP_SA,"Sagarmatha",NP,state,2024,4,550.0,550.0,550.0,snpp,119,550,589,14347
 NP_SA,"Sagarmatha",NP,state,2024,5,161.0,161.0,161.0,snpp,29,161,176,5125
 NP_SA,"Sagarmatha",NP,state,2024,6,1.0,1.0,1.0,snpp,1,1,4,66
-NP_SA,"Sagarmatha",NP,state,2024,7,0.0,0.0,0.0,snpp,0,0,2,11
+NP_SA,"Sagarmatha",NP,state,2024,7,1.9,1.7,2.3,noaa20 (S-NPP gap),0,0,2,11
 NP_SA,"Sagarmatha",NP,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP_SA,"Sagarmatha",NP,state,2024,9,0.0,0.0,0.0,snpp,0,0,0,0
 NP_SA,"Sagarmatha",NP,state,2024,10,0.0,0.0,0.0,snpp,0,0,0,0
@@ -35026,7 +35026,7 @@ NP_SE,"Seti",NP,state,2024,3,61.0,61.0,61.0,snpp,7,61,46,839
 NP_SE,"Seti",NP,state,2024,4,1410.0,1410.0,1410.0,snpp,310,1410,1511,33806
 NP_SE,"Seti",NP,state,2024,5,506.0,506.0,506.0,snpp,126,506,516,13149
 NP_SE,"Seti",NP,state,2024,6,36.0,36.0,36.0,snpp,6,36,35,1027
-NP_SE,"Seti",NP,state,2024,7,0.0,0.0,0.0,snpp,0,0,0,0
+NP_SE,"Seti",NP,state,2024,7,0.0,0.0,0.0,noaa20 (S-NPP gap),0,0,0,0
 NP_SE,"Seti",NP,state,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP_SE,"Seti",NP,state,2024,9,0.0,0.0,0.0,snpp,2,0,0,16
 NP_SE,"Seti",NP,state,2024,10,1.0,1.0,1.0,snpp,0,1,6,34
@@ -35093,7 +35093,7 @@ AU,"Australia",AU,country,2003,9,21068.2,18645.4,23954.6,terra+aqua,10066,0,0,12
 AU,"Australia",AU,country,2003,10,20761.5,18373.9,23605.8,terra+aqua,12170,0,0,2353852
 AU,"Australia",AU,country,2003,11,19542.7,17295.3,22220.0,terra+aqua,10985,0,0,2215610
 AU,"Australia",AU,country,2003,12,6835.3,6049.3,7771.8,terra+aqua,3706,0,0,619891
-AU,"Australia",AU,country,2004,1,4198.0,3715.2,4773.1,terra+aqua,2151,0,0,440854
+AU,"Australia",AU,country,2004,1,4198.0,3715.2,4773.1,terra+aqua,2151,0,0,440855
 AU,"Australia",AU,country,2004,2,2374.6,2101.5,2699.9,terra+aqua,1023,0,0,87343
 AU,"Australia",AU,country,2004,3,6191.2,5479.2,7039.4,terra+aqua,2896,0,0,298402
 AU,"Australia",AU,country,2004,4,18053.1,15977.0,20526.4,terra+aqua,8316,0,0,706445
@@ -35339,7 +35339,7 @@ AU,"Australia",AU,country,2024,3,4999.0,4999.0,4999.0,snpp,2452,4999,4820,673231
 AU,"Australia",AU,country,2024,4,20491.0,20491.0,20491.0,snpp,10044,20491,20748,2378980
 AU,"Australia",AU,country,2024,5,21214.0,21214.0,21214.0,snpp,9766,21214,22394,2138050
 AU,"Australia",AU,country,2024,6,14402.0,14402.0,14402.0,snpp,6912,14402,15648,1534614
-AU,"Australia",AU,country,2024,7,11427.0,11427.0,11427.0,snpp,7818,11427,17822,1573183
+AU,"Australia",AU,country,2024,7,16494.1,16065.2,17318.8,noaa20 (S-NPP gap),7818,11427,17822,1573183
 AU,"Australia",AU,country,2024,8,16047.0,16047.0,16047.0,snpp,7249,16047,16390,1877207
 AU,"Australia",AU,country,2024,9,15004.0,15004.0,15004.0,snpp,7393,15004,15896,2728340
 AU,"Australia",AU,country,2024,10,23050.0,23050.0,23050.0,snpp,13430,23050,23343,7678383
@@ -35652,7 +35652,7 @@ BD,"Bangladesh",BD,country,2024,3,379.0,379.0,379.0,snpp,77,379,395,13506
 BD,"Bangladesh",BD,country,2024,4,1827.0,1827.0,1827.0,snpp,827,1827,1823,305843
 BD,"Bangladesh",BD,country,2024,5,136.0,136.0,136.0,snpp,37,136,160,2986
 BD,"Bangladesh",BD,country,2024,6,3.0,3.0,3.0,snpp,7,3,8,109
-BD,"Bangladesh",BD,country,2024,7,3.0,3.0,3.0,snpp,2,3,4,165
+BD,"Bangladesh",BD,country,2024,7,3.8,3.1,4.6,noaa20 (S-NPP gap),2,3,4,165
 BD,"Bangladesh",BD,country,2024,8,12.0,12.0,12.0,snpp,7,12,10,285
 BD,"Bangladesh",BD,country,2024,9,5.0,5.0,5.0,snpp,4,5,10,78
 BD,"Bangladesh",BD,country,2024,10,13.0,13.0,13.0,snpp,1,13,24,155
@@ -35965,7 +35965,7 @@ ID,"Indonesia",ID,country,2024,3,1674.0,1674.0,1674.0,snpp,429,1674,1824,49065
 ID,"Indonesia",ID,country,2024,4,1510.0,1510.0,1510.0,snpp,476,1510,1634,42598
 ID,"Indonesia",ID,country,2024,5,1160.0,1160.0,1160.0,snpp,278,1160,1296,17816
 ID,"Indonesia",ID,country,2024,6,1803.0,1803.0,1803.0,snpp,334,1803,1912,29335
-ID,"Indonesia",ID,country,2024,7,3303.0,3303.0,3303.0,snpp,1857,3303,8111,185300
+ID,"Indonesia",ID,country,2024,7,7020.8,6339.8,7898.4,noaa20 (S-NPP gap),1857,3303,8111,185300
 ID,"Indonesia",ID,country,2024,8,8595.0,8595.0,8595.0,snpp,1818,8595,9261,254633
 ID,"Indonesia",ID,country,2024,9,16251.0,16251.0,16251.0,snpp,4576,16251,17054,693573
 ID,"Indonesia",ID,country,2024,10,11727.0,11727.0,11727.0,snpp,2403,11727,12213,356413
@@ -36278,7 +36278,7 @@ IN,"India",IN,country,2024,3,38319.0,38319.0,38319.0,snpp,8814,38319,39161,20368
 IN,"India",IN,country,2024,4,53867.0,53867.0,53867.0,snpp,10246,53867,56475,1904361
 IN,"India",IN,country,2024,5,32713.0,32713.0,32713.0,snpp,6996,32713,34496,1003166
 IN,"India",IN,country,2024,6,6224.0,6224.0,6224.0,snpp,1431,6224,8002,178185
-IN,"India",IN,country,2024,7,357.0,357.0,357.0,snpp,128,357,658,7970
+IN,"India",IN,country,2024,7,556.6,519.9,607.8,noaa20 (S-NPP gap),128,357,658,7970
 IN,"India",IN,country,2024,8,424.0,424.0,424.0,snpp,109,424,446,5256
 IN,"India",IN,country,2024,9,1230.0,1230.0,1230.0,snpp,200,1230,1348,15656
 IN,"India",IN,country,2024,10,7064.0,7064.0,7064.0,snpp,1502,7064,7976,115685
@@ -36591,7 +36591,7 @@ MM,"Myanmar",MM,country,2024,3,51913.0,51913.0,51913.0,snpp,12837,51913,54160,28
 MM,"Myanmar",MM,country,2024,4,42377.0,42377.0,42377.0,snpp,12802,42377,43349,3626601
 MM,"Myanmar",MM,country,2024,5,6713.0,6713.0,6713.0,snpp,1284,6713,6904,213144
 MM,"Myanmar",MM,country,2024,6,71.0,71.0,71.0,snpp,20,71,64,1297
-MM,"Myanmar",MM,country,2024,7,23.0,23.0,23.0,snpp,5,23,46,467
+MM,"Myanmar",MM,country,2024,7,32.8,26.7,38.9,noaa20 (S-NPP gap),5,23,46,467
 MM,"Myanmar",MM,country,2024,8,26.0,26.0,26.0,snpp,8,26,43,1262
 MM,"Myanmar",MM,country,2024,9,60.0,60.0,60.0,snpp,26,60,81,1471
 MM,"Myanmar",MM,country,2024,10,142.0,142.0,142.0,snpp,20,142,163,1677
@@ -36904,7 +36904,7 @@ NP,"Nepal",NP,country,2024,3,2060.0,2060.0,2060.0,snpp,505,2060,2212,56574
 NP,"Nepal",NP,country,2024,4,11964.0,11964.0,11964.0,snpp,2724,11964,12499,336340
 NP,"Nepal",NP,country,2024,5,2953.0,2953.0,2953.0,snpp,668,2953,3114,83212
 NP,"Nepal",NP,country,2024,6,206.0,206.0,206.0,snpp,30,206,199,5397
-NP,"Nepal",NP,country,2024,7,1.0,1.0,1.0,snpp,0,1,3,28
+NP,"Nepal",NP,country,2024,7,2.9,2.6,3.2,noaa20 (S-NPP gap),0,1,3,28
 NP,"Nepal",NP,country,2024,8,0.0,0.0,0.0,snpp,0,0,0,0
 NP,"Nepal",NP,country,2024,9,0.0,0.0,0.0,snpp,3,0,2,38
 NP,"Nepal",NP,country,2024,10,21.0,21.0,21.0,snpp,7,21,26,581
@@ -37217,7 +37217,7 @@ ALL,"All countries",,all,2024,3,99344.0,99344.0,99344.0,snpp,25114,99344,102572,
 ALL,"All countries",,all,2024,4,132036.0,132036.0,132036.0,snpp,37119,132036,136528,8594722
 ALL,"All countries",,all,2024,5,64889.0,64889.0,64889.0,snpp,19029,64889,68364,3458374
 ALL,"All countries",,all,2024,6,22709.0,22709.0,22709.0,snpp,8734,22709,25833,1748936
-ALL,"All countries",,all,2024,7,15114.0,15114.0,15114.0,snpp,9810,15114,26644,1767112
+ALL,"All countries",,all,2024,7,24110.9,23267.0,25340.6,noaa20 (S-NPP gap),9810,15114,26644,1767112
 ALL,"All countries",,all,2024,8,25104.0,25104.0,25104.0,snpp,9191,25104,26150,2138642
 ALL,"All countries",,all,2024,9,32550.0,32550.0,32550.0,snpp,12202,32550,34391,3439157
 ALL,"All countries",,all,2024,10,42017.0,42017.0,42017.0,snpp,17363,42017,43745,8152894

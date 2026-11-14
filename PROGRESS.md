@@ -26,8 +26,12 @@ dark version). Everything since is uncommitted. Not deployed, not pushed to GitH
   (3.7× chance), catches 33% of severe periods; "above normal" level catches 51%, right 27%.
 - NSW 2019: warning first fired 29 October, 64 days before the peak.
 - Uncertainty ranges per state exported and shown (calendar tooltip, band on the sensor chart).
-- Burned-area check (GFED5, 98 states, 2003–2020): step at 2012 is 1.00 harmonized vs 4.11 raw splice;
-  93% of states within 25% vs 0%; year rank correlation 0.92 vs 0.51.
+- Burned-area check (GFED5, 98 states, 2003–2020): step at 2012 is 1.00. CAUTION: raw MODIS on both
+  sides also gives 1.00, because the factors cancel. It is a consistency check on how factors were
+  applied, not proof of the factors. Do not call it the strongest validation. The real cross-sensor
+  part is S-NPP vs burned area in 2012–2020: rank correlation 0.92.
+- Trends and Punjab timing hold on MODIS alone and on S-NPP alone (see README).
+- July 2024 (S-NPP down, index 0.63) is filled from calibrated NOAA-20.
 - Trends 2003–2025: raw splice says rising in 74 of 99 states; harmonized says 18 rising, 25 falling,
   56 flat. Punjab October season +7.3 days per decade (about 16 days later than 2003–2007).
 - Sensor alarm flags MODIS Aug 2020 and Apr 2022, S-NPP Jul 2024 and Nov 2026 (the stop).

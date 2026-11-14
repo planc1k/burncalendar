@@ -223,3 +223,5 @@ tr.hl td { font-weight: 600; background: var(--accent-soft); }
   .warning th:nth-child(3), .warning td:nth-child(3) { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+.valid p + p, .valid table + p { margin-top: 12px; }
+.valid p b { color: var(--ink); font-weight: 600; }

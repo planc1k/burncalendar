@@ -7,7 +7,8 @@ Reference scale: S-NPP VIIRS active cell-days (the longest single VIIRS record).
 
   before 2002-07-04   Terra only          x k_terra = (Terra -> Terra+Aqua, fitted 2003-2007) x k_modis
   before 2012-01-20   Terra + Aqua        x k_modis[region, month]
-  2012-01-20..2025    S-NPP               (reference, factor 1)
+  2012-01-20..2025    S-NPP               (reference, factor 1; months where S-NPP itself was
+                                          down are filled from calibrated NOAA-20)
   from 2026-01-01     NOAA-20             x k_n20[region, month]
 
 S-NPP's near-real-time feed thins out during 2026 and stops on 2026-11-02, so the record hands
@@ -42,6 +43,7 @@ OVERLAP = {"modis": (201202, 202512), "n20": (201804, 202512)}
 COUNTRY_NAMES = {"IN": "India", "BD": "Bangladesh", "MM": "Myanmar", "NP": "Nepal",
                  "AU": "Australia", "ID": "Indonesia"}
 TERRA_CHAIN = (200301, 200712)
+ALARM = (0.75, 1.33)             # sensor-agreement band; outside it a month is flagged
 WINDOW = 30                      # days in the early-warning window
 
 
@@ -129,14 +131,25 @@ def main():
     k_tm = fit(rm[(rm.ym >= TERRA_CHAIN[0]) & (rm.ym <= TERRA_CHAIN[1])], "terra", grid, tgt="modis")
     factors = factors.merge(k_tm.rename(columns={"k": "k_tm"}), on=["rid", "mo"])
     factors["k_terra"] = factors.k_tm * factors.k_modis
+    # S-NPP is the reference, but it has bad months of its own. Where it disagrees with calibrated
+    # NOAA-20 across the whole area (same rule as the sensor alarm), that month is filled from NOAA-20.
+    hm0 = rm.merge(factors, on=["rid", "mo"])
+    hm0["n20_est"] = hm0.n20 * hm0.k_n20
+    g0 = hm0[(hm0.ym >= 201805) & (hm0.ym < HANDOVER.year * 100 + 1)].groupby("ym")[["snpp", "n20_est"]].sum()
+    idx0 = g0.snpp / g0.n20_est
+    filled = [int(ym) for ym in g0.index[(g0.n20_est >= 2000) & ((idx0 < ALARM[0]) | (idx0 > ALARM[1]))]]
+    con.register("bad_df", pd.DataFrame({"by": [ym // 100 for ym in filled], "bm": [ym % 100 for ym in filled]},
+                                        dtype="int64"))
+    print("S-NPP months filled from NOAA-20:", filled)
     con.register("factors_df", factors)
     con.execute("create table factors as select * from factors_df")
     con.execute(f"""create table h as select t.*, case
             when date < DATE '{AQUA_START}' then terra * k_terra
             when date < DATE '{SNPP_START}' then modis * k_modis
-            when date < DATE '{HANDOVER}' then snpp
+            when date < DATE '{HANDOVER}' and b.by is null then snpp
             else n20 * k_n20 end as h
-        from trd t join factors f on t.rid = f.rid and month(t.date) = f.mo""")
+        from trd t join factors f on t.rid = f.rid and month(t.date) = f.mo
+        left join bad_df b on year(t.date) = b.by and month(t.date) = b.bm""")
 
     con.execute(f"""copy (select tx, ty, rid, year(date) y, month(date) mo, sum(h) h, sum(modis) modis, sum(snpp) snpp
         from h group by all) to '{out}/tile_month.parquet' (format parquet)""")   # read by validate_ba.py
@@ -273,7 +286,7 @@ def main():
 
     # ---- sensor health: do calibrated sensors still agree, month by month? ----
     hm = rm.merge(factors, left_on=["rid", "mo"], right_on=["rid", "mo"])
-    hm["ref"] = np.where(hm.ym < HANDOVER.year * 100 + 1, hm.snpp, hm.n20 * hm.k_n20)   # best VIIRS estimate
+    hm["ref"] = np.where((hm.ym < HANDOVER.year * 100 + 1) & ~hm.ym.isin(filled), hm.snpp, hm.n20 * hm.k_n20)   # best VIIRS estimate
     hm["modis_est"], hm["n20_est"] = hm.modis * hm.k_modis, hm.n20 * hm.k_n20
     g = hm[hm.ym >= 201202].groupby("ym")[["ref", "modis_est", "n20_est", "snpp"]].sum().sort_index()
     ratio = lambda a, b: [round(float(x / y), 3) if y > 0 else None for x, y in zip(a, b)]
@@ -281,9 +294,9 @@ def main():
     h_modis = ratio(g.modis_est, g.ref)
     h_snpp = [v if ym >= 201805 else None for v, ym in zip(ratio(g.snpp, g.n20_est), g.index)]
     health = {"months": h_months, "modis": h_modis, "snpp": h_snpp,
-              "band": [0.75, 1.33],
-              "alarms": {"modis": findings.alarms(h_months, h_modis, g.ref.tolist(), 0.75, 1.33, 2000, 1),
-                         "snpp": findings.alarms(h_months, h_snpp, g.n20_est.tolist(), 0.75, 1.33, 2000, 1)}}
+              "band": list(ALARM), "filled": [f"{ym // 100}-{ym % 100:02d}" for ym in filled],
+              "alarms": {"modis": findings.alarms(h_months, h_modis, g.ref.tolist(), *ALARM, 2000, 1),
+                         "snpp": findings.alarms(h_months, h_snpp, g.n20_est.tolist(), *ALARM, 2000, 1)}}
     print("health alarms", json.dumps(health["alarms"]))
 
     csv_rows = ["region_id,region,country,level,year,month,harmonized_cell_days,likely_low,likely_high,source,"
@@ -316,6 +329,7 @@ def main():
                 y, mo = 2000 + (mi + 10) // 12, (mi + 10) % 12 + 1
                 first = dt.date(y, mo, 1)
                 src, rng = (("terra", b["tm"]) if first < AQUA_START.replace(day=1) else ("terra+aqua", b["m"]) if first < SNPP_START.replace(day=1)
+                            else ("noaa20 (S-NPP gap)", b["n"]) if y * 100 + mo in filled
                             else ("snpp", [1, 1]) if first < HANDOVER else ("noaa20", b["n"]))
                 v = float(mm.h.values[mi])
                 csv_rows.append(f"{rid},\"{names[rid]}\",{rid[:2] if key != 'all' else ''},{'state' if key == 'rid' else key},{y},{mo},"

@@ -8,9 +8,13 @@ It maps burn scars from surface reflectance; our record counts active-fire detec
 different measurements of the same fires, though GFED5 does use MODIS active fires for its
 small-fire correction, so it is not fully independent.
 
-The question: if our harmonization is right, the amount of burned area per active cell-day in a
-state should be the same before and after 2012. A naive splice of raw MODIS and raw S-NPP should
-show a step instead.
+What this check can and cannot show
+- Burned area per active cell-day should be the same before and after 2012. A step would mean the
+  factors were applied wrongly (wrong era, wrong direction, a bug in the Terra chain).
+- It is NOT proof that the factors are right for 2003-2011. The factors were fitted on the same
+  post-2012 years this test uses, so they cancel: raw MODIS on both sides of 2012 gives the same
+  answer (reported as step_modis_only). The evidence for the factors is the held-out test in build.py.
+- The genuinely cross-sensor part: in 2012-2020, do S-NPP's high and low years match burned area?
 """
 import sys
 import json
@@ -57,16 +61,18 @@ def main():
     ba = read_gfed(gfed).merge(owner[["tx", "ty", "rid"]], on=["tx", "ty"])
     print(f"GFED5 tile-months with burned area inside the countries: {len(ba):,}")
 
-    ours = tm.groupby(["rid", "y"])[["h", "naive"]].sum().reset_index()
+    ours = tm.groupby(["rid", "y"])[["h", "naive", "modis", "snpp"]].sum().reset_index()
     sy = ours.merge(ba.groupby(["rid", "y"]).ba.sum().reset_index(), on=["rid", "y"], how="left").fillna({"ba": 0})
     sy["era"] = np.where(sy.y < SPLIT, "a", "b")
 
     # 1. step at the sensor change: (burned area per cell-day before 2012) / (after 2012), per state
-    era = sy.groupby(["rid", "era"])[["h", "naive", "ba"]].sum().unstack("era")
+    era = sy.groupby(["rid", "era"])[["h", "naive", "modis", "ba"]].sum().unstack("era")
     ok = (era["ba"]["a"] >= 200) & (era["ba"]["b"] >= 200) & (era["h"]["a"] >= 500) & (era["h"]["b"] >= 500)
     era = era[ok]
     step = lambda col: (era["ba"]["a"] / era[col]["a"]) / (era["ba"]["b"] / era[col]["b"])
-    st_h, st_n = step("h"), step("naive")
+    st_h, st_n, st_m = step("h"), step("naive"), step("modis")
+    late = sy[(sy.y >= SPLIT) & sy.rid.isin(era.index)]
+    rho_late = late.groupby("rid").apply(lambda d: spearman(d.snpp, d.ba), include_groups=False)
     q = lambda s: [round(float(v), 2) for v in np.percentile(s, [25, 50, 75])]
     # 2. do good and bad years line up? rank correlation across years, per state
     rho = sy[sy.rid.isin(era.index)].groupby("rid").apply(
@@ -75,7 +81,8 @@ def main():
     mo = tm.groupby(["y", "mo"]).h.sum().reset_index().merge(ba.groupby(["y", "mo"]).ba.sum().reset_index(), on=["y", "mo"])
     res = {"source": "GFED5 burned area (Chen et al. 2023), Zenodo 10.5281/zenodo.7668423, CC BY 4.0",
            "years": [Y0, Y1], "split": SPLIT, "states": int(len(era)),
-           "step_harmonized": q(st_h), "step_naive": q(st_n),
+           "step_harmonized": q(st_h), "step_naive": q(st_n), "step_modis_only": q(st_m),
+           "rank_corr_snpp_late": round(float(rho_late.median()), 3),
            "within_25pct_harmonized": round(float(((st_h > 0.8) & (st_h < 1.25)).mean()), 3),
            "within_25pct_naive": round(float(((st_n > 0.8) & (st_n < 1.25)).mean()), 3),
            "rank_corr_harmonized": round(float(rho.h.median()), 3), "rank_corr_naive": round(float(rho.naive.median()), 3),
