@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { MONTHS, MONTHS_LONG, RegionData, SERIES, diverge, fire, fmt, fmtFull, miMonth, miYear, monthStats, toMi } from "@/lib/data";
+import { Band, MONTHS, MONTHS_LONG, RegionData, SERIES, bandFor, diverge, fire, fmt, fmtFull, median, miMonth, miYear, monthStats, quantile, toMi } from "@/lib/data";
 
 type Tip = { x: number; y: number; lines: (string | [string, string])[] } | null;
 function TipBox({ tip, width }: { tip: Tip; width: number }) {
@@ -18,10 +18,10 @@ const at = (e: React.MouseEvent, host: HTMLElement | null) => {
 };
 
 /* ---------- burning activity calendar: month x year ---------- */
-export function Calendar({ series, lastMi, yearFrom, yearTo, picked, onPick, relative, svgRef, eras }: {
+export function Calendar({ series, lastMi, yearFrom, yearTo, picked, onPick, relative, svgRef, eras, band }: {
   series: number[]; lastMi: number; yearFrom: number; yearTo: number; picked: number;
   onPick: (mi: number) => void; relative: boolean; svgRef: React.RefObject<SVGSVGElement | null>;
-  eras: { aqua: number; snpp: number; snppEnd: number };
+  eras: { aqua: number; snpp: number; snppEnd: number }; band: Band | null;
 }) {
   const host = useRef<HTMLDivElement>(null);
   const [tip, setTip] = useState<Tip>(null);
@@ -54,6 +54,9 @@ export function Calendar({ series, lastMi, yearFrom, yearTo, picked, onPick, rel
                   ...at(e, host.current), lines: [`${MONTHS_LONG[m]} ${y}${mi === lastMi ? " (month in progress)" : ""}`,
                   `${fmtFull(v)} active cell-days`,
                   med > 0 ? `${(v / med).toFixed(1)}× the ${MONTHS_LONG[m]} median (${fmtFull(med)})` : "No burning in a typical year",
+                    ...(v > 0 ? [mi >= toMi(2012, 0) && mi < toMi(2026, 0) ? "Measured by S-NPP, the reference sensor"
+                      : band && bandFor(band, mi) ? `Estimate. Likely ${fmt(v * bandFor(band, mi)![0])} to ${fmt(v * bandFor(band, mi)![1])} (8 in 10 held-out cases)`
+                      : "Estimate scaled from another sensor"] : []),
                     "Click to show this month on the map"],
                 })} />;
             })}
@@ -88,7 +91,7 @@ export function Seasonal({ series, lastMi }: { series: number[]; lastMi: number 
         const p = at(e, host.current), w = host.current!.clientWidth;
         const m = Math.max(0, Math.min(11, Math.round(((p.x / w) * W - L) / ((W - L - R) / 11))));
         setHover(m);
-        setTip({ ...p, lines: [MONTHS_LONG[m], ["#8b90a0", `Median 2003–${year - 1}: ${fmtFull(stats[m].med)}`],
+        setTip({ ...p, lines: [MONTHS_LONG[m], ["#8a8377", `Median 2003–${year - 1}: ${fmtFull(stats[m].med)}`],
           `Middle half of years: ${fmtFull(stats[m].q25)}–${fmtFull(stats[m].q75)}`,
           ...(cur[m] != null ? [[SERIES.h, `${year}: ${fmtFull(cur[m]!)}${m === lastMonth ? " so far" : ""}`] as [string, string]] : [])] });
       }}>
@@ -124,25 +127,70 @@ export function SensorChart({ data, lastMi }: { data: RegionData; lastMi: number
     { key: "h", label: "Harmonized", color: SERIES.h, from: 2001 },
   ].map((s) => ({ ...s, v: years.map((yr) => (yr >= s.from ? sum((data as any)[s.key], yr) : null)) }));
   const W = 440, H = 190, L = 40, R = 12, T = 10, B = 22;
-  const max = Math.max(1, ...rows.flatMap((r) => r.v.map((v) => v ?? 0))) * 1.08;
+  const hv = rows[3].v as number[];
+  // 80% range around the harmonized line for the years estimated from MODIS (through 2012, where it meets S-NPP)
+  const est = years.map((yr, i) => ({ i, b: yr <= 2012 ? bandFor(data.band, toMi(Math.min(yr, 2011), 6), true) : null })).filter((e) => e.b);
+  const max = Math.max(1, ...rows.flatMap((r) => r.v.map((v) => v ?? 0)), ...est.map((e) => hv[e.i] * (e.i === est.length - 1 ? 1 : e.b![1]))) * 1.08;
   const x = (i: number) => L + (i / (years.length - 1)) * (W - L - R), y = (v: number) => H - B - (v / max) * (H - T - B);
+  const edge = (e: typeof est[number], k: 0 | 1) => (years[e.i] === 2012 ? hv[e.i] : hv[e.i] * e.b![k]);
+  const bandPath = est.length ? est.map((e, j) => `${j ? "L" : "M"}${x(e.i)},${y(edge(e, 1))}`).join("")
+    + [...est].reverse().map((e) => `L${x(e.i)},${y(edge(e, 0))}`).join("") + "Z" : "";
   return (
     <div className="chart" ref={host} onMouseLeave={() => { setTip(null); setHover(null); }}
       onMouseMove={(e) => {
         const p = at(e, host.current), w = host.current!.clientWidth;
         const i = Math.max(0, Math.min(years.length - 1, Math.round(((p.x / w) * W - L) / ((W - L - R) / (years.length - 1)))));
         setHover(i);
-        setTip({ ...p, lines: [String(years[i]), ...rows.filter((r) => r.v[i] != null).map((r) => [r.color, `${r.label}: ${fmtFull(r.v[i]!)}`] as [string, string])] });
+        const b = years[i] < 2012 ? bandFor(data.band, toMi(years[i], 6), true) : null;
+        setTip({ ...p, lines: [String(years[i]), ...rows.filter((r) => r.v[i] != null).map((r) => [r.color, `${r.label}: ${fmtFull(r.v[i]!)}`] as [string, string]),
+          ...(b ? [`Harmonized is an estimate: likely ${fmt(hv[i] * b[0])} to ${fmt(hv[i] * b[1])}`] : [])] });
       }}>
       <div className="legend">{rows.map((r) => <span key={r.key}><i style={{ background: r.color }} />{r.label}</span>)}</div>
       <svg viewBox={`0 0 ${W} ${H}`} width="100%" role="img" aria-label="Active cell-days per year by sensor and harmonized">
         {[0, 0.5, 1].map((f) => <g key={f}><line x1={L} x2={W - R} y1={y(f * max / 1.08)} y2={y(f * max / 1.08)} className="grid" />
           <text x={L - 6} y={y(f * max / 1.08) + 3} className="ax" textAnchor="end">{fmt(f * max / 1.08)}</text></g>)}
         {years.map((yr, i) => (yr % 5 === 0 ? <text key={yr} x={x(i)} y={H - 6} className="ax" textAnchor="middle">{yr}</text> : null))}
+        <path d={bandPath} fill={SERIES.h} opacity={0.18} />
         {rows.map((r) => <path key={r.key} fill="none" stroke={r.color} strokeWidth={r.key === "h" ? 2.4 : 1.6} strokeLinejoin="round"
           d={r.v.map((v, i) => (v == null ? "" : `${i && r.v[i - 1] != null ? "L" : "M"}${x(i)},${y(v)}`)).join("")} />)}
         {hover != null && <line x1={x(hover)} x2={x(hover)} y1={T} y2={H - B} className="cross" />}
         {hover != null && rows.map((r) => r.v[hover] != null && <circle key={r.key} cx={x(hover)} cy={y(r.v[hover]!)} r={3.5} fill={r.color} className="ring" />)}
+      </svg>
+      <TipBox tip={tip} width={host.current?.clientWidth ?? 400} />
+    </div>
+  );
+}
+
+/* ---------- sensor health: agreement index by month ---------- */
+export function HealthChart({ health }: { health: { months: string[]; modis: (number | null)[]; snpp: (number | null)[]; band: number[];
+  alarms: Record<string, { from: string; to: string }[]> } }) {
+  const host = useRef<HTMLDivElement>(null);
+  const [tip, setTip] = useState<Tip>(null);
+  const [hover, setHover] = useState<number | null>(null);
+  const n = health.months.length, W = 560, H = 190, L = 34, R = 96, T = 10, B = 22, top = 2;
+  const x = (i: number) => L + (i / (n - 1)) * (W - L - R), y = (v: number) => H - B - (Math.min(v, top) / top) * (H - T - B);
+  const rows = [{ key: "modis", label: "MODIS against VIIRS", color: SERIES.modis, v: health.modis },
+    { key: "snpp", label: "S-NPP against NOAA-20", color: SERIES.snpp, v: health.snpp }];
+  const last = (v: (number | null)[]) => { for (let i = v.length - 1; i >= 0; i--) if (v[i] != null) return i; return 0; };
+  return (
+    <div className="chart" ref={host} onMouseLeave={() => { setTip(null); setHover(null); }}
+      onMouseMove={(e) => {
+        const p = at(e, host.current), w = host.current!.clientWidth;
+        const i = Math.max(0, Math.min(n - 1, Math.round(((p.x / w) * W - L) / ((W - L - R) / (n - 1)))));
+        setHover(i);
+        setTip({ ...p, lines: [health.months[i], ...rows.filter((r) => r.v[i] != null).map((r) => [r.color, `${r.label}: ${r.v[i]!.toFixed(2)}`] as [string, string])] });
+      }}>
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" role="img" aria-label="Agreement between sensor pairs by month">
+        <rect x={L} y={y(health.band[1])} width={W - L - R} height={y(health.band[0]) - y(health.band[1])} className="band" />
+        {[0, 1, 2].map((v) => <g key={v}><line x1={L} x2={W - R} y1={y(v)} y2={y(v)} className={v === 1 ? "ref" : "grid"} />
+          <text x={L - 6} y={y(v) + 3} className="ax" textAnchor="end">{v.toFixed(1)}</text></g>)}
+        {health.months.map((m, i) => (m.endsWith("-01") && +m.slice(0, 4) % 2 === 0 ? <text key={m} x={x(i)} y={H - 6} className="ax" textAnchor="middle">{m.slice(0, 4)}</text> : null))}
+        {rows.map((r) => <path key={r.key} fill="none" stroke={r.color} strokeWidth={1.6} strokeLinejoin="round"
+          d={r.v.map((v, i) => (v == null ? "" : `${i && r.v[i - 1] != null ? "L" : "M"}${x(i)},${y(v)}`)).join("")} />)}
+        {rows.flatMap((r) => (health.alarms[r.key] ?? []).map((a) => { const i = health.months.indexOf(a.to); return (
+          <circle key={r.key + a.from} cx={x(i)} cy={y(r.v[i]!)} r={5} fill="none" stroke="var(--crit)" strokeWidth={2} />); }))}
+        {rows.map((r, k) => <text key={r.key} x={W - R + 8} y={y(r.v[last(r.v)]!) + (k ? 12 : -4)} className="lbl" fill={r.color}>{r.key === "modis" ? "MODIS" : "S-NPP"}</text>)}
+        {hover != null && <line x1={x(hover)} x2={x(hover)} y1={T} y2={H - B} className="cross" />}
       </svg>
       <TipBox tip={tip} width={host.current?.clientWidth ?? 400} />
     </div>
@@ -175,11 +223,11 @@ export function DailyStrip({ data, epoch, lastMi }: { data: RegionData; epoch: s
     ctx.clearRect(0, 0, w, h);
     const cw = (w - L) / 366;
     ctx.font = "10px var(--font-geist-mono), monospace";
-    ctx.fillStyle = "#8b90a0";
+    ctx.fillStyle = "#7a7266";
     MONTHS.forEach((m, i) => ctx.fillText(m[0], L + ((Date.UTC(2001, i, 15) - Date.UTC(2001, 0, 1)) / 864e5) * cw - 3, 9));
     for (let r = 0; r < rows; r++) {
-      if ((y0 + r) % 5 === 0) { ctx.fillStyle = "#8b90a0"; ctx.fillText(String(y0 + r), 0, T + r * RH + 8); }
-      ctx.fillStyle = "#171a22";
+      if ((y0 + r) % 5 === 0) { ctx.fillStyle = "#7a7266"; ctx.fillText(String(y0 + r), 0, T + r * RH + 8); }
+      ctx.fillStyle = "#ece4d2";
       ctx.fillRect(L, T + r * RH, w - L, RH - 1);
       for (let d = 0; d < 366; d++) {
         const v = grid.g[r * 366 + d];
@@ -209,9 +257,7 @@ export function WindowBars({ win, label }: { win: { years: number[]; values: num
   const host = useRef<HTMLDivElement>(null);
   const [tip, setTip] = useState<Tip>(null);
   const prior = win.values.slice(0, -1), n = win.values.length;
-  const sorted = [...prior].sort((a, b) => a - b);
-  const med = sorted.length % 2 ? sorted[sorted.length >> 1] : (sorted[(sorted.length >> 1) - 1] + sorted[sorted.length >> 1]) / 2;
-  const p90 = sorted[Math.floor((sorted.length - 1) * 0.9)];
+  const med = median(prior), p90 = quantile(prior, 0.9);
   const W = 440, H = 120, L = 40, R = 52, T = 8, B = 20;
   const max = Math.max(1, ...win.values, p90) * 1.1, bw = (W - L - R) / n;
   const y = (v: number) => H - B - (v / max) * (H - T - B);
@@ -226,7 +272,7 @@ export function WindowBars({ win, label }: { win: { years: number[]; values: num
             i === n - 1 ? `${med > 0 ? (v / med).toFixed(1) + "× the median" : "no burning in a typical year"}` : ""].filter(Boolean) })}>
             <rect x={L + i * bw} y={T} width={bw} height={H - T - B} fill="transparent" />
             <rect x={L + i * bw + 1} y={y(v)} width={Math.max(2, bw - 2)} height={Math.max(0, y(0) - y(v))} rx={Math.min(3, (y(0) - y(v)) / 2)}
-              fill={i === n - 1 ? SERIES.h : "#4a4f5c"} />
+              fill={i === n - 1 ? SERIES.h : "#b9b0a0"} />
             {win.years[i] % 5 === 0 && <text x={L + i * bw + bw / 2} y={H - 6} className="ax" textAnchor="middle">{win.years[i]}</text>}
           </g>
         ))}

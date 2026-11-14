@@ -28,15 +28,19 @@ import polars as pl
 import geopandas as gpd
 import shapely
 
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+import skill  # noqa: E402
+import findings  # noqa: E402
+
 TAU = 100.0                      # shrinkage weight, in cell-days
 AQUA_START = dt.date(2002, 7, 4)
 SNPP_START = dt.date(2012, 1, 20)
 HANDOVER = dt.date(2026, 1, 1)    # S-NPP -> NOAA-20
 BASE_YEAR = 2003                 # first climatology year (Terra + Aqua both flying)
 EPOCH = dt.date(2000, 11, 1)     # first MODIS day in FIRMS
-OVERLAP = {"terra": (201202, 202512), "modis": (201202, 202512),
-           "n20": (201804, 202512), "n21": (202303, 202607)}
-COUNTRY_NAMES = {"IN": "India", "BD": "Bangladesh", "MM": "Myanmar", "NP": "Nepal"}
+OVERLAP = {"modis": (201202, 202512), "n20": (201804, 202512)}
+COUNTRY_NAMES = {"IN": "India", "BD": "Bangladesh", "MM": "Myanmar", "NP": "Nepal",
+                 "AU": "Australia", "ID": "Indonesia"}
 TERRA_CHAIN = (200301, 200712)
 WINDOW = 30                      # days in the early-warning window
 
@@ -53,6 +57,14 @@ def fit(df, src, grid, tgt="snpp"):
     out = out.merge(r, on=["rid", "mo"], how="left").fillna({src: 0, tgt: 0})
     out["k"] = (out[tgt] + TAU * out.kc) / (out[src] + TAU)
     return out[["rid", "mo", "k"]]
+
+
+def encode_tiles(arr):
+    """uint16 [tiles x months] -> bytes: [non-zero months per tile][month index][value], all uint16.
+    web/lib/data.ts decodeTiles reads this; the two are pinned by the same example in both test files."""
+    nz = arr > 0
+    return (nz.sum(1).astype("<u2").tobytes() + np.nonzero(nz)[1].astype("<u2").tobytes()
+            + arr[nz].astype("<u2").tobytes())
 
 
 def metrics(obs, pred, floor=100):
@@ -110,8 +122,6 @@ def main():
     # ---- calibration ----
     factors = grid[["rid", "mo"]].copy()
     for src, (lo, hi) in OVERLAP.items():
-        if src == "terra":
-            continue
         k = fit(rm[(rm.ym >= lo) & (rm.ym <= hi)], src, grid).rename(columns={"k": f"k_{src}"})
         factors = factors.merge(k, on=["rid", "mo"])
     # Terra alone is chained through the adjacent Terra+Aqua years (2003-2007) rather than fitted
@@ -127,6 +137,9 @@ def main():
             when date < DATE '{HANDOVER}' then snpp
             else n20 * k_n20 end as h
         from trd t join factors f on t.rid = f.rid and month(t.date) = f.mo""")
+
+    con.execute(f"""copy (select tx, ty, rid, year(date) y, month(date) mo, sum(h) h, sum(modis) modis, sum(snpp) snpp
+        from h group by all) to '{out}/tile_month.parquet' (format parquet)""")   # read by validate_ba.py
 
     # ---- validation ----
     val = {}
@@ -150,6 +163,30 @@ def main():
     val["viirs_per_modis_all_area"] = round(float(ov.snpp.sum() / ov.modis.sum()), 2)
     print(json.dumps(val, indent=1))
 
+    # ---- uncertainty: 80% range of truth / estimate on held-out years, per state, country and all ----
+    def bands_for(frame, key, obs, floor, min_n, by):
+        g = frame.groupby([key] + by)[[obs, "pred"]].sum().reset_index()
+        return {k: skill.ratio_band(d[obs], d.pred, floor, min_n) for k, d in g.groupby(key)}
+
+    for f in (cv, cvj, tt):
+        f["all"] = "ALL"
+        f["country"] = f.rid.str[:2]
+    terra_m = skill.ratio_band(tt.modis, tt.pred, 10)
+    tty = tt.groupby(["rid", "y"])[["modis", "pred"]].sum()
+    terra_y = skill.ratio_band(tty.modis, tty.pred, 30)
+    bands = {}
+    for key in ("rid", "country", "all"):
+        bm = bands_for(cv, key, "snpp", 30, 10, ["y", "mo"])
+        by_ = bands_for(cv, key, "snpp", 100, 8, ["y"])
+        bn = bands_for(cvj, key, "snpp", 30, 10, ["y", "mo"])
+        for k in set(bm) | set(by_) | set(bn):
+            bands[k] = {"m": bm.get(k), "y": by_.get(k), "n": bn.get(k)}
+    for k, b in bands.items():                       # thin regions borrow their country's range, then the all-area one
+        for part in ("m", "y", "n"):
+            b[part] = b[part] or bands.get(k[:2], {}).get(part) or bands["ALL"][part]
+        b["tm"], b["ty"] = skill.widen(b["m"], terra_m), skill.widen(b["y"], terra_y)
+    val["band_all_area"] = bands["ALL"]
+
     yearly = con.sql("""select year(date) y, sum(h) h, sum(modis) modis, sum(snpp) snpp, sum(n20) n20
         from h group by all order by y""").df()
     make_figure(ry, yearly, docs / "validation.png", val)
@@ -164,7 +201,8 @@ def main():
     tm = tm.merge(tiles, on=["tx", "ty"])
     arr = np.zeros((len(tiles), n_months), np.uint16)
     arr[tm.ti.values, tm.mi.values] = np.clip(np.round(tm.h.values * 10), 0, 65535).astype(np.uint16)
-    arr.tofile(web / "tiles.bin")
+    # sparse: [non-zero months per tile][month index][value x10], all uint16 (most tile-months are empty)
+    (web / "tiles.bin").write_bytes(encode_tiles(arr))
 
     # ---- export: early-warning window, like-for-like in every year ----
     end = max_date - dt.timedelta(days=1)          # the newest day is still filling in
@@ -194,7 +232,7 @@ def main():
     ra_stats = pd.concat([anomaly(win.groupby([key, "y"]).h.sum().unstack("y"))[0] for key in ("rid", "country", "all")])
 
     # ---- export: per-region series ----
-    names = {r.rid: r["name"] for _, r in regions.iterrows()} | COUNTRY_NAMES | {"ALL": "All four countries"}
+    names = {r.rid: r["name"] for _, r in regions.iterrows()} | COUNTRY_NAMES | {"ALL": "All countries"}
     daily = con.sql("""select rid, date, sum(h) h, sum(modis) modis, sum(snpp) snpp, sum(n20) n20,
         sum(n21) n21, sum(frp) frp from h group by all""").df()
     daily["country"] = daily.rid.str[:2]
@@ -202,6 +240,55 @@ def main():
     daily["date"] = pd.to_datetime(daily.date)
     daily["di"] = (daily.date - pd.Timestamp(EPOCH)).dt.days
     daily["mi"] = (daily.date.dt.year - 2000) * 12 + daily.date.dt.month - 11
+    # ---- early-warning backtest: replay the rule over every past year ----
+    d0 = dt.date(BASE_YEAR - 1, 11, 1)
+    n_days, bt_years = (max_date - d0).days + 1, list(range(BASE_YEAR, max_date.year))
+    series = {}
+    for rid, d in daily[daily.date >= pd.Timestamp(d0)].groupby("rid"):
+        x = np.zeros(n_days)
+        np.add.at(x, (d.date - pd.Timestamp(d0)).dt.days.values, d.h.values)
+        series[rid] = x
+    backtest = {"years": [bt_years[0], bt_years[-1]], "regions": len(series),
+                "all": skill.warning_skill(series, d0, bt_years),
+                "watch": skill.warning_skill(series, d0, bt_years, leads=(0,), flag_pct=0.75)[0],   # the "above normal" level
+                "by_country": {c: skill.warning_skill({r: x for r, x in series.items() if r[:2] == c}, d0, bt_years)[0]
+                               for c in sorted({r[:2] for r in series})}}
+    print("backtest", json.dumps(backtest["all"]))
+
+    def record_case(rid, monthly_h):
+        """The region's biggest month since BASE_YEAR, and when the warning first fired before its peak."""
+        first_mi = (BASE_YEAR - 2000) * 12 + 1 - 11
+        mi = first_mi + int(np.argmax(monthly_h[first_mi:n_months - 1]))
+        y, m = 2000 + (mi + 10) // 12, (mi + 10) % 12 + 1
+        if rid not in series or y > bt_years[-1]:
+            return {"mi": mi}
+        x, c = series[rid], np.concatenate([[0.0], np.cumsum(series[rid])])
+        lo = (dt.date(y, m, 1) - d0).days + 14
+        hi = min(lo + 62, n_days - 1)
+        ends = np.arange(max(lo, skill.WINDOW), hi)
+        peak = d0 + dt.timedelta(days=int(ends[np.argmax(c[ends + 1] - c[ends + 1 - skill.WINDOW])]))
+        first = skill.first_flag(x, d0, bt_years, peak)
+        return {"mi": mi, "peak": str(peak), "first": str(first) if first else None,
+                "lead": (peak - first).days if first else None}
+
+    # ---- sensor health: do calibrated sensors still agree, month by month? ----
+    hm = rm.merge(factors, left_on=["rid", "mo"], right_on=["rid", "mo"])
+    hm["ref"] = np.where(hm.ym < HANDOVER.year * 100 + 1, hm.snpp, hm.n20 * hm.k_n20)   # best VIIRS estimate
+    hm["modis_est"], hm["n20_est"] = hm.modis * hm.k_modis, hm.n20 * hm.k_n20
+    g = hm[hm.ym >= 201202].groupby("ym")[["ref", "modis_est", "n20_est", "snpp"]].sum().sort_index()
+    ratio = lambda a, b: [round(float(x / y), 3) if y > 0 else None for x, y in zip(a, b)]
+    h_months = [f"{ym // 100}-{ym % 100:02d}" for ym in g.index]
+    h_modis = ratio(g.modis_est, g.ref)
+    h_snpp = [v if ym >= 201805 else None for v, ym in zip(ratio(g.snpp, g.n20_est), g.index)]
+    health = {"months": h_months, "modis": h_modis, "snpp": h_snpp,
+              "band": [0.75, 1.33],
+              "alarms": {"modis": findings.alarms(h_months, h_modis, g.ref.tolist(), 0.75, 1.33, 2000, 1),
+                         "snpp": findings.alarms(h_months, h_snpp, g.n20_est.tolist(), 0.75, 1.33, 2000, 1)}}
+    print("health alarms", json.dumps(health["alarms"]))
+
+    csv_rows = ["region_id,region,country,level,year,month,harmonized_cell_days,likely_low,likely_high,source,"
+                "raw_modis_cell_days,raw_snpp_cell_days,raw_noaa20_cell_days,frp_sum_mw"]
+    fy, ly = BASE_YEAR, max_date.year - 1
     region_meta = []
     for key in ("rid", "country", "all"):
         for rid, d in daily.groupby(key):
@@ -209,7 +296,8 @@ def main():
             dd = dd[dd > 0]
             mm = d.groupby("mi")[["h", "modis", "snpp", "n20", "n21", "frp"]].sum().reindex(range(n_months), fill_value=0)
             a = ra_stats.loc[rid] if rid in ra_stats.index else None
-            rec = {"id": rid, "name": names[rid],
+            rec = {"id": rid, "name": names[rid], "band": bands.get(rid, bands["ALL"]),
+                   "record": record_case(rid, mm.h.values) if key == "rid" else None,
                    "h": np.round(mm.h, 1).tolist(), "modis": mm.modis.astype(int).tolist(),
                    "snpp": mm.snpp.astype(int).tolist(), "n20": mm.n20.astype(int).tolist(),
                    "n21": mm.n21.astype(int).tolist(), "frp": np.round(mm.frp).astype(int).tolist(),
@@ -217,13 +305,41 @@ def main():
                    "window": ({"years": years + [end.year], "values": np.round(ra.loc[rid].values, 1).tolist()}
                               if rid in ra.index else None)}
             json.dump(rec, open(web / "regions" / f"{rid}.json", "w"), separators=(",", ":"))
+            # findings: trend of the harmonized record, of a naive splice (raw MODIS then raw S-NPP), and season timing
+            yr = lambda col: [float(col[(y - 2000) * 12 + 1 - 11:(y - 2000) * 12 + 13 - 11].sum()) for y in range(fy, ly + 1)]
+            ys, hy, my, sy = list(range(fy, ly + 1)), yr(mm.h.values), yr(mm.modis.values), yr(mm.snpp.values)
+            t_h = findings.trend(ys, hy)
+            t_naive = findings.trend(ys, [m if y < SNPP_START.year else s_ for y, m, s_ in zip(ys, my, sy)])
+            shift = findings.season_shift(mm.h.values, fy, ly)
+            b = rec["band"]
+            for mi in range(n_months):
+                y, mo = 2000 + (mi + 10) // 12, (mi + 10) % 12 + 1
+                first = dt.date(y, mo, 1)
+                src, rng = (("terra", b["tm"]) if first < AQUA_START.replace(day=1) else ("terra+aqua", b["m"]) if first < SNPP_START.replace(day=1)
+                            else ("snpp", [1, 1]) if first < HANDOVER else ("noaa20", b["n"]))
+                v = float(mm.h.values[mi])
+                csv_rows.append(f"{rid},\"{names[rid]}\",{rid[:2] if key != 'all' else ''},{'state' if key == 'rid' else key},{y},{mo},"
+                                f"{v:.1f},{v * rng[0]:.1f},{v * rng[1]:.1f},{src},{int(mm.modis.values[mi])},{int(mm.snpp.values[mi])},"
+                                f"{int(mm.n20.values[mi])},{int(round(mm.frp.values[mi]))}")
             region_meta.append({"id": rid, "name": names[rid], "level": key,
                                 "country": rid[:2] if key != "all" else None,
-                                "total": round(float(mm.h.sum())),
+                                "total": round(float(mm.h.sum())), "trend": t_h, "naive": t_naive, "shift": shift,
                                 "cur": round(float(a.cur), 1) if a is not None else 0,
                                 "med": round(float(a.med), 1) if a is not None else 0,
                                 "p90": round(float(a.p90), 1) if a is not None else 0,
                                 "pct": round(float(a.pct), 3) if a is not None else 0})
+
+    (web / "burncalendar_monthly.csv").write_text("\n".join(csv_rows) + "\n")
+    states = [m for m in region_meta if m["level"] == "rid"]
+    count = lambda k, v: sum(findings.verdict(m[k]) == v for m in states)
+    found = {"years": [fy, ly], "states": sum(m["trend"] is not None for m in states),
+             "harmonized": {v: count("trend", v) for v in ("rising", "falling", "flat")},
+             "naive": {v: count("naive", v) for v in ("rising", "falling", "flat")},
+             "false_rise": sum(findings.verdict(m["naive"]) == "rising" and findings.verdict(m["trend"]) != "rising" for m in states),
+             "later": sum(bool(m["shift"]) and m["shift"]["p"] < 0.05 and m["shift"]["days"] > 0 for m in states),
+             "earlier": sum(bool(m["shift"]) and m["shift"]["p"] < 0.05 and m["shift"]["days"] < 0 for m in states),
+             "shift_states": sum(bool(m["shift"]) for m in states)}
+    print("findings", json.dumps(found))
 
     # ---- export: boundaries ----
     g = regions.copy()
@@ -231,7 +347,8 @@ def main():
     g = g[~g.geometry.is_empty]
     b = regions.geometry.bounds.round(2)
     bbox = {r: [b.minx[i], b.miny[i], b.maxx[i], b.maxy[i]] for i, r in enumerate(regions.rid)}
-    for c in COUNTRY_NAMES:
+    present = sorted(set(regions.country))
+    for c in present:
         tb = regions[regions.country == c].total_bounds.round(2)
         bbox[c] = tb.tolist()
     bbox["ALL"] = regions.total_bounds.round(2).tolist()
@@ -239,13 +356,13 @@ def main():
         m["bbox"] = bbox.get(m["id"])
     g[["rid", "name", "country", "geometry"]].to_file(web / "regions.geojson", driver="GeoJSON")
 
-    # ---- export: recent hotspots (last 10 days, near-real-time) ----
-    since = end - dt.timedelta(days=9)
+    # ---- export: recent hotspots (last 7 days, near-real-time; strings stored as indexes) ----
+    since = end - dt.timedelta(days=6)
     sens = {"MODIS_NRT": "MODIS", "VIIRS_SNPP_NRT": "S-NPP", "VIIRS_NOAA20_NRT": "NOAA-20", "VIIRS_NOAA21_NRT": "NOAA-21"}
     frames = []
     for folder, label in sens.items():
         for p in sorted((raw_api / folder).glob("*.csv")):
-            if dt.date.fromisoformat(p.stem) < since - dt.timedelta(days=5) or p.stat().st_size < 100:
+            if dt.date.fromisoformat(p.stem[:10]) < since - dt.timedelta(days=5) or p.stat().st_size < 100:
                 continue
             frames.append(pl.read_csv(p, infer_schema=False).select(
                 "latitude", "longitude", "acq_date", "acq_time", "confidence", "frp", "daynight"
@@ -265,18 +382,20 @@ def main():
     static = pl.read_parquet(out / "static_cells.parquet").with_columns(pl.lit(True).alias("st"))
     rec = rec.filter(pl.col("conf") != "l").join(cells, on=["ix", "iy"], how="inner") \
              .join(static, on=["ix", "iy"], how="left").filter(pl.col("st").is_null()).sort("acq_date", "acq_time")
+    sensors, rids = list(sens.values()), sorted(rec["rid"].unique().to_list())
+    rid_ix = {r: i for i, r in enumerate(rids)}
     json.dump({"lat": rec["latitude"].round(4).to_list(), "lon": rec["longitude"].round(4).to_list(),
                "day": [(d - since).days for d in rec["acq_date"].to_list()],
-               "time": rec["acq_time"].to_list(), "frp": rec["frp"].round(1).to_list(),
-               "sensor": rec["sensor"].to_list(), "conf": rec["conf"].to_list(),
-               "dn": rec["daynight"].to_list(), "rid": rec["rid"].to_list(), "since": str(since)},
+               "time": rec["acq_time"].cast(pl.Int32).to_list(), "frp": rec["frp"].round(1).to_list(),
+               "sensors": sensors, "sensor": [sensors.index(x) for x in rec["sensor"].to_list()],
+               "high": (rec["conf"] == "h").cast(pl.Int8).to_list(),
+               "night": (rec["daynight"] == "N").cast(pl.Int8).to_list(),
+               "rids": rids, "rid": [rid_ix[x] for x in rec["rid"].to_list()], "since": str(since)},
               open(web / "recent.json", "w"), separators=(",", ":"))
     print(f"recent hotspots {rec.height:,} since {since}")
 
     # ---- export: meta ----
     stats = json.load(open(out / "stats.json"))
-    kmed = factors.assign(country=factors.rid.str[:2]).groupby("country")[
-        ["k_terra", "k_modis", "k_n20", "k_n21"]].median().round(2)
     alerts = sorted([m for m in region_meta if m["level"] == "rid" and m["pct"] >= 0.9 and m["cur"] >= 30],
                     key=lambda m: -(m["cur"] / max(m["med"], 1)))
     meta = {"generated": str(dt.date.today()), "epoch": str(EPOCH), "nMonths": int(n_months),
@@ -284,10 +403,8 @@ def main():
             "snppStart": str(SNPP_START), "handover": str(HANDOVER), "baseYear": BASE_YEAR, "window": {"start": str(start), "end": str(end), "days": WINDOW},
             "stats": stats | {"cell_days": int(n_cd), "tiles": int(len(tiles)), "recent": rec.height,
                               "years": end.year - 2000 + 1},
-            "validation": val, "factorMedians": kmed.reset_index().to_dict("records"),
-            "factors": {r: [round(float(x), 3) for x in grp.sort_values("mo").k_modis]
-                        for r, grp in factors.groupby("rid")},
-            "yearly": yearly.round(0).astype(int).to_dict("list"),
+            "validation": val, "backtest": backtest, "health": health, "findings": found,
+            "countries": [{"id": c, "name": COUNTRY_NAMES[c]} for c in COUNTRY_NAMES if c in present],
             "regions": region_meta, "alerts": [m["id"] for m in alerts]}
     json.dump(meta, open(web / "meta.json", "w"), separators=(",", ":"))
     print(f"tiles {len(tiles):,}; months {n_months}; regions {len(region_meta)}; alerts {len(alerts)}")
@@ -300,7 +417,7 @@ def make_figure(ry, yearly, path, val):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    bg, fg, grid_c = "#0b0d12", "#e8e6e1", "#2a2e38"
+    bg, fg, grid_c = "#fbf8f1", "#1d1a16", "#ddd5c5"
     plt.rcParams.update({"figure.facecolor": bg, "axes.facecolor": bg, "savefig.facecolor": bg,
                          "text.color": fg, "axes.labelcolor": fg, "xtick.color": fg, "ytick.color": fg,
                          "axes.edgecolor": grid_c, "font.size": 10})
@@ -309,7 +426,7 @@ def make_figure(ry, yearly, path, val):
     for a, col, title, key in ((ax[0], "modis", "Raw MODIS vs S-NPP", "raw_modis"),
                                (ax[1], "pred", "Calibrated MODIS vs S-NPP (held-out years)", "calibrated")):
         m = val["modis_region_year"][key]
-        a.scatter(ry.snpp + 1, ry[col] + 1, s=7, alpha=0.55, color="#f98e09" if col == "pred" else "#7a7f8c", lw=0)
+        a.scatter(ry.snpp + 1, ry[col] + 1, s=7, alpha=0.55, color="#d4541f" if col == "pred" else "#8a8377", lw=0)
         a.plot(lim, lim, color=fg, lw=0.8, ls="--")
         a.set(xscale="log", yscale="log", xlim=lim, ylim=lim, title=title,
               xlabel="S-NPP active cell-days per state-year", ylabel="MODIS estimate")
@@ -317,11 +434,11 @@ def make_figure(ry, yearly, path, val):
                transform=a.transAxes, va="top")
         a.grid(color=grid_c, lw=0.5)
     y = yearly[(yearly.y >= 2001) & (yearly.y < yearly.y.max())]
-    ax[2].plot(y.y, y.modis, color="#7a7f8c", lw=1.2, label="raw MODIS")
-    ax[2].plot(y.y[y.snpp > 0], y.snpp[y.snpp > 0], color="#57c4ad", lw=1.2, label="raw S-NPP")
-    ax[2].plot(y.y[y.n20 > 0], y.n20[y.n20 > 0], color="#b07aa1", lw=1.2, label="raw NOAA-20")
-    ax[2].plot(y.y, y.h, color="#f98e09", lw=2.2, label="harmonized index")
-    ax[2].set(title="Active cell-days per year, all four countries", xlabel="year (complete years)")
+    ax[2].plot(y.y, y.modis, color="#2a78d6", lw=1.2, label="raw MODIS")
+    ax[2].plot(y.y[y.snpp > 0], y.snpp[y.snpp > 0], color="#1baf7a", lw=1.2, label="raw S-NPP")
+    ax[2].plot(y.y[y.n20 > 0], y.n20[y.n20 > 0], color="#6250d6", lw=1.2, label="raw NOAA-20")
+    ax[2].plot(y.y, y.h, color="#d4541f", lw=2.2, label="harmonized index")
+    ax[2].set(title="Active cell-days per year, all countries", xlabel="year (complete years)")
     ax[2].legend(frameon=False, loc="center left", bbox_to_anchor=(0.0, 0.5))
     ax[2].grid(color=grid_c, lw=0.5)
     fig.tight_layout()

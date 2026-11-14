@@ -9,7 +9,7 @@ Usage: python -I pipeline/harmonize.py RAW_DIR RAW_API_DIR GEO_DIR OUT_DIR
 - Snaps to a fixed 0.05 degree grid and aggregates to cell-day per sensor.
 - Assigns each grid cell to a state/division (Natural Earth admin-1) once, by cell centre.
 
-Outputs OUT_DIR/det.parquet (ix, iy, date, sensor, n, frp_sum, frp_max, night)
+Outputs OUT_DIR/det.parquet (ix, iy, date, sensor, n, frp_sum)
         OUT_DIR/cells.parquet (ix, iy, rid) and OUT_DIR/regions.parquet / regions.gpkg.
 """
 import sys
@@ -18,7 +18,8 @@ import polars as pl
 import geopandas as gpd
 
 CELL = 0.05
-COUNTRIES = {"India": "IN", "Bangladesh": "BD", "Myanmar": "MM", "Nepal": "NP"}
+COUNTRIES = {"India": "IN", "Bangladesh": "BD", "Myanmar": "MM", "Nepal": "NP",
+             "Australia": "AU", "Indonesia": "ID"}
 ARCHIVE = {"modis": "modis", "viirs-snpp": "snpp", "viirs-jpss1": "n20"}
 API = {"MODIS_SP": "modis", "MODIS_NRT": "modis", "VIIRS_SNPP_SP": "snpp", "VIIRS_SNPP_NRT": "snpp",
        "VIIRS_NOAA20_SP": "n20", "VIIRS_NOAA20_NRT": "n20",
@@ -64,7 +65,6 @@ def main():
         pl.col("acq_date").str.to_date().alias("date"),
         sensor.alias("sensor"),
         pl.col("frp").cast(pl.Float64, strict=False).alias("frp"),
-        (pl.col("daynight") == "N").alias("night"),
         (typ.is_null() | (typ == 0)).alias("veg"),
         typ.is_not_null().alias("typed"),
         keep_conf.alias("conf_ok"),
@@ -76,8 +76,6 @@ def main():
         (~pl.col("veg")).sum().alias("nonveg"),
         pl.col("typed").any().alias("typed"),
         pl.col("frp").filter(ok).sum().alias("frp_sum"),
-        pl.col("frp").filter(ok).max().alias("frp_max"),
-        (pl.col("night") & ok).any().alias("night"),
     ).collect(engine="streaming")
     n_all = int(agg["n_all"].sum())
 
@@ -101,13 +99,19 @@ def main():
     ne = ne[ne["admin"].isin(COUNTRIES)][["admin", "name", "iso_3166_2", "geometry"]].reset_index(drop=True)
     ne["country"] = ne["admin"].map(COUNTRIES)
     ne["rid"] = ne["iso_3166_2"].str.replace("-", "_")
+    # Natural Earth repeats a code for outlying islands (AU-NSW is New South Wales and Lord Howe
+    # Island). One id must be one region: merge the pieces and keep the largest piece's name.
+    ne["area"] = ne.geometry.area
+    keep_name = ne.sort_values("area").groupby("rid")[["name", "country", "admin"]].last().reset_index()
+    ne = ne[["rid", "geometry"]].dissolve("rid").reset_index().merge(keep_name, on="rid")
+    assert ne.rid.is_unique
     cells = agg.select("ix", "iy").unique().to_pandas()
     pts = gpd.GeoDataFrame(cells, geometry=gpd.points_from_xy((cells.ix + 0.5) * CELL, (cells.iy + 0.5) * CELL),
                            crs=ne.crs)
     j = gpd.sjoin_nearest(pts, ne[["rid", "geometry"]], how="inner", max_distance=CELL)
     j = j.drop_duplicates(["ix", "iy"])[["ix", "iy", "rid"]]
     pl.from_pandas(j).write_parquet(out / "cells.parquet")
-    print(f"cells with detections in box {len(cells):,}; inside the four countries {len(j):,}")
+    print(f"cells with detections in box {len(cells):,}; inside the selected countries {len(j):,}")
 
     keep = pl.from_pandas(j)
     agg = agg.join(keep, on=["ix", "iy"], how="inner")

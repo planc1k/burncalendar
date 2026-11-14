@@ -11,22 +11,30 @@ export const monthLabel = (mi: number) => `${MONTHS_LONG[miMonth(mi)]} ${miYear(
 export type Region = {
   id: string; name: string; level: "rid" | "country" | "all"; country: string | null;
   total: number; cur: number; med: number; p90: number; pct: number; bbox: number[];
+  trend: { pct: number; p: number } | null; naive: { pct: number; p: number } | null;
+  shift: { peak: number; days: number; p: number; first: number; last: number } | null;
 };
 export type RegionData = {
   id: string; name: string; h: number[]; modis: number[]; snpp: number[]; n20: number[]; n21: number[];
   frp: number[]; d: number[]; v: number[]; window: { years: number[]; values: number[] } | null;
+  band: Band; record: { mi: number; peak?: string; first?: string | null; lead?: number | null } | null;
 };
+/** 80% range of truth / estimate on held-out years: m, y = MODIS era by month, by year; tm, ty = Terra alone; n = NOAA-20 */
+export type Band = { m: number[]; y: number[]; tm: number[]; ty: number[]; n: number[] };
+/** which range applies to a month of the record, or null where S-NPP measured it directly */
+export const bandFor = (b: Band, mi: number, yearly = false) =>
+  mi < toMi(2002, 6) ? (yearly ? b.ty : b.tm) : mi < toMi(2012, 0) ? (yearly ? b.y : b.m) : mi >= toMi(2026, 0) ? b.n : null;
 export type Tiles = { size: number; xy: number[]; cur: number[]; med: number[]; pct: number[] };
 export type Recent = {
-  lat: number[]; lon: number[]; day: number[]; time: string[]; frp: number[]; sensor: string[];
-  conf: string[]; dn: string[]; rid: string[]; since: string;
+  lat: number[]; lon: number[]; day: number[]; time: number[]; frp: number[]; sensors: string[]; sensor: number[];
+  high: number[]; night: number[]; rids: string[]; rid: number[]; since: string;
 };
 export type Selection = { type: "region"; id: string } | { type: "box"; bbox: [number, number, number, number] };
 
-// Sequential ramp: one warm family, lightness rises monotonically from the dark surface.
-const FIRE = ["#1c1a26", "#47192f", "#86262c", "#c9461d", "#f2811d", "#fcc24a", "#fff4c7"].map(hex);
+// Sequential ramp on paper: one warm family, lightness falls monotonically as activity rises.
+const FIRE = ["#ece4d2", "#f2cf7c", "#ee9e3d", "#dd6a22", "#b8371c", "#7d1717", "#3a0b12"].map(hex);
 // Diverging: cool pole, neutral grey midpoint, warm pole.
-const DIV = ["#2f7fd6", "#5d86a8", "#4a4e58", "#b9683a", "#f2811d"].map(hex);
+const DIV = ["#2a6fb0", "#8fb0cc", "#d6cfc0", "#e39a63", "#c8381c"].map(hex);
 
 function hex(h: string) { return [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)); }
 function ramp(stops: number[][], t: number) {
@@ -40,7 +48,7 @@ export const fire = (t: number) => ramp(FIRE, t);
 export const diverge = (r: number) => ramp(DIV, (Math.max(-3, Math.min(3, r)) + 3) / 6);
 export const FIRE_STOPS = [0, 0.17, 0.33, 0.5, 0.67, 0.83, 1].map(fire);
 
-export const SERIES = { modis: "#3987e5", h: "#d95926", snpp: "#199e70", n20: "#9085e9" };
+export const SERIES = { modis: "#2a78d6", h: "#d4541f", snpp: "#14875f", n20: "#6250d6" };
 
 export const fmt = (n: number) => n >= 1e6 ? (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + "M"
   : n >= 10000 ? Math.round(n / 1000) + "k" : n >= 100 ? Math.round(n).toLocaleString("en-US")
@@ -63,6 +71,14 @@ export function monthStats(series: number[], lastMi: number) {
   const by: number[][] = Array.from({ length: 12 }, () => []);
   for (let mi = toMi(2003, 0); mi < lastMi; mi++) by[miMonth(mi)].push(series[mi] ?? 0); // 2003+: Terra and Aqua
   return by.map((v) => ({ med: median(v), q25: quantile(v, 0.25), q75: quantile(v, 0.75), n: v.length }));
+}
+
+/** tiles.bin is sparse: [non-zero months per tile][month index][value x10], all uint16 */
+export function decodeTiles(buf: ArrayBuffer, nTiles: number, nMonths: number) {
+  const a = new Uint16Array(buf), total = (a.length - nTiles) / 2, out = new Uint16Array(nTiles * nMonths);
+  let k = 0;
+  for (let t = 0; t < nTiles; t++) for (let j = 0; j < a[t]; j++, k++) out[t * nMonths + a[nTiles + k]] = a[nTiles + total + k];
+  return out;
 }
 
 export function boxSeries(tiles: Tiles, bin: Uint16Array, nMonths: number, b: number[]) {

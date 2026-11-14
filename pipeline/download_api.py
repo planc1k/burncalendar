@@ -1,9 +1,16 @@
 """Download the current year from the FIRMS area API (the yearly archive stops at last year).
 
-Usage: python -I pipeline/download_api.py ENV_FILE RAW_API_DIR
+Usage: python -I pipeline/download_api.py ENV_FILE RAW_API_DIR [NAME WEST,SOUTH,EAST,NORTH]
+
 Reads FIRMS_MAP_KEY (and optional FIRMS_MAP_KEY_BACKUP) from ENV_FILE.
-Saves RAW_API_DIR/<SOURCE>/<start-date>.csv, one file per 5-day request over the South Asia box.
-Complete past windows are skipped on rerun; the newest window of each NRT source is refetched.
+Without NAME the South Asia box is used and files are RAW_API_DIR/<SOURCE>/<window-start>.csv.
+With NAME and a box they are <window-start>_<NAME>.csv.
+
+Windows are 5 days on a fixed grid counted from 1 January, so reruns always line up with the
+files already saved. A window that a source only partly covers (the newest days, or the month
+where standard processing hands over to near-real-time) is saved as *.part.csv and fetched
+again on the next run. A window a source no longer covers at all is deleted, so the same day
+is never read from two files.
 """
 import sys
 import io
@@ -11,12 +18,15 @@ import csv
 import time
 import datetime as dt
 import pathlib
+from concurrent.futures import ThreadPoolExecutor
 import requests
 
 API = "https://firms.modaps.eosdis.nasa.gov/api"
 BBOX = "68,6,102,37.5"  # west,south,east,north: India, Nepal, Bangladesh, Myanmar
 SOURCES = ["MODIS_SP", "MODIS_NRT", "VIIRS_SNPP_SP", "VIIRS_SNPP_NRT",
            "VIIRS_NOAA20_SP", "VIIRS_NOAA20_NRT", "VIIRS_NOAA21_SP", "VIIRS_NOAA21_NRT"]
+DAYS = 5
+WORKERS = 6
 
 
 def load_keys(env_file):
@@ -28,39 +38,69 @@ def load_keys(env_file):
     return [keys[k] for k in ("FIRMS_MAP_KEY", "FIRMS_MAP_KEY_BACKUP") if keys.get(k)]
 
 
+def windows(year_start, lo, hi):
+    """Yield (grid_start, first_day, n_days, complete) for every grid window that touches lo..hi."""
+    start = year_start
+    while start <= hi:
+        end = start + dt.timedelta(days=DAYS - 1)
+        first, last = max(start, lo), min(end, hi)
+        if first <= last:
+            yield start, first, (last - first).days + 1, (first == start and last == end)
+        start += dt.timedelta(days=DAYS)
+
+
+def fetch(job, keys, bbox):
+    i, src, full, part, first, n, complete = job
+    for attempt in range(6):
+        key = keys[(i + attempt) % len(keys)]          # spread load over the keys, switch on failure
+        try:
+            r = requests.get(f"{API}/area/csv/{key}/{src}/{bbox}/{n}/{first}", timeout=300)
+            if r.ok and r.text.startswith("latitude,"):
+                break
+            why = f"{r.status_code} {r.text[:60]!r}"
+        except requests.RequestException as e:
+            why = type(e).__name__
+        print(f"  retry {src} {first}: {why}", flush=True)
+        time.sleep(15 * (attempt + 1))
+    else:
+        raise SystemExit(f"giving up on {src} {first}")
+    dest = full if complete else part
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    tmp = dest.with_suffix(".tmp")
+    tmp.write_text(r.text)
+    tmp.rename(dest)
+    if complete:
+        part.unlink(missing_ok=True)
+    return r.text.count("\n") - 1
+
+
 def main():
     keys = load_keys(sys.argv[1])
     out = pathlib.Path(sys.argv[2])
+    name, bbox = (sys.argv[3], sys.argv[4]) if len(sys.argv) > 4 else ("", BBOX)
+    suffix = f"_{name}" if name else ""
     year_start = dt.date(dt.date.today().year, 1, 1)
     avail = requests.get(f"{API}/data_availability/csv/{keys[0]}/all", timeout=60).text
     ranges = {r["data_id"]: (dt.date.fromisoformat(r["min_date"]), dt.date.fromisoformat(r["max_date"]))
               for r in csv.DictReader(io.StringIO(avail))}
-    ki = 0
+    jobs = []
     for src in SOURCES:
         lo, hi = ranges[src]
-        day = max(lo, year_start)
-        rows = 0
-        while day <= hi:
-            n = min(5, (hi - day).days + 1)
-            dest = out / src / f"{day}.csv"
-            last_window = day + dt.timedelta(days=n) > hi
-            if dest.exists() and not (last_window and src.endswith("NRT")):
-                day += dt.timedelta(days=n)
-                continue
-            for attempt in range(6):
-                r = requests.get(f"{API}/area/csv/{keys[ki]}/{src}/{BBOX}/{n}/{day}", timeout=180)
-                if r.ok and r.text.startswith("latitude,"):
-                    break
-                print(f"  retry {src} {day}: {r.status_code} {r.text[:80]!r}", flush=True)
-                ki = (ki + 1) % len(keys)  # switch key, then back off
-                time.sleep(20 * (attempt + 1))
-            else:
-                raise SystemExit(f"giving up on {src} {day}")
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            dest.write_text(r.text)
-            rows += r.text.count("\n") - 1
-            day += dt.timedelta(days=n)
-        print(f"{src}: {max(lo, year_start)}..{hi}  new rows {rows:,}", flush=True)
+        wanted = set()
+        for start, first, n, complete in windows(year_start, max(lo, year_start), hi):
+            full, part = out / src / f"{start}{suffix}.csv", out / src / f"{start}{suffix}.part.csv"
+            wanted |= {full.name, part.name}
+            if not full.exists():
+                jobs.append((len(jobs), src, full, part, first, n, complete))
+        for old in (out / src).glob(f"*{suffix}*.csv"):   # windows this source no longer covers
+            mine = old.name.split(".")[0][10:] == suffix
+            if mine and old.name not in wanted:
+                old.unlink()
+                print(f"removed stale {src}/{old.name}")
+    print(f"{len(jobs)} requests for box {bbox}", flush=True)
+    with ThreadPoolExecutor(WORKERS) as pool:
+        rows = sum(pool.map(lambda j: fetch(j, keys, bbox), jobs))
+    print(f"done: {rows:,} rows fetched")
 
 
 if __name__ == "__main__":

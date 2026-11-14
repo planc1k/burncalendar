@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,14 +12,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const display = Fraunces({ variable: "--font-display", subsets: ["latin"], axes: ["opsz"] });
+
 export const metadata: Metadata = {
-  title: "BurnCalendar · one fire record for South Asia",
-  description: "A harmonized MODIS + VIIRS burning activity calendar and early warning for India, Bangladesh, Myanmar and Nepal, built on NASA FIRMS.",
+  title: "BurnCalendar · one fire record from MODIS and VIIRS",
+  description: "A harmonized MODIS + VIIRS burning activity calendar and early warning for South Asia, Indonesia and Australia, built on NASA FIRMS.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${display.variable}`}>
       <body>{children}</body>
     </html>
   );

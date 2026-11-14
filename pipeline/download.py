@@ -40,7 +40,7 @@ def main():
     this_year = datetime.date.today().year
     jobs = [(raw, sensor, year, country) for country in sys.argv[2:]
             for sensor, first in SENSORS.items() for year in range(first, this_year)]
-    with ThreadPoolExecutor(8) as pool:
+    with ThreadPoolExecutor(12) as pool:
         total = sum(pool.map(lambda j: fetch(*j), jobs))
     print(f"downloaded {total / 1e6:.1f} MB")
 

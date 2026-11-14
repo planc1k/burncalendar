@@ -1,0 +1,1 @@
+{"source":"GFED5 burned area (Chen et al. 2023), Zenodo 10.5281/zenodo.7668423, CC BY 4.0","years":[2003,2020],"split":2012,"states":98,"step_harmonized":[0.94,1.0,1.1],"step_naive":[3.04,4.11,5.31],"within_25pct_harmonized":0.929,"within_25pct_naive":0.0,"rank_corr_harmonized":0.92,"rank_corr_naive":0.509,"monthly_corr":0.828,"monthly_rank_corr":0.863}
