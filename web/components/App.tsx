@@ -563,6 +563,7 @@ export default function App() {
       <footer id="data" className="foot">
         <p><b>Data.</b> NASA FIRMS active fire products: MODIS Collection 6.1 (MCD14DL, MCD14ML) and VIIRS 375 m (S-NPP, NOAA-20, NOAA-21), standard and near-real-time, {fmt(meta.stats.detections_kept)} detections to {meta.maxDate}. Boundaries: Natural Earth. Basemap: © CARTO, © OpenStreetMap contributors. Burned-area check: GFED5 (Chen et al. 2023), CC BY 4.0.</p>
         <p><b>Open data.</b> <a href="/data/burncalendar_monthly.csv" download>Download the harmonized monthly record</a> for every state and country (CSV, 2.6 MB): the value, its likely range, the sensor behind it and the raw counts.</p>
+        <p><b>Open source.</b> The pipeline and this site are on <a href="https://github.com/planc1k/burncalendar" target="_blank" rel="noopener noreferrer">GitHub</a> under the MIT licence.</p>
         <p><b>Built for</b> the NASA Space Apps Challenge 2026, “Harmonization of MODIS and VIIRS Hot Spots”. Code and documentation were written with Claude (Anthropic) as an AI coding assistant. This is not a NASA product.</p>
       </footer>
     </>
