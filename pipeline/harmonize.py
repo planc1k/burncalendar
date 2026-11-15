@@ -9,7 +9,7 @@ Usage: python -I pipeline/harmonize.py RAW_DIR RAW_API_DIR GEO_DIR OUT_DIR
 - Snaps to a fixed 0.05 degree grid and aggregates to cell-day per sensor.
 - Assigns each grid cell to a state/division (Natural Earth admin-1) once, by cell centre.
 
-Outputs OUT_DIR/det.parquet (ix, iy, date, sensor, n, frp_sum)
+Outputs OUT_DIR/det.parquet (ix, iy, date, sensor, n, frp_sum, scan_sum, night)
         OUT_DIR/cells.parquet (ix, iy, rid) and OUT_DIR/regions.parquet / regions.gpkg.
 """
 import sys
@@ -24,7 +24,7 @@ ARCHIVE = {"modis": "modis", "viirs-snpp": "snpp", "viirs-jpss1": "n20"}
 API = {"MODIS_SP": "modis", "MODIS_NRT": "modis", "VIIRS_SNPP_SP": "snpp", "VIIRS_SNPP_NRT": "snpp",
        "VIIRS_NOAA20_SP": "n20", "VIIRS_NOAA20_NRT": "n20",
        "VIIRS_NOAA21_SP": "n21", "VIIRS_NOAA21_NRT": "n21"}
-COLS = ["latitude", "longitude", "acq_date", "satellite", "confidence", "frp", "daynight", "type"]
+COLS = ["latitude", "longitude", "acq_date", "satellite", "confidence", "frp", "daynight", "type", "scan"]
 
 
 def scan(path: pathlib.Path, src: str):
@@ -65,6 +65,8 @@ def main():
         pl.col("acq_date").str.to_date().alias("date"),
         sensor.alias("sensor"),
         pl.col("frp").cast(pl.Float64, strict=False).alias("frp"),
+        pl.col("scan").cast(pl.Float64, strict=False).alias("scan"),      # pixel width in km: grows toward the swath edge
+        (pl.col("daynight") == "N").alias("night"),
         (typ.is_null() | (typ == 0)).alias("veg"),
         typ.is_not_null().alias("typed"),
         keep_conf.alias("conf_ok"),
@@ -76,6 +78,8 @@ def main():
         (~pl.col("veg")).sum().alias("nonveg"),
         pl.col("typed").any().alias("typed"),
         pl.col("frp").filter(ok).sum().alias("frp_sum"),
+        pl.col("scan").filter(ok).sum().alias("scan_sum"),
+        (pl.col("night") & ok).any().alias("night"),
     ).collect(engine="streaming")
     n_all = int(agg["n_all"].sum())
 

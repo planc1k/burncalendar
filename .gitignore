@@ -7,3 +7,6 @@ node_modules/
 *.tsbuildinfo
 .claude/
 docs/guides/
+demo/*.mp4
+demo/still-*.png
+demo/sfx.wav

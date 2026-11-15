@@ -48,7 +48,7 @@ export const fire = (t: number) => ramp(FIRE, t);
 export const diverge = (r: number) => ramp(DIV, (Math.max(-3, Math.min(3, r)) + 3) / 6);
 export const FIRE_STOPS = [0, 0.17, 0.33, 0.5, 0.67, 0.83, 1].map(fire);
 
-export const SERIES = { modis: "#2a78d6", h: "#d4541f", snpp: "#14875f", n20: "#6250d6" };
+export const SERIES = { modis: "#2a78d6", h: "#d4541f", snpp: "#14875f", n20: "#6250d6", n21: "#b0458f" };
 
 export const fmt = (n: number) => n >= 1e6 ? (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + "M"
   : n >= 10000 ? Math.round(n / 1000) + "k" : n >= 100 ? Math.round(n).toLocaleString("en-US")

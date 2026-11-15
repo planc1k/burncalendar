@@ -178,7 +178,9 @@ tr.hl td { font-weight: 600; background: var(--accent-soft); }
 .method { border-top: 1px solid var(--ink); padding: 56px var(--pad) 24px; background: var(--paper-2); }
 .method > h2 { font-size: clamp(30px, 3.4vw, 46px); max-width: 20ch; }
 .method.second { border-top: 0; padding-top: 0; }
-.method.second .method-h { margin-top: 0; }
+.method.second .related { margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--ink-2); max-width: 86ch; }
+.related b { color: var(--ink); font-weight: 600; }
+.method-h { margin-top: 0; }
 .method-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 80px); margin-top: 28px; align-items: start; }
 .steps { padding-left: 1.3em; display: grid; gap: 14px; max-width: 66ch; color: var(--ink-2); }
 .steps li::marker { font-family: var(--display); color: var(--ink); font-weight: 600; }

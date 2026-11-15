@@ -50,6 +50,7 @@ export default function App() {
   const [ba, setBa] = useState<any>(null);
   const cache = useRef(new Map<string, RegionData>());
   const svgRef = useRef<SVGSVGElement>(null);
+  const intro = useRef(false);   // true while the opening playback is still running untouched
 
   useEffect(() => {
     Promise.all([get("meta.json").then((r) => r.json()), get("tiles.json").then((r) => r.json()),
@@ -59,7 +60,7 @@ export default function App() {
         setRange([2000, miYear(m.nMonths - 1)]);
         // The one piece of motion on the page: the map plays the whole record once on arrival.
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) setMonth(m.nMonths - 1);
-        else { setMonth(toMi(2001, 0)); setPlaying(true); }
+        else { setMonth(toMi(2001, 0)); setPlaying(true); intro.current = true; }
       }).catch((e) => setError(String(e)));
   }, []);
 
@@ -101,7 +102,7 @@ export default function App() {
   useEffect(() => {
     if (!playing || !meta) return;
     const last = meta.nMonths - 1;
-    const t = setInterval(() => setMonth((m) => { if (m >= last) { setPlaying(false); return last; } return m + 1; }), 110);
+    const t = setInterval(() => setMonth((m) => { if (m >= last) { setPlaying(false); intro.current = false; return last; } return m + 1; }), 110);
     return () => clearInterval(t);
   }, [playing, meta]);
 
@@ -156,7 +157,13 @@ export default function App() {
     `${a.from === a.to ? a.from : `${a.from} to ${a.to}`} (index ${a.low < 1 ? a.low : a.high})`;
   const pc = (x: number) => `${Math.round(x * 100)}%`;
   const fmtDate = (d: string) => `${+d.slice(8)} ${MONTHS_LONG[+d.slice(5, 7) - 1]} ${d.slice(0, 4)}`;
-  const stop = () => setPlaying(false);
+  // Stop playback. If the visitor interrupts the opening playback, jump to the latest month:
+  // they came to use the map, and today's data is the useful place to land. Callers that pick a
+  // specific month set it right after this.
+  const stop = () => {
+    if (intro.current) { intro.current = false; setMonth(lastMi); }
+    setPlaying(false);
+  };
   const open = (id: string, m: Mode, mi?: number) => {
     stop(); setSelection({ type: "region", id }); setMode(m);
     if (mi != null) setMonth(mi);
@@ -168,13 +175,13 @@ export default function App() {
     if (!series || !summary) return;
     const rd = selection.type === "region" ? regionData : null;
     const rows = [["year", "month", "harmonized_active_cell_days", "median_for_month", "ratio_to_median",
-      ...(rd ? ["raw_modis_cell_days", "raw_snpp_cell_days", "raw_noaa20_cell_days", "frp_sum_mw"] : [])].join(",")];
+      ...(rd ? ["raw_modis_cell_days", "raw_snpp_cell_days", "raw_noaa20_cell_days", "raw_noaa21_cell_days", "frp_sum_mw"] : [])].join(",")];
     for (let mi = 0; mi <= lastMi; mi++) {
       const y = miYear(mi), m = miMonth(mi);
       if (y < range[0] || y > range[1]) continue;
       const med = summary.stats[m].med;
       rows.push([y, m + 1, series[mi].toFixed(1), med.toFixed(1), med > 0 ? (series[mi] / med).toFixed(2) : "",
-        ...(rd ? [rd.modis[mi], rd.snpp[mi], rd.n20[mi], rd.frp[mi]] : [])].join(","));
+        ...(rd ? [rd.modis[mi], rd.snpp[mi], rd.n20[mi], rd.n21[mi], rd.frp[mi]] : [])].join(","));
     }
     download(`burncalendar_${slug}_${range[0]}-${range[1]}.csv`, rows.join("\n"));
   };
@@ -211,7 +218,7 @@ export default function App() {
     { name: "Terra", from: meta.epoch, to: meta.aquaStart, color: SERIES.modis, note: "MODIS, one satellite. Scaled in two steps." },
     { name: "Terra + Aqua", from: meta.aquaStart, to: meta.snppStart, color: SERIES.modis, note: "MODIS, both satellites. Scaled to S-NPP per state and month." },
     { name: "S-NPP", from: meta.snppStart, to: meta.handover, color: SERIES.snpp, note: "VIIRS. The reference scale, used as it is." },
-    { name: "NOAA-20", from: meta.handover, to: meta.maxDate, color: SERIES.n20, note: "VIIRS. Scaled to S-NPP per state and month." },
+    { name: "NOAA-20 + NOAA-21", from: meta.handover, to: meta.maxDate, color: SERIES.n20, note: "VIIRS. Each scaled to S-NPP per state and month, then averaged." },
   ].map((e) => ({ ...e, days: (Date.parse(e.to) - Date.parse(e.from)) / 864e5 }));
 
   return (
@@ -232,11 +239,12 @@ export default function App() {
           </div>
           <MapView three={three} bounds={regions.find((r) => r.id === "ALL")?.bbox} tiles={tiles} bin={bin} nMonths={meta.nMonths} geo={geo}
             regions={regions} month={month} mode={mode} selection={selection} recent={recent} drawing={drawing}
+            onInteract={stop}
             onDrawn={(b) => { setDrawing(false); setSelection({ type: "box", bbox: b }); }}
             onRegion={(id) => { if (regions.some((r) => r.id === id)) { stop(); setSelection({ type: "region", id }); } }} />
           <div className="map-foot">
             {mode === "activity" && <>
-              <button className="btn icon" onClick={() => { if (!playing && month >= lastMi) setMonth(toMi(2001, 0)); setPlaying((p) => !p); }}
+              <button className="btn icon" onClick={() => { intro.current = false; if (!playing && month >= lastMi) setMonth(toMi(2001, 0)); setPlaying((p) => !p); }}
                 aria-label={playing ? "Pause" : "Play through the record"}>{playing ? <Pause /> : <Play />}</button>
               <div className="slider">
                 <label htmlFor="month" className="readout">{monthLabel(month)}{month === lastMi ? <small> in progress</small> : null}</label>
@@ -336,14 +344,14 @@ export default function App() {
                 <div className="range">
                   <label>From <select value={range[0]} onChange={(e) => setRange([+e.target.value, Math.max(+e.target.value, range[1])])}>{yearList.map((y) => <option key={y}>{y}</option>)}</select></label>
                   <label>to <select value={range[1]} onChange={(e) => setRange([Math.min(+e.target.value, range[0]), +e.target.value])}>{yearList.map((y) => <option key={y}>{y}</option>)}</select></label>
-                  <span className="era"><i style={{ background: SERIES.modis }} />MODIS, scaled<i style={{ background: SERIES.snpp }} />S-NPP<i style={{ background: SERIES.n20 }} />NOAA-20, scaled</span>
+                  <span className="era"><i style={{ background: SERIES.modis }} />MODIS, scaled<i style={{ background: SERIES.snpp }} />S-NPP<i style={{ background: SERIES.n20 }} />NOAA-20 and 21, scaled</span>
                 </div>
                 <Calendar series={series} lastMi={lastMi} yearFrom={range[0]} yearTo={range[1]} picked={month} relative={relative} svgRef={svgRef}
                   onPick={(mi) => { stop(); setMonth(mi); setMode("activity"); }}
                   eras={{ aqua: 2002, snpp: 2012, snppEnd: +meta.handover.slice(0, 4) - 1 }}
                   band={selection.type === "region" && regionData && !loadingRegion ? regionData.band : null}
                   filled={health.filled.map((m: string) => toMi(+m.slice(0, 4), +m.slice(5) - 1))} />
-                <p className="note">Years marked MODIS or NOAA-20 are estimates on the S-NPP scale. Hover a month for its likely range.</p>
+                <p className="note">Years marked MODIS or NOAA-20 and 21 are estimates on the S-NPP scale. Hover a month for its likely range.</p>
                 <div className="actions">
                   <button className="btn" onClick={csvMonthly}><Download />Monthly CSV</button>
                   <button className="btn" onClick={csvHotspots}><Download />Hotspots CSV</button>
@@ -376,7 +384,7 @@ export default function App() {
                   <SensorChart data={regionData} lastMi={lastMi} />
                 </div>
               </>}
-              {selection.type === "box" && <p className="note">A drawn area uses the 0.25° tile grid, so it has the monthly calendar. Pick a state or country for the daily calendar and the sensor comparison.</p>}
+              {selection.type === "box" && <p className="note">A drawn area uses the 0.25° tile grid, so it has the monthly calendar. Small areas are less certain than states: for a single tile in one year, estimates before 2012 were off by about 23% on held-out years. Pick a state or country for the daily calendar and the sensor comparison.</p>}
             </>}
           </section>
 
@@ -470,7 +478,7 @@ export default function App() {
         <h2>How two sensor records become one</h2>
         <div className="method-grid">
           <ol className="steps">
-            <li><b>One table.</b> Every MODIS (Terra, Aqua) and VIIRS (S-NPP, NOAA-20) detection from NASA FIRMS is read into one table. Presumed vegetation fires are kept. Low-confidence detections and static heat sources are dropped.</li>
+            <li><b>One table.</b> Every MODIS (Terra, Aqua) and VIIRS (S-NPP, NOAA-20, NOAA-21) detection from NASA FIRMS is read into one table. Presumed vegetation fires are kept. Low-confidence detections and static heat sources are dropped.</li>
             <li><b>Active cell-days.</b> Detections are snapped to a fixed 0.05° grid. A cell with at least one detection on a day counts once. This removes duplicates across satellites and is far less sensitive to pixel size than raw counts.</li>
             <li><b>One scale.</b> S-NPP is the reference. For each state and calendar month, the years where sensors overlap give a factor that converts the other sensor to the S-NPP scale. Small samples are pulled toward the country value.</li>
             <li><b>One record.</b> Each period uses the best sensor flying at the time, all on the same scale.</li>
@@ -485,6 +493,13 @@ export default function App() {
           </div>
         </div>
 
+        <p className="related">
+          <b>Related work.</b> Scaling one sensor to another by region is an established idea. <a href="https://doi.org/10.5194/essd-18-7535-2026">GFED5NRT (Chen et al. 2026)</a> converts
+          VIIRS counts with biome- and region-specific tables to stay consistent with the MODIS era, and <a href="https://doi.org/10.3390/rs12182870">Fu et al. (2020)</a> show the two sensors
+          disagree far more over cropland than forest, which is why one factor for everywhere fails. We scale by state and month, not biome. We tested adding MODIS viewing angle and the share of night detections to the factors; held-out error moved from 11.0% to 10.8% and 10.9%, too little to keep. What this project
+          adds is the state-level calendar across the sensor change and the checking around it.
+        </p>
+
         <h3 className="method-h">Do the sensors still agree?</h3>
         <div className="valid">
           <HealthChart health={health} />
@@ -492,9 +507,10 @@ export default function App() {
             <p>Each month we compare what one sensor saw with what the other predicts for it after calibration. A value of 1.0 means they agree as they did in the fit years. The shaded band is {health.band[0]} to {health.band[1]}; a month outside it is flagged.</p>
             <p className="note">
               MODIS against VIIRS: {health.alarms.modis.length ? health.alarms.modis.map(alarmText).join(", ") : "no month flagged"}.<br />
-              S-NPP against NOAA-20: {health.alarms.snpp.length ? health.alarms.snpp.map(alarmText).join(", ") : "no month flagged"}.
+              S-NPP against NOAA-20: {health.alarms.snpp.length ? health.alarms.snpp.map(alarmText).join(", ") : "no month flagged"}.<br />
+              NOAA-21 against NOAA-20: {health.alarms.n21?.length ? health.alarms.n21.map(alarmText).join(", ") : "no month flagged"}.
             </p>
-            <p className="note">The record acts on this. {health.filled.length ? `S-NPP was the low one in ${health.filled.join(", ")}, so ${health.filled.length > 1 ? "those months are" : "that month is"} filled from calibrated NOAA-20.` : "No S-NPP month needed filling."} S-NPP stops on {meta.snppEnd}, so the record uses NOAA-20 from {meta.handover.slice(0, 4)}.</p>
+            <p className="note">The record acts on this. {health.filled.length ? `S-NPP was the low one in ${health.filled.join(", ")}, so ${health.filled.length > 1 ? "those months are" : "that month is"} filled from calibrated NOAA-20.` : "No S-NPP month needed filling."} S-NPP stops on {meta.snppEnd}, so from {meta.handover.slice(0, 4)} the record is the average of calibrated NOAA-20 and NOAA-21. Two satellites pass at different times, so the average is steadier than either alone ({meta.validation.n20_n21_mean_region_year.mean_of_both.median_abs_pct_err}% against {meta.validation.n20_n21_mean_region_year.n20_alone_same_rows.median_abs_pct_err}% on held-out years). If they drift apart, the month falls back to the one that sees more.</p>
           </div>
         </div>
 
@@ -511,7 +527,7 @@ export default function App() {
                 <tr className="hl"><td>State and month factors</td><td className="num">{val.calibrated.median_abs_pct_err}%</td><td className="num">{val.calibrated.total_ratio}</td></tr>
               </tbody>
             </table>
-            <p className="note">Limits: the method assumes the relationship between MODIS and VIIRS seen in 2012–2025 also held before 2012. Nothing can test that directly, and the likely ranges only reflect 2012–2025, so they are probably too narrow for early years. MODIS misses small fires that VIIRS sees, so a factor restores the average, not individual fires. Years before 2012 are less certain than later ones, and {meta.epoch.slice(0, 4)}–2002 (Terra alone) least of all, so medians use {meta.baseYear} onward. NOAA-21 is shown in the latest hotspots but is not yet part of the record. The newest months use near-real-time data. State boundaries are from Natural Earth and are not authoritative.</p>
+            <p className="note">Limits: the method assumes the relationship between MODIS and VIIRS seen in 2012–2025 also held before 2012. Nothing can test that directly, and the likely ranges only reflect 2012–2025, so they are probably too narrow for early years. MODIS misses small fires that VIIRS sees, so a factor restores the average, not individual fires. Years before 2012 are less certain than later ones, and {meta.epoch.slice(0, 4)}–2002 (Terra alone) least of all, so medians use {meta.baseYear} onward. The newest months use near-real-time data. State boundaries are from Natural Earth and are not authoritative.</p>
           </div>
         </div>
       </section>

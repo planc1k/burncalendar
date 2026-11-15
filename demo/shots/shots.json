@@ -1,0 +1,32 @@
+{
+ "url": "https://burn-calendar-beta.vercel.app",
+ "viewport": [
+  1600,
+  1000
+ ],
+ "cal": [
+  1040,
+  149.9375,
+  520,
+  568.453125
+ ],
+ "cell": [
+  1442.9996337890625,
+  552.9365234375,
+  29.54541015625,
+  17.7271728515625
+ ],
+ "tip": [
+  1330,
+  575,
+  250,
+  140.25
+ ],
+ "tipText": "December 2019\n9,914 active cell-days\n24.0× the December median (414)\nMeasured by S-NPP, the reference sensor\nClick to show this month on the map",
+ "warning": [
+  1040,
+  39.5625,
+  520,
+  1459.203125
+ ]
+}

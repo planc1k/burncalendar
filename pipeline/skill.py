@@ -51,8 +51,8 @@ def warning_skill(series, d0, years, leads=(0, 14, 28), flag_pct=0.9):
             r["fn"] += int((~flag & event).sum()); r["n"] += flag.size
     for r in res.values():
         events, flags = r["tp"] + r["fn"], r["tp"] + r["fp"]
-        r["caught"] = round(r["tp"] / events, 3) if events else None        # share of severe periods flagged beforehand
-        r["right"] = round(r["tp"] / flags, 3) if flags else None           # share of flags followed by a severe period
+        r["caught"] = round(r["tp"] / events, 4) if events else None        # share of severe periods flagged beforehand
+        r["right"] = round(r["tp"] / flags, 4) if flags else None           # share of flags followed by a severe period
         r["base"] = round(events / r["n"], 4) if r["n"] else None           # how often a severe period follows any week
         r["lift"] = round(r["right"] / r["base"], 1) if flags and events else None
     return res

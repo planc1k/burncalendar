@@ -1,6 +1,10 @@
 """Download the current year from the FIRMS area API (the yearly archive stops at last year).
 
 Usage: python -I pipeline/download_api.py ENV_FILE RAW_API_DIR [NAME WEST,SOUTH,EAST,NORTH]
+                                          [--since YYYY] [--sources SRC1,SRC2]
+
+--since pulls from 1 January of that year instead of the current year (NOAA-21 has no yearly
+archive files, so its 2023-2025 record comes from here). --sources limits which sources are pulled.
 
 Reads FIRMS_MAP_KEY (and optional FIRMS_MAP_KEY_BACKUP) from ENV_FILE.
 Without NAME the South Asia box is used and files are RAW_API_DIR/<SOURCE>/<window-start>.csv.
@@ -77,23 +81,34 @@ def fetch(job, keys, bbox):
 def main():
     keys = load_keys(sys.argv[1])
     out = pathlib.Path(sys.argv[2])
-    name, bbox = (sys.argv[3], sys.argv[4]) if len(sys.argv) > 4 else ("", BBOX)
+    args = sys.argv[3:]
+    opt = lambda flag: args[args.index(flag) + 1] if flag in args else None
+    since, only = opt("--since"), opt("--sources")
+    pos = [a for i, a in enumerate(args) if not a.startswith("--") and (i == 0 or not args[i - 1].startswith("--"))]
+    name, bbox = (pos[0], pos[1]) if len(pos) >= 2 else ("", BBOX)
     suffix = f"_{name}" if name else ""
-    year_start = dt.date(dt.date.today().year, 1, 1)
+    this_year = dt.date.today().year
+    years = range(int(since) if since else this_year, this_year + 1)
+    sources = only.split(",") if only else SOURCES
     avail = requests.get(f"{API}/data_availability/csv/{keys[0]}/all", timeout=60).text
     ranges = {r["data_id"]: (dt.date.fromisoformat(r["min_date"]), dt.date.fromisoformat(r["max_date"]))
               for r in csv.DictReader(io.StringIO(avail))}
     jobs = []
-    for src in SOURCES:
+    for src in sources:
         lo, hi = ranges[src]
         wanted = set()
-        for start, first, n, complete in windows(year_start, max(lo, year_start), hi):
-            full, part = out / src / f"{start}{suffix}.csv", out / src / f"{start}{suffix}.part.csv"
-            wanted |= {full.name, part.name}
-            if not full.exists():
-                jobs.append((len(jobs), src, full, part, first, n, complete))
+        for y in years:                                   # the 5-day grid restarts every 1 January
+            y0, y1 = dt.date(y, 1, 1), dt.date(y, 12, 31)
+            if max(lo, y0) > min(hi, y1):
+                continue
+            for start, first, n, complete in windows(y0, max(lo, y0), min(hi, y1)):
+                complete = complete or (first == start and first + dt.timedelta(days=n - 1) == y1)   # short last window of a year
+                full, part = out / src / f"{start}{suffix}.csv", out / src / f"{start}{suffix}.part.csv"
+                wanted |= {full.name, part.name}
+                if not full.exists():
+                    jobs.append((len(jobs), src, full, part, first, n, complete))
         for old in (out / src).glob(f"*{suffix}*.csv"):   # windows this source no longer covers
-            mine = old.name.split(".")[0][10:] == suffix
+            mine = old.name.split(".")[0][10:] == suffix and int(old.name[:4]) in years
             if mine and old.name not in wanted:
                 old.unlink()
                 print(f"removed stale {src}/{old.name}")

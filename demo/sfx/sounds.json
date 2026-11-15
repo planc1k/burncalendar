@@ -1,0 +1,713 @@
+{
+ "source": "https://github.com/wyzowl/sfx-kit",
+ "license": "CC0-1.0",
+ "credit": "Not required. If you'd like to: \"SFX Kit by Wyzowl\" (https://github.com/wyzowl/sfx-kit).",
+ "sounds": {
+  "sting-minimal-long": {
+   "file": "sounds/logo-stings/sting-minimal-long.wav",
+   "duration": 2.222,
+   "sync": {
+    "at": 0.797,
+    "meets": "instant",
+    "how": "Put the sync point (the hit) on the frame the logo appears or lands: start = that frame \u2212 sync.at. In a long sting the hit comes about a second in, after a lead-in, so the sound starts before the logo does."
+   },
+   "timing": {
+    "audible_start": 0.163,
+    "onset": 0.493,
+    "peak": 0.797,
+    "body_end": 1.406,
+    "audible_end": 2.099
+   },
+   "level": {
+    "lufs": -24,
+    "true_peak_dbtp": -18,
+    "tier": "minimal"
+   },
+   "adapt": {
+    "rate": [
+     1,
+     1
+    ],
+    "notes": "Don't change the rate: it detunes the notes. To shorten one, fade its tail over 300 ms or more."
+   },
+   "sha256": "9f104d5f27c49805ea29c0769052a8ea59af0c02f4e710274a254d5288e78e65",
+   "fits_seconds": null,
+   "span_seconds": null
+  },
+  "sting-warm-long": {
+   "file": "sounds/logo-stings/sting-warm-long.wav",
+   "duration": 2.476,
+   "sync": {
+    "at": 0.782,
+    "meets": "instant",
+    "how": "Put the sync point (the hit) on the frame the logo appears or lands: start = that frame \u2212 sync.at. In a long sting the hit comes about a second in, after a lead-in, so the sound starts before the logo does."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0.002,
+    "peak": 0.782,
+    "body_end": 1.59,
+    "audible_end": 2.291
+   },
+   "level": {
+    "lufs": -23,
+    "true_peak_dbtp": -16.2,
+    "tier": "warm"
+   },
+   "adapt": {
+    "rate": [
+     1,
+     1
+    ],
+    "notes": "Don't change the rate: it detunes the notes. To shorten one, fade its tail over 300 ms or more."
+   },
+   "sha256": "22140cc3ce2394a6d58b13b4f302dfe91789cb397c18407288ff040fa459aca4",
+   "fits_seconds": null,
+   "span_seconds": null
+  },
+  "whoosh-slow-soft": {
+   "file": "sounds/whooshes/whoosh-slow-soft.wav",
+   "duration": 1.049,
+   "sync": {
+    "at": 0.452,
+    "meets": "move-peak",
+    "how": "Ease-in-out: put the sync point at the middle of the move. Ease-out (fast start, slowing to a stop): about a quarter of the way in. Ease-in (slow start, fast exit): about three quarters of the way in."
+   },
+   "timing": {
+    "audible_start": 0.048,
+    "onset": 0.205,
+    "peak": 0.452,
+    "body_end": 0.753,
+    "audible_end": 0.994
+   },
+   "level": {
+    "lufs": -24,
+    "true_peak_dbtp": -15.7,
+    "tier": "soft"
+   },
+   "adapt": {
+    "rate": [
+     0.85,
+     1.2
+    ],
+    "notes": "To fit a move up to about 15% shorter or 20% longer, play it faster or slower (its pitch moves with it); beyond that, use the next speed. Adjust level with gain, but for a clearly softer or harder sound use the other intensity rather than a big gain change."
+   },
+   "sha256": "9eadf61f7476f2ca0a6d6acd95a7be26a2ac57ed6c0ea7e76473051a926a2baa",
+   "fits_seconds": [
+    0.52,
+    1.5
+   ],
+   "span_seconds": null
+  },
+  "whoosh-medium-soft": {
+   "file": "sounds/whooshes/whoosh-medium-soft.wav",
+   "duration": 0.543,
+   "sync": {
+    "at": 0.229,
+    "meets": "move-peak",
+    "how": "Ease-in-out: put the sync point at the middle of the move. Ease-out (fast start, slowing to a stop): about a quarter of the way in. Ease-in (slow start, fast exit): about three quarters of the way in."
+   },
+   "timing": {
+    "audible_start": 0.02,
+    "onset": 0.1,
+    "peak": 0.229,
+    "body_end": 0.375,
+    "audible_end": 0.506
+   },
+   "level": {
+    "lufs": -24,
+    "true_peak_dbtp": -15.2,
+    "tier": "soft"
+   },
+   "adapt": {
+    "rate": [
+     0.85,
+     1.2
+    ],
+    "notes": "To fit a move up to about 15% shorter or 20% longer, play it faster or slower (its pitch moves with it); beyond that, use the next speed. Adjust level with gain, but for a clearly softer or harder sound use the other intensity rather than a big gain change."
+   },
+   "sha256": "a114611a09e02ab26cfbd8d796279eac358b6df4c3923db3f269ac34c340eeac",
+   "fits_seconds": [
+    0.28,
+    0.81
+   ],
+   "span_seconds": null
+  },
+  "data-chart-reveal": {
+   "file": "sounds/data/data-chart-reveal.wav",
+   "duration": 0.833,
+   "sync": {
+    "at": 0.007,
+    "meets": "action-start",
+    "how": "Start it with the reveal."
+   },
+   "timing": {
+    "audible_start": 0.007,
+    "onset": 0.074,
+    "peak": 0.439,
+    "body_end": 0.769,
+    "audible_end": 0.82
+   },
+   "level": {
+    "lufs": -23,
+    "true_peak_dbtp": -14.3,
+    "tier": "chart"
+   },
+   "adapt": {
+    "rate": [
+     0.85,
+     1.2
+    ],
+    "notes": "Small rate changes only."
+   },
+   "sha256": "50b79612d5003904b6e8286f2883c9eee08652faf0c6c0ca59493474ce194850",
+   "fits_seconds": [
+    0.64,
+    0.9
+   ],
+   "span_seconds": 0.762
+  },
+  "boom-hit-soft": {
+   "file": "sounds/booms-and-bass/boom-hit-soft.wav",
+   "duration": 1.02,
+   "sync": {
+    "at": 0.031,
+    "meets": "instant",
+    "how": "Sync point on the frame of the reveal or the landing (it's at the very start). Leave the tail to ring out: the hall is part of it."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0,
+    "peak": 0.031,
+    "body_end": 0.445,
+    "audible_end": 0.946
+   },
+   "level": {
+    "lufs": -27,
+    "true_peak_dbtp": -20.5,
+    "tier": "soft"
+   },
+   "adapt": {
+    "rate": [
+     0.9,
+     1.1
+    ],
+    "notes": "Slower sounds deeper and longer; faster lighter. For a shorter boom, fade the tail out over 300 ms or more rather than cutting it."
+   },
+   "sha256": "742dea42e8b84076158a626600eb87ee43a12280bf18afd9aec8d204aa1c3f11",
+   "fits_seconds": null,
+   "span_seconds": null
+  },
+  "boom-hit-medium": {
+   "file": "sounds/booms-and-bass/boom-hit-medium.wav",
+   "duration": 1.301,
+   "sync": {
+    "at": 0.038,
+    "meets": "instant",
+    "how": "Sync point on the frame of the reveal or the landing (it's at the very start). Leave the tail to ring out: the hall is part of it."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0,
+    "peak": 0.038,
+    "body_end": 0.622,
+    "audible_end": 1.233
+   },
+   "level": {
+    "lufs": -24.5,
+    "true_peak_dbtp": -15.1,
+    "tier": "medium"
+   },
+   "adapt": {
+    "rate": [
+     0.9,
+     1.1
+    ],
+    "notes": "Slower sounds deeper and longer; faster lighter. For a shorter boom, fade the tail out over 300 ms or more rather than cutting it."
+   },
+   "sha256": "8b5774f14c230aad4b7e826e60bfaca0af04d2ff285f3954418661a040781a4f",
+   "fits_seconds": null,
+   "span_seconds": null
+  },
+  "data-countup-short": {
+   "file": "sounds/data/data-countup-short.wav",
+   "duration": 0.621,
+   "sync": {
+    "at": 0,
+    "meets": "action-start",
+    "how": "Start it with the count-up and match its length; the ticks ease in and out like the number. Put a number-land at the end."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0,
+    "peak": 0.31,
+    "body_end": 0.614,
+    "audible_end": 0.618
+   },
+   "level": {
+    "lufs": -25,
+    "true_peak_dbtp": -10.9,
+    "tier": "countup"
+   },
+   "adapt": {
+    "rate": [
+     0.85,
+     1.2
+    ],
+    "notes": "Pick the nearest length, then adjust the rate a little to fit."
+   },
+   "sha256": "0500ae02404de9c0d863b270dbad0368ffff30e8fe17032f79c5cace714e0f5f",
+   "fits_seconds": [
+    0.51,
+    0.72
+   ],
+   "span_seconds": 0.614
+  },
+  "data-decrease-short": {
+   "file": "sounds/data/data-decrease-short.wav",
+   "duration": 0.62,
+   "sync": {
+    "at": 0,
+    "meets": "action-start",
+    "how": "Start it with the count-down and match its length; the ticks ease in and out like the number. Put a number-land at the end if the final figure matters."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0,
+    "peak": 0.358,
+    "body_end": 0.613,
+    "audible_end": 0.618
+   },
+   "level": {
+    "lufs": -25,
+    "true_peak_dbtp": -10.4,
+    "tier": "decrease"
+   },
+   "adapt": {
+    "rate": [
+     0.85,
+     1.2
+    ],
+    "notes": "Pick the nearest length, then adjust the rate a little to fit."
+   },
+   "sha256": "f8622d112160d0c95fdd764ad40e0f2d2b74761a0bd9c964dbc624354ee9d884",
+   "fits_seconds": [
+    0.51,
+    0.72
+   ],
+   "span_seconds": 0.613
+  },
+  "data-number-land": {
+   "file": "sounds/data/data-number-land.wav",
+   "duration": 0.233,
+   "sync": {
+    "at": 0.011,
+    "meets": "instant",
+    "how": "Sync point on the frame the final number appears."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0,
+    "peak": 0.011,
+    "body_end": 0.091,
+    "audible_end": 0.215
+   },
+   "level": {
+    "lufs": -22,
+    "true_peak_dbtp": -8.9,
+    "tier": "land"
+   },
+   "adapt": {
+    "rate": [
+     0.85,
+     1.2
+    ],
+    "notes": "Small rate changes only."
+   },
+   "sha256": "5a8af582b3bea2dba401afa55b223cafa8d6a3d1259e72e57dc701b6fc0d82fa",
+   "fits_seconds": null,
+   "span_seconds": null
+  },
+  "riser-2s-soft": {
+   "file": "sounds/risers-and-fallers/riser-2s-soft.wav",
+   "duration": 2.189,
+   "sync": {
+    "at": 1.994,
+    "meets": "arrival",
+    "how": "Place it so its end (the sync point) lands on the reveal: start = reveal \u2212 sync.at."
+   },
+   "timing": {
+    "audible_start": 0.144,
+    "onset": 0.922,
+    "peak": 1.994,
+    "body_end": 2.082,
+    "audible_end": 2.165
+   },
+   "level": {
+    "lufs": -24,
+    "true_peak_dbtp": -17.4,
+    "tier": "soft"
+   },
+   "adapt": {
+    "rate": [
+     0.9,
+     1.1
+    ],
+    "notes": "For other lengths, change the rate a little (its pitch moves with it), or take the next longer one and trim its quiet start (risers) or its quiet end (fallers)."
+   },
+   "sha256": "ffe1d0975ce052a9eb3247e2b0bb492413d6e04cbb81f749cf3b074e2a5f4467",
+   "fits_seconds": [
+    1.68,
+    2.06
+   ],
+   "span_seconds": 1.85
+  },
+  "riser-4s-soft": {
+   "file": "sounds/risers-and-fallers/riser-4s-soft.wav",
+   "duration": 4.184,
+   "sync": {
+    "at": 3.945,
+    "meets": "arrival",
+    "how": "Place it so its end (the sync point) lands on the reveal: start = reveal \u2212 sync.at."
+   },
+   "timing": {
+    "audible_start": 0.312,
+    "onset": 1.874,
+    "peak": 3.945,
+    "body_end": 4.077,
+    "audible_end": 4.158
+   },
+   "level": {
+    "lufs": -24,
+    "true_peak_dbtp": -18.3,
+    "tier": "soft"
+   },
+   "adapt": {
+    "rate": [
+     0.9,
+     1.1
+    ],
+    "notes": "For other lengths, change the rate a little (its pitch moves with it), or take the next longer one and trim its quiet start (risers) or its quiet end (fallers)."
+   },
+   "sha256": "05222fe093f2c9dcaf6c58dd456d2c6d48949a2c204e69a480fc24aa1886193f",
+   "fits_seconds": [
+    3.3,
+    4.04
+   ],
+   "span_seconds": 3.633
+  },
+  "shimmer-medium-bright": {
+   "file": "sounds/shimmers/shimmer-medium-bright.wav",
+   "duration": 1.109,
+   "sync": {
+    "at": 0.011,
+    "meets": "instant",
+    "how": "Sync point near the start: put it on the frame the highlight or reveal appears; the shimmer trails after."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0,
+    "peak": 0.011,
+    "body_end": 0.578,
+    "audible_end": 1.07
+   },
+   "level": {
+    "lufs": -23.5,
+    "true_peak_dbtp": -16.8,
+    "tier": "bright"
+   },
+   "adapt": {
+    "rate": [
+     1,
+     1
+    ],
+    "notes": "Don't change the rate: it detunes the glints. For a shorter shimmer, fade the end; for longer, use the next length."
+   },
+   "sha256": "1659d0489056c10dfb048c6afaf086ec2eb5642d2176dbb0c12595ef1aa759e4",
+   "fits_seconds": null,
+   "span_seconds": null
+  },
+  "shimmer-short-soft": {
+   "file": "sounds/shimmers/shimmer-short-soft.wav",
+   "duration": 0.478,
+   "sync": {
+    "at": 0.012,
+    "meets": "instant",
+    "how": "Sync point near the start: put it on the frame the highlight or reveal appears; the shimmer trails after."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0,
+    "peak": 0.012,
+    "body_end": 0.2,
+    "audible_end": 0.431
+   },
+   "level": {
+    "lufs": -25,
+    "true_peak_dbtp": -15.9,
+    "tier": "soft"
+   },
+   "adapt": {
+    "rate": [
+     1,
+     1
+    ],
+    "notes": "Don't change the rate: it detunes the glints. For a shorter shimmer, fade the end; for longer, use the next length."
+   },
+   "sha256": "c0cdc8cc61e6b1dd0b16732161ff3967ad6242e2f673957bef88a49805c6286e",
+   "fits_seconds": null,
+   "span_seconds": null
+  },
+  "tone-ding-mid": {
+   "file": "sounds/tones/tone-ding-mid.wav",
+   "duration": 1.064,
+   "sync": {
+    "at": 0,
+    "meets": "instant",
+    "how": "Sync point on the frame the highlight appears."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0,
+    "peak": 0.011,
+    "body_end": 0.48,
+    "audible_end": 0.972
+   },
+   "level": {
+    "lufs": -23,
+    "true_peak_dbtp": -17.6,
+    "tier": "ding"
+   },
+   "adapt": {
+    "rate": [
+     1,
+     1
+    ],
+    "notes": "Don't change the rate: it detunes the note."
+   },
+   "sha256": "ee072e95a2634c39a0b54efb06a41e0cc337d4a502719d9b45e85474f6b32837",
+   "fits_seconds": null,
+   "span_seconds": null
+  },
+  "transform-morph": {
+   "file": "sounds/shape-changes/transform-morph.wav",
+   "duration": 0.803,
+   "sync": {
+    "at": 0.002,
+    "meets": "action-start",
+    "how": "Start it with the change and match its length; it follows the change's progress from start to end."
+   },
+   "timing": {
+    "audible_start": 0.002,
+    "onset": 0.028,
+    "peak": 0.529,
+    "body_end": 0.777,
+    "audible_end": 0.796
+   },
+   "level": {
+    "lufs": -24,
+    "true_peak_dbtp": -17.1,
+    "tier": "morph"
+   },
+   "adapt": {
+    "rate": [
+     0.8,
+     1.25
+    ],
+    "notes": "Change the rate to fit the change's length; beyond that, trim the end with a short fade."
+   },
+   "sha256": "8c8a4494471e39ef529964ffbdbe1ba455c4c566ac9e772d2d55c89f11c53dc5",
+   "fits_seconds": [
+    0.62,
+    0.97
+   ],
+   "span_seconds": 0.775
+  },
+  "click-mouse-medium": {
+   "file": "sounds/interface/click-mouse-medium.wav",
+   "duration": 0.092,
+   "sync": {
+    "at": 0.009,
+    "meets": "instant",
+    "how": "Put the sync point on the frame the cursor clicks (when the button dips); the release follows on its own."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0,
+    "peak": 0.009,
+    "body_end": 0.088,
+    "audible_end": 0.091
+   },
+   "level": {
+    "lufs": -27,
+    "true_peak_dbtp": -8.7,
+    "tier": "medium"
+   },
+   "adapt": {
+    "rate": [
+     0.9,
+     1.15
+    ],
+    "notes": "Rate changes shift the pitch a little: faster sounds lighter, slower heavier."
+   },
+   "sha256": "e2f90638293c1f03d1c50620c9a8e364a6148a5d03531a667d7f8bee3f5fb13b",
+   "fits_seconds": null,
+   "span_seconds": null
+  },
+  "pop-medium-in": {
+   "file": "sounds/pops/pop-medium-in.wav",
+   "duration": 0.06,
+   "sync": {
+    "at": 0.011,
+    "meets": "instant",
+    "how": "Put the sync point where the element reaches full size (pop in, bubble) or where it vanishes (pop out). For a scale-up with overshoot, the sync point at the peak of the overshoot."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0,
+    "peak": 0.011,
+    "body_end": 0.034,
+    "audible_end": 0.057
+   },
+   "level": {
+    "lufs": -22.5,
+    "true_peak_dbtp": -6.5,
+    "tier": "medium"
+   },
+   "adapt": {
+    "rate": [
+     0.85,
+     1.25
+    ],
+    "notes": "Rate changes shift the pitch: a little faster for a smaller element, a little slower for a bigger one."
+   },
+   "sha256": "0c92cb9be01b1b5a3b51d4a6bfe427947b228ea71bb95d5a0b6c8641b7eab511",
+   "fits_seconds": null,
+   "span_seconds": null
+  },
+  "pop-small-in": {
+   "file": "sounds/pops/pop-small-in.wav",
+   "duration": 0.04,
+   "sync": {
+    "at": 0.01,
+    "meets": "instant",
+    "how": "Put the sync point where the element reaches full size (pop in, bubble) or where it vanishes (pop out). For a scale-up with overshoot, the sync point at the peak of the overshoot."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0,
+    "peak": 0.01,
+    "body_end": 0.025,
+    "audible_end": 0.038
+   },
+   "level": {
+    "lufs": -25,
+    "true_peak_dbtp": -7.6,
+    "tier": "small"
+   },
+   "adapt": {
+    "rate": [
+     0.85,
+     1.25
+    ],
+    "notes": "Rate changes shift the pitch: a little faster for a smaller element, a little slower for a bigger one."
+   },
+   "sha256": "917759c812aff57bca97627a3c89c7aa5f1b4be7c9494a352cd6ba1dc0984769",
+   "fits_seconds": null,
+   "span_seconds": null
+  },
+  "tone-step-1": {
+   "file": "sounds/tones/tone-step-1.wav",
+   "duration": 0.513,
+   "sync": {
+    "at": 0,
+    "meets": "instant",
+    "how": "Sync point on the frame each item appears; use the steps in order."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0,
+    "peak": 0.012,
+    "body_end": 0.252,
+    "audible_end": 0.469
+   },
+   "level": {
+    "lufs": -26,
+    "true_peak_dbtp": -20.8,
+    "tier": "step"
+   },
+   "adapt": {
+    "rate": [
+     1,
+     1
+    ],
+    "notes": "Don't change the rate: it detunes the note."
+   },
+   "sha256": "425c4981f965f7db88f9d1971b6c9747539dc5209c52935319a7451feb5ec571",
+   "fits_seconds": null,
+   "span_seconds": null
+  },
+  "tone-step-2": {
+   "file": "sounds/tones/tone-step-2.wav",
+   "duration": 0.445,
+   "sync": {
+    "at": 0,
+    "meets": "instant",
+    "how": "Sync point on the frame each item appears; use the steps in order."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0,
+    "peak": 0.011,
+    "body_end": 0.227,
+    "audible_end": 0.406
+   },
+   "level": {
+    "lufs": -26,
+    "true_peak_dbtp": -19.9,
+    "tier": "step"
+   },
+   "adapt": {
+    "rate": [
+     1,
+     1
+    ],
+    "notes": "Don't change the rate: it detunes the note."
+   },
+   "sha256": "249b0751f67d067ec6c680cd236658d78a836562dc4fdac5f801a1235717a09f",
+   "fits_seconds": null,
+   "span_seconds": null
+  },
+  "tone-step-3": {
+   "file": "sounds/tones/tone-step-3.wav",
+   "duration": 0.403,
+   "sync": {
+    "at": 0,
+    "meets": "instant",
+    "how": "Sync point on the frame each item appears; use the steps in order."
+   },
+   "timing": {
+    "audible_start": 0,
+    "onset": 0,
+    "peak": 0.011,
+    "body_end": 0.206,
+    "audible_end": 0.364
+   },
+   "level": {
+    "lufs": -26,
+    "true_peak_dbtp": -18.5,
+    "tier": "step"
+   },
+   "adapt": {
+    "rate": [
+     1,
+     1
+    ],
+    "notes": "Don't change the rate: it detunes the note."
+   },
+   "sha256": "f994c56e0c78fd3d87780e1f2c1819678029042a785fa7db859483a97ca2f30c",
+   "fits_seconds": null,
+   "span_seconds": null
+  }
+ }
+}

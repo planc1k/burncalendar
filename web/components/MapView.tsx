@@ -11,6 +11,7 @@ type Props = {
   tiles: Tiles; bin: Uint16Array; nMonths: number; geo: any; regions: Region[];
   month: number; mode: Mode; selection: Selection; recent: Recent | null; three: boolean; bounds?: number[];
   drawing: boolean; onDrawn: (b: [number, number, number, number]) => void; onRegion: (id: string) => void;
+  onInteract: () => void;   // the visitor pressed, scrolled or touched the map
 };
 
 const empty = { type: "FeatureCollection", features: [] } as any;
@@ -119,6 +120,8 @@ export default function MapView(p: Props) {
       });
       setReady(true);
     });
+
+    for (const ev of ["mousedown", "wheel", "touchstart"] as const) map.on(ev, () => live.current.onInteract());
 
     // hover + click
     map.on("mousemove", (e) => {

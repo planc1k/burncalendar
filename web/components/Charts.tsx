@@ -163,7 +163,7 @@ export function SensorChart({ data, lastMi }: { data: RegionData; lastMi: number
 }
 
 /* ---------- sensor health: agreement index by month ---------- */
-export function HealthChart({ health }: { health: { months: string[]; modis: (number | null)[]; snpp: (number | null)[]; band: number[];
+export function HealthChart({ health }: { health: { months: string[]; modis: (number | null)[]; snpp: (number | null)[]; n21: (number | null)[]; band: number[];
   alarms: Record<string, { from: string; to: string }[]> } }) {
   const host = useRef<HTMLDivElement>(null);
   const [tip, setTip] = useState<Tip>(null);
@@ -171,7 +171,8 @@ export function HealthChart({ health }: { health: { months: string[]; modis: (nu
   const n = health.months.length, W = 560, H = 190, L = 34, R = 96, T = 10, B = 22, top = 2;
   const x = (i: number) => L + (i / (n - 1)) * (W - L - R), y = (v: number) => H - B - (Math.min(v, top) / top) * (H - T - B);
   const rows = [{ key: "modis", label: "MODIS against VIIRS", color: SERIES.modis, v: health.modis },
-    { key: "snpp", label: "S-NPP against NOAA-20", color: SERIES.snpp, v: health.snpp }];
+    { key: "snpp", label: "S-NPP against NOAA-20", color: SERIES.snpp, v: health.snpp },
+    { key: "n21", label: "NOAA-21 against NOAA-20", color: SERIES.n21, v: health.n21 }];
   const last = (v: (number | null)[]) => { for (let i = v.length - 1; i >= 0; i--) if (v[i] != null) return i; return 0; };
   return (
     <div className="chart" ref={host} onMouseLeave={() => { setTip(null); setHover(null); }}
@@ -190,7 +191,7 @@ export function HealthChart({ health }: { health: { months: string[]; modis: (nu
           d={r.v.map((v, i) => (v == null ? "" : `${i && r.v[i - 1] != null ? "L" : "M"}${x(i)},${y(v)}`)).join("")} />)}
         {rows.flatMap((r) => (health.alarms[r.key] ?? []).map((a) => { const i = health.months.indexOf(a.to); return (
           <circle key={r.key + a.from} cx={x(i)} cy={y(r.v[i]!)} r={5} fill="none" stroke="var(--crit)" strokeWidth={2} />); }))}
-        {rows.map((r, k) => <text key={r.key} x={W - R + 8} y={y(r.v[last(r.v)]!) + (k ? 12 : -4)} className="lbl" fill={r.color}>{r.key === "modis" ? "MODIS" : "S-NPP"}</text>)}
+        {rows.map((r, k) => <text key={r.key} x={W - R + 8} y={y(r.v[last(r.v)]!) + (k ? 12 : -4)} className="lbl" fill={r.color}>{r.key === "modis" ? "MODIS" : r.key === "snpp" ? "S-NPP" : "NOAA-21"}</text>)}
         {hover != null && <line x1={x(hover)} x2={x(hover)} y1={T} y2={H - B} className="cross" />}
       </svg>
       <TipBox tip={tip} width={host.current?.clientWidth ?? 400} />

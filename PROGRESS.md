@@ -1,16 +1,16 @@
 # Progress
 
 NASA Space Apps 2026, challenge "Harmonization of MODIS and VIIRS Hot Spots".
-Deadline: Sun Nov 15, 11:59 PM Dhaka. Internal target: 9:00 PM.
+Deadline: Sun Nov 15, 11:59 PM Dhaka. Internal target: 9:00 PM. Team name: One Scale.
 
-## State (Sat Nov 14, mid-afternoon)
-Six countries, redesigned site, running locally end to end. One commit exists (the four-country,
-dark version). Everything since is uncommitted. Not deployed, not pushed to GitHub.
+## State (Sat Nov 14, evening)
+Six countries, five satellites, live at https://burn-calendar-beta.vercel.app (Vercel project preset
+must be Next.js; `web/vercel.json` sets it). Not pushed to GitHub. Check `git status` for uncommitted work.
 
 - Countries: India, Bangladesh, Myanmar, Nepal, Australia, Indonesia.
 - Pipeline: `download.py`, `download_api.py`, `harmonize.py`, `build.py`, `skill.py` (backtest and
   uncertainty), `test_pipeline.py`.
-- Data on disk (git-ignored): `data/raw` 4.7 GB archive, `data/raw_api` 810 MB for 2026, `data/geo`.
+- Data on disk (git-ignored): `data/raw` 4.7 GB archive, `data/raw_api` 1.4 GB (2026 for all sensors, 2023–2025 for NOAA-21), `data/geo`.
 - App: `web/` (Next.js 16, MapLibre GL JS 4.7). Static data in `web/public/data` (17 MB).
 - Docs: `README.md`, `docs/validation.png`, `docs/burned_area.png`, `docs/screenshot.jpg`,
   `docs/SUBMISSION.md`, `docs/DATA_CARD.md`, `docs/INTERVIEW.md` (questions for one real user).
@@ -18,11 +18,13 @@ dark version). Everything since is uncommitted. Not deployed, not pushed to GitH
   needs `data/gfed5`, 561 MB unzipped, git-ignored).
 
 ## Key results
-- 62,384,942 detections in the record, 16,490,073 active cell-days, Nov 2000 to 14 Nov 2026.
+- 68,321,281 detections in the record, 17,132,649 active cell-days, Nov 2000 to 14 Nov 2026.
 - MODIS → S-NPP on held-out years, per state-year: 11.0% median error (raw 77.8%, single factor 37.0%).
-- Terra-alone chain: 13.0% (2008–2011). NOAA-20 → S-NPP: 3.5%.
+- Terra-alone chain: 13.0% (2008–2011). NOAA-20 → S-NPP: 3.5%. NOAA-21 → S-NPP: 4.5%.
+- From 2026 the record is the mean of calibrated NOAA-20 and NOAA-21 (3.4% vs 3.7% for NOAA-20 alone on
+  the same 335 state-years). Falls back to the higher one if they disagree beyond 0.75–1.33; never triggered.
 - New South Wales record month: December 2019, 24× the usual December.
-- Early-warning backtest (2003–2025, 133,952 state-weeks): flag right 34% of the time vs 9% base rate
+- Early-warning backtest (2003–2025, 133,952 state-weeks): flag right 33% of the time vs 9% base rate
   (3.7× chance), catches 33% of severe periods; "above normal" level catches 51%, right 27%.
 - NSW 2019: warning first fired 29 October, 64 days before the peak.
 - Uncertainty ranges per state exported and shown (calendar tooltip, band on the sensor chart).
@@ -35,6 +37,24 @@ dark version). Everything since is uncommitted. Not deployed, not pushed to GitH
 - Trends 2003–2025: raw splice says rising in 74 of 99 states; harmonized says 18 rising, 25 falling,
   56 flat. Punjab October season +7.3 days per decade (about 16 days later than 2003–2007).
 - Sensor alarm flags MODIS Aug 2020 and Apr 2022, S-NPP Jul 2024 and Nov 2026 (the stop).
+
+## Literature (checked late, Sat Nov 14)
+No literature review was done before building. Abstracts read afterwards: GFED5NRT (Chen et al. 2026)
+uses biome- and region-specific scaling of VIIRS counts, so our idea is not new; Fu et al. 2020 show
+MODIS/VIIRS disagreement depends on land cover. Do not claim the method is novel. References are in
+the README. Only abstracts were read, not full texts.
+
+## Experiment: fire-type-aware factors (not adopted)
+Fire type per tile from GFED5 (crop / forest-loss+peat / other). VIIRS per MODIS: crop 3.96, others
+about 2.8. Held-out state-year error 11.9% -> 11.0%, tile-year 23.5% -> 23.2%. Not adopted: small
+gain, and GFED5 would become part of the model as well as the check. Script was a scratch file, not
+in the repo; the numbers are recorded in the README.
+
+## Experiment: viewing angle and day/night (not adopted, Sat Nov 14 evening)
+Covariates added to the factors in a held-out test: mean MODIS scan size, share of night detections,
+both. State-year error 11.0 -> 10.8 / 10.9 / 10.9; state-month 15.6 -> 15.5 / 15.5 / 15.3. Not adopted.
+The day/night test was a covariate, not separate day and night records. `harmonize.py` still writes
+`scan_sum` and `night` per cell-day-sensor so the test can be repeated.
 
 ## Decisions made (and why)
 - Unit is the active cell-day on a 0.05° grid: robust to pixel size and duplicates.

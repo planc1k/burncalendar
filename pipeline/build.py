@@ -9,7 +9,9 @@ Reference scale: S-NPP VIIRS active cell-days (the longest single VIIRS record).
   before 2012-01-20   Terra + Aqua        x k_modis[region, month]
   2012-01-20..2025    S-NPP               (reference, factor 1; months where S-NPP itself was
                                           down are filled from calibrated NOAA-20)
-  from 2026-01-01     NOAA-20             x k_n20[region, month]
+  from 2026-01-01     NOAA-20 and NOAA-21 each x its own factor, then averaged. If the two disagree
+                                          over the whole area in a month (same band as the sensor
+                                          alarm), the higher one is used, since an outage only loses fire.
 
 S-NPP's near-real-time feed thins out during 2026 and stops on 2026-11-02, so the record hands
 over to NOAA-20 at the start of 2026, the first year without a complete S-NPP archive file.
@@ -39,7 +41,7 @@ SNPP_START = dt.date(2012, 1, 20)
 HANDOVER = dt.date(2026, 1, 1)    # S-NPP -> NOAA-20
 BASE_YEAR = 2003                 # first climatology year (Terra + Aqua both flying)
 EPOCH = dt.date(2000, 11, 1)     # first MODIS day in FIRMS
-OVERLAP = {"modis": (201202, 202512), "n20": (201804, 202512)}
+OVERLAP = {"modis": (201202, 202512), "n20": (201804, 202512), "n21": (202303, 202512)}
 COUNTRY_NAMES = {"IN": "India", "BD": "Bangladesh", "MM": "Myanmar", "NP": "Nepal",
                  "AU": "Australia", "ID": "Indonesia"}
 TERRA_CHAIN = (200301, 200712)
@@ -141,15 +143,30 @@ def main():
     con.register("bad_df", pd.DataFrame({"by": [ym // 100 for ym in filled], "bm": [ym % 100 for ym in filled]},
                                         dtype="int64"))
     print("S-NPP months filled from NOAA-20:", filled)
+    # After the handover the record is the mean of calibrated NOAA-20 and NOAA-21. Weights per month:
+    hm0["n21_est"] = hm0.n21 * hm0.k_n21
+    g1 = hm0[hm0.ym >= OVERLAP["n21"][0]].groupby("ym")[["n20_est", "n21_est"]].sum()
+    wrows = []
+    for ym, e20, e21 in g1.itertuples():
+        if e21 <= 0: w = (1.0, 0.0, "noaa20")
+        elif e20 <= 0: w = (0.0, 1.0, "noaa21")
+        elif ALARM[0] <= e21 / e20 <= ALARM[1]: w = (0.5, 0.5, "noaa20+noaa21")
+        else: w = (1.0, 0.0, "noaa20") if e20 > e21 else (0.0, 1.0, "noaa21")
+        wrows.append((ym // 100, ym % 100, *w))
+    weights = pd.DataFrame(wrows, columns=["wy", "wm", "w20", "w21", "mode"])
+    con.register("w_df", weights)
+    wmode = {int(r.wy) * 100 + int(r.wm): r["mode"] for _, r in weights.iterrows()}
+    print("post-handover modes:", {k: v for k, v in wmode.items() if k >= HANDOVER.year * 100 + 1})
     con.register("factors_df", factors)
     con.execute("create table factors as select * from factors_df")
     con.execute(f"""create table h as select t.*, case
             when date < DATE '{AQUA_START}' then terra * k_terra
             when date < DATE '{SNPP_START}' then modis * k_modis
             when date < DATE '{HANDOVER}' and b.by is null then snpp
-            else n20 * k_n20 end as h
+            else coalesce(w.w20, 1) * n20 * k_n20 + coalesce(w.w21, 0) * n21 * k_n21 end as h
         from trd t join factors f on t.rid = f.rid and month(t.date) = f.mo
-        left join bad_df b on year(t.date) = b.by and month(t.date) = b.bm""")
+        left join bad_df b on year(t.date) = b.by and month(t.date) = b.bm
+        left join w_df w on year(t.date) = w.wy and month(t.date) = w.wm""")
 
     con.execute(f"""copy (select tx, ty, rid, year(date) y, month(date) mo, sum(h) h, sum(modis) modis, sum(snpp) snpp
         from h group by all) to '{out}/tile_month.parquet' (format parquet)""")   # read by validate_ba.py
@@ -170,6 +187,13 @@ def main():
     cvj = cross_validate(rm, "n20", grid)
     ryj = cvj.groupby(["rid", "y"])[["n20", "snpp", "pred"]].sum()
     val["n20_region_year"] = {"calibrated": metrics(ryj.snpp, ryj.pred), "raw_n20": metrics(ryj.snpp, ryj.n20)}
+    cvk = cross_validate(rm, "n21", grid)
+    ryk = cvk.groupby(["rid", "y"])[["snpp", "pred"]].sum()
+    val["n21_region_year"] = {"calibrated": metrics(ryk.snpp, ryk.pred)}
+    both = cvj.merge(cvk[["rid", "y", "mo", "pred"]], on=["rid", "y", "mo"], suffixes=("", "_21"))
+    both["mean"] = (both.pred + both.pred_21) / 2
+    ryb = both.groupby(["rid", "y"])[["snpp", "pred", "mean"]].sum()
+    val["n20_n21_mean_region_year"] = {"mean_of_both": metrics(ryb.snpp, ryb["mean"]), "n20_alone_same_rows": metrics(ryb.snpp, ryb.pred)}
     ov = rm[(rm.ym >= 201202) & (rm.ym <= 202512)]
     mo_all = ov.groupby(["y", "mo"])[["modis", "snpp"]].sum()
     val["monthly_corr_all_area"] = round(float(np.corrcoef(mo_all.modis, mo_all.snpp)[0, 1]), 3)
@@ -286,21 +310,26 @@ def main():
 
     # ---- sensor health: do calibrated sensors still agree, month by month? ----
     hm = rm.merge(factors, left_on=["rid", "mo"], right_on=["rid", "mo"])
-    hm["ref"] = np.where((hm.ym < HANDOVER.year * 100 + 1) & ~hm.ym.isin(filled), hm.snpp, hm.n20 * hm.k_n20)   # best VIIRS estimate
-    hm["modis_est"], hm["n20_est"] = hm.modis * hm.k_modis, hm.n20 * hm.k_n20
-    g = hm[hm.ym >= 201202].groupby("ym")[["ref", "modis_est", "n20_est", "snpp"]].sum().sort_index()
+    hm["modis_est"], hm["n20_est"], hm["n21_est"] = hm.modis * hm.k_modis, hm.n20 * hm.k_n20, hm.n21 * hm.k_n21
+    w20 = hm.ym.map(lambda v: {"noaa20": 1.0, "noaa21": 0.0}.get(wmode.get(v, "noaa20"), 0.5))
+    hm["ref"] = np.where((hm.ym < HANDOVER.year * 100 + 1) & ~hm.ym.isin(filled), hm.snpp,
+                         w20 * hm.n20_est + (1 - w20) * hm.n21_est)                          # best VIIRS estimate
+    g = hm[hm.ym >= 201202].groupby("ym")[["ref", "modis_est", "n20_est", "n21_est", "snpp"]].sum().sort_index()
     ratio = lambda a, b: [round(float(x / y), 3) if y > 0 else None for x, y in zip(a, b)]
     h_months = [f"{ym // 100}-{ym % 100:02d}" for ym in g.index]
     h_modis = ratio(g.modis_est, g.ref)
     h_snpp = [v if ym >= 201805 else None for v, ym in zip(ratio(g.snpp, g.n20_est), g.index)]
-    health = {"months": h_months, "modis": h_modis, "snpp": h_snpp,
+    h_n21 = [v if ym >= OVERLAP["n21"][0] else None for v, ym in zip(ratio(g.n21_est, g.n20_est), g.index)]
+    health = {"months": h_months, "modis": h_modis, "snpp": h_snpp, "n21": h_n21,
+              "after_handover": {f"{k // 100}-{k % 100:02d}": v for k, v in wmode.items() if k >= HANDOVER.year * 100 + 1},
               "band": list(ALARM), "filled": [f"{ym // 100}-{ym % 100:02d}" for ym in filled],
               "alarms": {"modis": findings.alarms(h_months, h_modis, g.ref.tolist(), *ALARM, 2000, 1),
-                         "snpp": findings.alarms(h_months, h_snpp, g.n20_est.tolist(), *ALARM, 2000, 1)}}
+                         "snpp": findings.alarms(h_months, h_snpp, g.n20_est.tolist(), *ALARM, 2000, 1),
+                         "n21": findings.alarms(h_months, h_n21, g.n20_est.tolist(), *ALARM, 2000, 1)}}
     print("health alarms", json.dumps(health["alarms"]))
 
     csv_rows = ["region_id,region,country,level,year,month,harmonized_cell_days,likely_low,likely_high,source,"
-                "raw_modis_cell_days,raw_snpp_cell_days,raw_noaa20_cell_days,frp_sum_mw"]
+                "raw_modis_cell_days,raw_snpp_cell_days,raw_noaa20_cell_days,raw_noaa21_cell_days,frp_sum_mw"]
     fy, ly = BASE_YEAR, max_date.year - 1
     region_meta = []
     for key in ("rid", "country", "all"):
@@ -330,11 +359,11 @@ def main():
                 first = dt.date(y, mo, 1)
                 src, rng = (("terra", b["tm"]) if first < AQUA_START.replace(day=1) else ("terra+aqua", b["m"]) if first < SNPP_START.replace(day=1)
                             else ("noaa20 (S-NPP gap)", b["n"]) if y * 100 + mo in filled
-                            else ("snpp", [1, 1]) if first < HANDOVER else ("noaa20", b["n"]))
+                            else ("snpp", [1, 1]) if first < HANDOVER else (wmode.get(y * 100 + mo, "noaa20"), b["n"]))
                 v = float(mm.h.values[mi])
                 csv_rows.append(f"{rid},\"{names[rid]}\",{rid[:2] if key != 'all' else ''},{'state' if key == 'rid' else key},{y},{mo},"
                                 f"{v:.1f},{v * rng[0]:.1f},{v * rng[1]:.1f},{src},{int(mm.modis.values[mi])},{int(mm.snpp.values[mi])},"
-                                f"{int(mm.n20.values[mi])},{int(round(mm.frp.values[mi]))}")
+                                f"{int(mm.n20.values[mi])},{int(mm.n21.values[mi])},{int(round(mm.frp.values[mi]))}")
             region_meta.append({"id": rid, "name": names[rid], "level": key,
                                 "country": rid[:2] if key != "all" else None,
                                 "total": round(float(mm.h.sum())), "trend": t_h, "naive": t_naive, "shift": shift,

@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BurnCalendar demo</title>
+<!-- 29.5-second demo for NASA Space Apps 2026. Every frame is a pure function of time (window.seek),
+     so render.mjs can step through it frame by frame. Code written with Claude (Anthropic). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=block" rel="stylesheet">
+<style>
+  :root { --bg: #0b0908; --ink: #f6efe4; --mute: #a3978a; --dim: #5d544b; --ember: #ff8a3c; --hot: #ffc266; --cool: #7fb2ff; --line: rgba(246,239,228,.14); }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; background: #000; overflow: hidden; }
+  #stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: var(--bg); color: var(--ink);
+    font-family: Geist, system-ui, sans-serif; overflow: hidden; transform-origin: 0 0; }
+  #map { position: absolute; inset: 0; transform-origin: 72% 50%; }
+  #vig { position: absolute; inset: 0; background:
+    radial-gradient(1200px 900px at 74% 50%, transparent 40%, rgba(11,9,8,.85) 100%),
+    linear-gradient(90deg, rgba(11,9,8,.96) 0%, rgba(11,9,8,.82) 30%, transparent 58%); }
+  .scene { position: absolute; inset: 0; display: none; }
+  .col { position: absolute; left: 110px; top: 0; bottom: 0; width: 760px; display: flex; flex-direction: column; justify-content: center; gap: 30px; }
+  .kick { font: 500 22px/1 "Geist Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--ember); }
+  h1 { font: 400 92px/1.02 Fraunces, serif; letter-spacing: -.02em; font-variation-settings: "opsz" 144; }
+  h2 { font: 400 76px/1.05 Fraunces, serif; letter-spacing: -.02em; font-variation-settings: "opsz" 144; }
+  h1 em, h2 em { font-style: italic; color: var(--hot); }
+  p.sub { font: 400 32px/1.35 Geist, sans-serif; color: var(--mute); max-width: 700px; }
+  p.sub b { color: var(--ink); font-weight: 500; }
+  .mono { font-family: "Geist Mono", monospace; }
+  .w { display: inline-block; white-space: pre; will-change: transform, opacity, filter; }
+  .panel { position: absolute; left: 940px; top: 130px; width: 880px; height: 820px; }
+  svg text { font-family: "Geist Mono", monospace; fill: var(--mute); }
+  /* scene 1 */
+  #s1 .col { width: 1500px; gap: 34px; }
+  #s1 h1 { font-size: 120px; }
+  #members { font: 400 40px/1.3 Geist, sans-serif; color: var(--ink); }
+  .rule { height: 2px; background: var(--ember); width: 220px; transform-origin: 0 50%; }
+  /* scene 3 */
+  #wordmark { font: 500 168px/1 Fraunces, serif; letter-spacing: -.035em; font-variation-settings: "opsz" 144; }
+  #clock { position: absolute; right: 90px; bottom: 70px; text-align: right; }
+  #year { font: 500 150px/1 "Geist Mono", monospace; letter-spacing: -.04em; color: var(--ink); }
+  #mon { font: 500 26px/1 "Geist Mono", monospace; letter-spacing: .2em; color: var(--ember); margin-top: 10px; }
+  #bar { position: absolute; left: 110px; right: 90px; bottom: 44px; height: 3px; background: var(--line); }
+  #bar i { display: block; height: 100%; background: var(--ember); width: 0; }
+  .facts { display: flex; gap: 44px; font: 500 24px/1.2 "Geist Mono", monospace; color: var(--mute); }
+  .facts b { display: block; font: 500 58px/1.1 Fraunces, serif; color: var(--ink); letter-spacing: -.02em; }
+  /* scene 4 */
+  #dots { position: absolute; left: 1000px; top: 215px; width: 760px; display: grid; grid-template-columns: repeat(11, 1fr); gap: 20px; }
+  #dots i { aspect-ratio: 1; border-radius: 50%; background: #2a2521; }
+  #big4 { font: 500 190px/0.9 "Geist Mono", monospace; letter-spacing: -.05em; color: var(--hot); }
+  #big4 small { font: 400 44px/1 Geist, sans-serif; color: var(--mute); letter-spacing: 0; margin-left: 18px; }
+  #legend4 { position: absolute; left: 1000px; top: 880px; width: 760px; display: flex; gap: 34px; font: 500 22px/1 "Geist Mono", monospace; color: var(--mute); }
+  #legend4 span::before { content: ""; display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 10px; background: var(--c); vertical-align: -1px; }
+  /* real site, shown in a browser frame (scenes 5 and 6b) */
+  .br { position: absolute; left: 610px; top: 110px; width: 1250px; height: 825px; border-radius: 14px; overflow: hidden; background: #f4efe6;
+    box-shadow: 0 50px 140px rgba(0,0,0,.75), 0 0 0 1px rgba(246,239,228,.2); transform-origin: 50% 60%; }
+  .br .bar { height: 44px; background: #1b1714; display: flex; align-items: center; gap: 8px; padding: 0 16px; }
+  .br .bar i { width: 12px; height: 12px; border-radius: 50%; background: #4a423b; }
+  .br .bar span { margin-left: 18px; width: 520px; height: 26px; border-radius: 13px; background: #2a2521; color: #a3978a; font: 500 14px/26px "Geist Mono", monospace; padding: 0 14px; }
+  .br .bar b { margin-left: auto; font: 500 13px/1 "Geist Mono", monospace; letter-spacing: .12em; color: var(--ember); }
+  .br .view { position: relative; height: 781px; overflow: hidden; }
+  .br .in { position: absolute; left: 0; top: 0; width: 1600px; height: 1000px; transform-origin: 0 0; }
+  .br img { position: absolute; inset: 0; width: 1600px; height: 1000px; }
+  .cur { position: absolute; left: 0; top: 0; width: 30px; height: 30px; z-index: 3; filter: drop-shadow(0 3px 5px rgba(0,0,0,.45)); }
+  #ring5 { position: absolute; left: 0; top: 0; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; border: 3px solid var(--ember); z-index: 2; }
+  #tag5 { position: absolute; left: 0; top: 0; padding: 16px 22px; background: rgba(11,9,8,.94); border: 1px solid var(--hot); border-radius: 8px; z-index: 4; white-space: nowrap; }
+  #tag5 b { display: block; font: 500 68px/1 "Geist Mono", monospace; color: var(--hot); letter-spacing: -.03em; }
+  #tag5 span { font: 500 18px/1.35 "Geist Mono", monospace; color: var(--mute); letter-spacing: .06em; text-transform: uppercase; }
+  .narrow { width: 440px !important; } .narrow h2 { font-size: 58px; } .narrow p.sub { font-size: 27px; }
+  /* scene 6 */
+  .proof { position: absolute; left: 110px; right: 110px; top: 330px; display: grid; grid-template-columns: 1.25fr 1fr; gap: 90px; }
+  .tile { border-top: 1px solid var(--line); padding-top: 34px; }
+  .tile .lab { font: 500 22px/1 "Geist Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); margin-bottom: 34px; }
+  .brow { display: grid; grid-template-columns: 250px 1fr 150px; align-items: center; gap: 22px; margin: 22px 0; font: 400 30px/1 Geist, sans-serif; color: var(--mute); }
+  .brow .trk { height: 40px; } .brow .trk i { display: block; height: 100%; border-radius: 0 4px 4px 0; width: 0; }
+  .brow b { font: 500 40px/1 "Geist Mono", monospace; color: var(--ink); text-align: right; }
+  .huge { font: 500 230px/0.9 "Geist Mono", monospace; letter-spacing: -.06em; color: var(--hot); }
+  /* scene 7 */
+  #s7 .col { width: 1300px; }
+  #url { font: 500 44px/1 "Geist Mono", monospace; color: var(--hot); padding: 22px 30px; border: 1px solid rgba(255,194,102,.5); border-radius: 8px; align-self: flex-start; background: rgba(11,9,8,.7); }
+  #credit { font: 400 22px/1.4 "Geist Mono", monospace; color: var(--dim); letter-spacing: .04em; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="map" width="1920" height="1080"></canvas>
+  <div id="vig"></div>
+
+  <section class="scene" id="s1" data-s="0" data-e="2.6">
+    <div class="col">
+      <div class="kick r" data-in="0.15">NASA Space Apps Challenge 2026</div>
+      <h1 class="r" data-in="0.3" id="team"></h1>
+      <div class="rule" id="rule1"></div>
+      <div id="members" class="r" data-in="0.75"></div>
+      <p class="sub r" data-in="1.0">Challenge: <b>Harmonization of MODIS and VIIRS Hot Spots</b></p>
+    </div>
+  </section>
+
+  <section class="scene" id="s2" data-s="2.6" data-e="6.9">
+    <div class="col">
+      <div class="kick r" data-in="2.8">The problem</div>
+      <h2 class="r" data-in="2.95">Two satellite eras. <em>They don't agree.</em></h2>
+      <p class="sub r" data-in="4.5">The newer VIIRS sensors see about <b>three times</b> as much fire as MODIS. Join the records and every trend breaks in 2012.</p>
+    </div>
+    <svg class="panel" id="chart" viewBox="0 0 880 820"></svg>
+  </section>
+
+  <section class="scene" id="s3" data-s="6.9" data-e="12.0">
+    <div class="col">
+      <div id="wordmark" class="r" data-in="7.05" data-step="0">BurnCalendar</div>
+      <h2 class="r" data-in="7.55" style="font-size:60px">26 years of fire. <em>One continuous record.</em></h2>
+      <div class="facts r" data-in="8.6" data-nosplit>
+        <div><b>68M</b>NASA FIRMS<br>detections</div><div><b>5</b>satellites</div><div><b>6</b>countries</div>
+      </div>
+    </div>
+    <div id="clock"><div id="year">2000</div><div id="mon">NOV</div></div>
+    <div id="bar"><i></i></div>
+  </section>
+
+  <section class="scene" id="s4" data-s="12.0" data-e="16.8">
+    <div class="col">
+      <div class="kick" id="k4">Raw records, joined</div>
+      <div id="big4"><span id="n4">74</span><small>of 99 states</small></div>
+      <h2 id="h4a" class="r" data-in="12.3" data-out="14.2" style="font-size:64px">look like fire is <em>rising.</em></h2>
+      <h2 id="h4b" class="r" data-in="14.45" style="font-size:64px;position:absolute;top:648px">are really rising. <em>57 were only the satellite change.</em></h2>
+    </div>
+    <div id="dots"></div>
+    <div id="legend4"><span style="--c:var(--ember)">rising</span><span style="--c:var(--cool)">falling</span><span style="--c:#4a423b">no clear trend</span></div>
+  </section>
+
+  <section class="scene" id="s5" data-s="16.8" data-e="21.4">
+    <div class="col narrow">
+      <div class="kick r" data-in="17.0">The real thing</div>
+      <h2 class="r" data-in="17.15">Every state gets <em>a calendar.</em></h2>
+      <p class="sub r" data-in="19.6">New South Wales, December 2019: the <b>Black Summer</b> fires. Nobody told it where to look.</p>
+    </div>
+    <div class="br" id="br5"><div class="bar"><i></i><i></i><i></i><span>burn-calendar-beta.vercel.app</span><b>LIVE SITE</b></div>
+      <div class="view"><div class="in"><img id="i5a" src="shots/nsw.png"><img id="i5b" src="shots/nsw-hover.png"></div>
+        <div id="ring5"></div>
+        <svg class="cur" id="cur5" viewBox="0 0 24 24"><path d="M4 2l15 9.5-6.6 1.3 4 7.6-2.7 1.4-4-7.6L4 19z" fill="#0b0908" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div id="tag5"><b>24×</b><span>the usual December</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" id="s6" data-s="21.4" data-e="23.8">
+    <div class="col" style="justify-content:flex-start;top:120px;width:1500px">
+      <div class="kick r" data-in="21.55">Does it work?</div>
+      <h2 class="r" data-in="21.7">Tested on years <em>it never saw.</em></h2>
+    </div>
+    <div class="proof">
+      <div class="tile r" data-in="21.95" data-nosplit>
+        <div class="lab">Error against VIIRS, held-out years</div>
+        <div class="brow"><span>Raw MODIS</span><div class="trk"><i id="b1" style="background:#4a423b"></i></div><b id="v1">0%</b></div>
+        <div class="brow"><span>One factor</span><div class="trk"><i id="b2" style="background:#6e6257"></i></div><b id="v2">0%</b></div>
+        <div class="brow"><span style="color:var(--ink)">BurnCalendar</span><div class="trk"><i id="b3" style="background:var(--ember)"></i></div><b id="v3" style="color:var(--hot)">0%</b></div>
+      </div>
+      <div class="tile r" data-in="22.45" data-nosplit>
+        <div class="lab">Early warning, replayed on 23 years</div>
+        <div class="huge"><span id="v4">0.0</span>×</div>
+        <p class="sub" style="margin-top:18px">better than chance at flagging a severe month ahead</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" id="s6b" data-s="23.8" data-e="25.9">
+    <div class="col narrow">
+      <div class="kick r" data-in="23.95">Live on the site</div>
+      <h2 class="r" data-in="24.1">An early warning, <em>running today.</em></h2>
+    </div>
+    <div class="br" id="br6"><div class="bar"><i></i><i></i><i></i><span>burn-calendar-beta.vercel.app</span><b>LIVE SITE</b></div>
+      <div class="view"><div class="in"><img id="i6" src="shots/warning.png"></div></div>
+    </div>
+  </section>
+
+  <section class="scene" id="s7" data-s="25.9" data-e="29.5">
+    <div class="col">
+      <div class="kick r" data-in="26.1">Open data · open code</div>
+      <h1 class="r" data-in="26.25">Ready as <em>MODIS retires.</em></h1>
+      <p class="sub r" data-in="27.05" style="max-width:900px">One fire record for managers and scientists, from 2000 to today.</p>
+      <div id="url" class="r" data-in="27.4" data-nosplit>burn-calendar-beta.vercel.app</div>
+      <div id="credit" class="r" data-in="27.8" data-nosplit></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const DUR = 29.5, D = "../web/public/data/";
+const q = new URLSearchParams(location.search);
+const TEAM = q.get("team") || "One Scale", MEMBERS = q.get("members") || "";
+const $ = (s) => document.querySelector(s);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const p = (t, s, d) => clamp((t - s) / d);
+const eo = (x) => 1 - Math.pow(1 - x, 4);
+const eio = (x) => (x < .5 ? 8 * x ** 4 : 1 - Math.pow(-2 * x + 2, 4) / 2);
+const lerp = (a, b, k) => a + (b - a) * k;
+const MON = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+const RAMP = [[0,[42,13,5]],[.22,[143,45,13]],[.5,[226,96,31]],[.76,[255,178,74]],[1,[255,241,207]]];
+const ramp = (v) => { v = clamp(v); let i = 1; while (RAMP[i][0] < v) i++; const [a, ca] = RAMP[i - 1], [b, cb] = RAMP[i], k = (v - a) / (b - a);
+  return `rgb(${ca.map((c, j) => Math.round(lerp(c, cb[j], k))).join(",")})`; };
+const LUT = Array.from({ length: 64 }, (_, i) => ramp(i / 63));
+
+/* ---------- text: split into words, each revealed as a function of time ---------- */
+$("#team").textContent = "Team " + TEAM;
+$("#members").textContent = MEMBERS;
+$("#credit").textContent = `Built on NASA FIRMS active fire data · Team ${TEAM}`;
+const reveals = [];
+document.querySelectorAll(".r").forEach((el) => {
+  const t0 = +el.dataset.in, out = el.dataset.out ? +el.dataset.out : null, step = el.dataset.step ? +el.dataset.step : .05;
+  let parts = [el];
+  if (!("nosplit" in el.dataset)) {
+    parts = [];
+    const walk = (node) => [...node.childNodes].forEach((n) => {
+      if (n.nodeType === 3) { const f = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach((w) => { if (!w) return; if (/^\s+$/.test(w)) { f.append(" "); return; }
+          const s = document.createElement("span"); s.className = "w"; s.textContent = w; parts.push(s); f.append(s); });
+        n.replaceWith(f); } else walk(n); });
+    walk(el);
+  }
+  parts.forEach((s, i) => reveals.push({ s, t0: t0 + i * step, out }));
+});
+function drawText(t) {
+  for (const r of reveals) {
+    let k = eo(p(t, r.t0, .7)); if (r.out != null) k *= 1 - eo(p(t, r.out, .35));
+    r.s.style.opacity = k; r.s.style.transform = `translateY(${(1 - k) * 34}px)`; r.s.style.filter = k < .999 ? `blur(${(1 - k) * 12}px)` : "none";
+  }
+}
+
+/* ---------- map ---------- */
+const S = 11.6, MX = 860, MY = 47, LON0 = 66, LAT1 = 39;
+const mapC = $("#map"), mx = mapC.getContext("2d");
+const base = document.createElement("canvas"); base.width = 1920; base.height = 1080;
+const fire = document.createElement("canvas"); fire.width = 1920; fire.height = 1080; const fx = fire.getContext("2d");
+let tiles, bin, nM, all, nsw;
+function decode(buf, nT, nMo) { const a = new Uint16Array(buf), total = (a.length - nT) / 2, out = new Uint16Array(nT * nMo); let k = 0;
+  for (let i = 0; i < nT; i++) for (let j = 0; j < a[i]; j++, k++) out[i * nMo + a[nT + k]] = a[nT + total + k]; return out; }
+function drawBase(geo) {
+  const c = base.getContext("2d"); c.strokeStyle = "rgba(246,239,228,.13)"; c.lineWidth = .8; c.fillStyle = "rgba(246,239,228,.028)";
+  for (const f of geo.features) { const polys = f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates;
+    for (const poly of polys) { c.beginPath(); for (const ring of poly) ring.forEach(([lo, la], i) => c[i ? "lineTo" : "moveTo"](MX + (lo - LON0) * S, MY + (LAT1 - la) * S)); c.fill(); c.stroke(); } }
+}
+function drawMap(m, glow) {
+  const n = tiles.xy.length / 2, m0 = clamp(Math.floor(m), 0, nM - 1), m1 = Math.min(nM - 1, m0 + 1), k = m - Math.floor(m), sz = S * tiles.size + .5;
+  fx.clearRect(0, 0, 1920, 1080);
+  for (let i = 0; i < n; i++) {
+    const v = lerp(bin[i * nM + m0], bin[i * nM + m1], k) / 10; if (v < .6) continue;
+    const it = clamp(Math.sqrt(v / 110));
+    fx.globalAlpha = .3 + .7 * it; fx.fillStyle = LUT[Math.round(it * 63)];
+    fx.fillRect(MX + (tiles.xy[2 * i] * tiles.size - LON0) * S, MY + (LAT1 - (tiles.xy[2 * i + 1] + 1) * tiles.size) * S, sz, sz);
+  }
+  fx.globalAlpha = 1;
+  mx.globalCompositeOperation = "source-over"; mx.filter = "none"; mx.clearRect(0, 0, 1920, 1080); mx.drawImage(base, 0, 0);
+  mx.globalCompositeOperation = "lighter";
+  mx.filter = "blur(14px)"; mx.globalAlpha = .9 * glow; mx.drawImage(fire, 0, 0);
+  mx.filter = "blur(4px)"; mx.globalAlpha = .8 * glow; mx.drawImage(fire, 0, 0);
+  mx.filter = "none"; mx.globalAlpha = 1; mx.drawImage(fire, 0, 0);
+}
+
+/* ---------- scene 2: the break in the raw record ---------- */
+const yr = (a, y) => { let s = 0; for (let i = 0; i < 12; i++) s += a[(y - 2000) * 12 - 10 + i] || 0; return s; };
+let ch = {};
+function buildChart() {
+  const W = 880, H = 820, L = 20, R = 30, T = 60, B = 90, ys = [...Array(25)].map((_, i) => 2001 + i);
+  const raw = ys.map((y) => (y < 2012 ? yr(all.modis, y) : yr(all.snpp, y))), max = Math.max(...raw) * 1.08;
+  const X = (y) => L + ((y - 2001) / 24) * (W - L - R), Y = (v) => H - B - (v / max) * (H - T - B);
+  const path = (a, b) => ys.filter((y) => y >= a && y <= b).map((y, i) => `${i ? "L" : "M"}${X(y).toFixed(1)},${Y(raw[y - 2001]).toFixed(1)}`).join("");
+  $("#chart").innerHTML = `
+    <line x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}" stroke="rgba(246,239,228,.2)"/>
+    ${[2001, 2006, 2012, 2018, 2025].map((y) => `<text x="${X(y)}" y="${H - B + 40}" font-size="22" text-anchor="${y === 2001 ? "start" : y === 2025 ? "end" : "middle"}">${y}</text>`).join("")}
+    <rect id="era2" x="${X(2011.5)}" y="${T}" width="${W - R - X(2011.5)}" height="${H - T - B}" fill="rgba(255,138,60,.07)"/>
+    <line id="split" x1="${X(2011.5)}" x2="${X(2011.5)}" y1="${T}" y2="${H - B}" stroke="#ffc266" stroke-dasharray="6 8" stroke-width="2"/>
+    <text id="lab1" x="${X(2006)}" y="${Y(raw[5]) - 46}" font-size="24" text-anchor="middle" fill="#7fb2ff">MODIS, 2001–2011</text>
+    <text id="lab2" x="${X(2018.5)}" y="${T + 34}" font-size="24" text-anchor="middle" fill="#ff8a3c">VIIRS, 2012 onward</text>
+    <path id="pm" d="${path(2001, 2011)}" fill="none" stroke="#7fb2ff" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+    <path id="pj" d="M${X(2011)},${Y(raw[10])}L${X(2012)},${Y(raw[11])}" fill="none" stroke="#ffc266" stroke-width="5" stroke-linecap="round"/>
+    <path id="pv" d="${path(2012, 2025)}" fill="none" stroke="#ff8a3c" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+    <g id="x3"><text x="${X(2011.5) - 26}" y="${(Y(raw[10]) + Y(raw[11])) / 2 + 10}" font-size="96" font-weight="600" text-anchor="end" fill="#ffc266" id="x3t">×1.0</text>
+    <text x="${X(2011.5) - 30}" y="${(Y(raw[10]) + Y(raw[11])) / 2 + 52}" font-size="22" text-anchor="end">overnight, on paper</text></g>`;
+  ch = { ratio: raw[11] / raw[10] };
+  for (const id of ["pm", "pj", "pv"]) { const e = $("#" + id), len = e.getTotalLength(); e.style.strokeDasharray = len; ch[id] = [e, len]; }
+}
+function drawChart(t) {
+  const set = (id, k) => { const [e, len] = ch[id]; e.style.strokeDashoffset = len * (1 - k); e.style.opacity = k > 0 ? 1 : 0; };
+  set("pm", eio(p(t, 3.0, 1.1))); set("pj", eo(p(t, 4.05, .35))); set("pv", eio(p(t, 4.35, 1.2)));
+  $("#lab1").style.opacity = eo(p(t, 3.6, .5)); $("#lab2").style.opacity = $("#era2").style.opacity = eo(p(t, 4.3, .5));
+  $("#split").style.opacity = eo(p(t, 3.9, .3));
+  const k = eo(p(t, 4.05, .9)); $("#x3").style.opacity = eo(p(t, 4.05, .3));
+  $("#x3t").textContent = "×" + lerp(1, ch.ratio, k).toFixed(1);
+}
+
+/* ---------- scene 4: 99 states ---------- */
+const order = [...Array(99).keys()]; { let s = 7; for (let i = 98; i > 0; i--) { s = (s * 16807) % 2147483647; const j = s % (i + 1); [order[i], order[j]] = [order[j], order[i]]; } }
+const dotEls = order.map(() => { const e = document.createElement("i"); $("#dots").append(e); return e; });
+const rank = []; order.forEach((pos, r) => (rank[pos] = r));   // rank < 74: looks rising in the raw splice
+const mix = (a, b, k) => a.map((c, i) => lerp(c, b[i], k));
+const C = { off: [42, 37, 33], ember: [255, 138, 60], cool: [127, 178, 255], flat: [74, 66, 59] };
+function drawDots(t) {
+  dotEls.forEach((e, pos) => {
+    const r = rank[pos], a = eo(p(t, 12.5 + (r < 74 ? r * .012 : 0), .5)), b = eo(p(t, 14.3 + pos * .008, .6));
+    const first = r < 74 ? C.ember : C.off, final = r < 17 || r === 74 ? C.ember : r < 42 ? C.cool : C.flat;
+    e.style.background = `rgb(${mix(mix(C.off, first, a), final, b).map(Math.round).join(",")})`;
+    const pulse = 1 + .35 * Math.sin(Math.PI * p(t, 14.3 + pos * .008, .5));
+    e.style.transform = `scale(${(.6 + .4 * eo(p(t, 12.15 + pos * .006, .5))) * pulse})`;
+    e.style.boxShadow = (b > .5 ? final === C.ember : r < 74 && a > .5) ? "0 0 22px rgba(255,138,60,.55)" : "none";
+  });
+  const k = eio(p(t, 14.3, .9));
+  $("#n4").textContent = Math.round(lerp(lerp(0, 74, eo(p(t, 12.3, .9))), 18, k));
+  $("#k4").textContent = k > .5 ? "On one scale" : "Raw records, joined";
+  $("#k4").style.opacity = $("#big4").style.opacity = eo(p(t, 12.15, .4));
+  $("#legend4").style.opacity = eo(p(t, 14.9, .5));
+}
+
+/* ---------- scenes 5 and 6b: real screens of the site, with a camera that zooms on a region ---------- */
+let shots;
+const VW = 1250, VH = 781;
+function camera(id, f) {                       // f = [x, y, w, h] in site pixels; returns site-to-frame mapping
+  const sc = Math.min(VW / f[2], VH / f[3]), tx = (VW - f[2] * sc) / 2 - f[0] * sc, ty = (VH - f[3] * sc) / 2 - f[1] * sc;
+  $(id + " .in").style.transform = `translate(${tx}px,${ty}px) scale(${sc})`;
+  return (x, y) => [x * sc + tx, y * sc + ty];
+}
+const lerpR = (a, b, k) => a.map((v, i) => lerp(v, b[i], k));
+function enter(id, t, t0) { const k = eo(p(t, t0, .7)); const e = $(id); e.style.opacity = k;
+  e.style.transform = `perspective(1800px) rotateY(${lerp(-11, 0, k)}deg) rotateX(${lerp(4, 0, k)}deg) translateY(${lerp(80, 0, k)}px) scale(${lerp(.93, 1, k)})`; }
+function drawSite5(t) {
+  enter("#br5", t, 16.95);
+  const to = camera("#br5", lerpR([0, 0, 1600, 1000], [1000, 80, 600, 690], eio(p(t, 18.0, .9))));
+  const [cx, cy] = to(shots.cell[0] + shots.cell[2] / 2, shots.cell[1] + shots.cell[3] / 2);
+  const m = eio(p(t, 18.55, .75)), ux = lerp(520, cx, m), uy = lerp(700, cy, m), click = Math.sin(Math.PI * p(t, 19.3, .25));
+  $("#cur5").style.opacity = eo(p(t, 18.45, .3));
+  $("#cur5").style.transform = `translate(${ux - 4}px,${uy - 2}px) scale(${1 - .18 * click})`;
+  $("#i5b").style.opacity = p(t, 19.32, .1);
+  const r = p(t, 19.3, .6); $("#ring5").style.opacity = r > 0 && r < 1 ? 1 - r : 0; $("#ring5").style.transform = `translate(${cx}px,${cy}px) scale(${.3 + 1.6 * eo(r)})`;
+  const k = eo(p(t, 19.5, .5)); $("#tag5").style.opacity = k; $("#tag5").style.transform = `translate(${cx - 372}px,${cy - 150 + (1 - k) * 24}px)`;
+}
+function drawSite6(t) {
+  enter("#br6", t, 23.85);
+  camera("#br6", lerpR([1020, 185, 580, 362], [1020, 600, 580, 362], eio(p(t, 24.45, .95))));
+}
+
+/* ---------- scene 6: proof ---------- */
+function drawProof(t) {
+  [["1", 77.8, 22.15], ["2", 37.0, 22.3], ["3", 11.0, 22.45]].forEach(([i, v, s]) => {
+    const k = eo(p(t, s, .8)); $("#b" + i).style.width = (v / 77.8) * 100 * k + "%"; $("#v" + i).textContent = (v * k).toFixed(1) + "%"; });
+  $("#v4").textContent = (3.7 * eo(p(t, 22.7, .8))).toFixed(1);
+}
+
+/* ---------- master ---------- */
+const scenes = [...document.querySelectorAll(".scene")].map((el) => ({ el, s: +el.dataset.s, e: +el.dataset.e }));
+window.seek = (t) => {
+  t = clamp(t, 0, DUR);
+  for (const sc of scenes) {
+    const o = Math.min(p(t, sc.s, .3), sc.e >= DUR ? 1 : 1 - p(t, sc.e - .28, .28));
+    sc.el.style.display = o > 0 ? "block" : "none"; sc.el.style.opacity = o;
+    if (o > 0) sc.el.style.transform = `scale(${1 + .012 * p(t, sc.e - .28, .28)})`;
+  }
+  drawText(t);
+  // map: a slow seasonal loop behind most scenes, the full timelapse in scene 3
+  const tl = eio(p(t, 8.0, 3.5)), inS3 = Math.min(p(t, 6.9, .6), 1 - p(t, 11.6, .5));
+  const month = t < 6.9 ? 288 + (t * 3) % 12 : t < 12 ? lerp(0, nM - 1, tl) : 290 + ((t - 12) * 2.2) % 22;
+  const vis = Math.max(.24 + .06 * Math.sin(t), eo(clamp(inS3)), .75 * eo(p(t, 25.9, .8)), t < 2.6 ? .7 : 0);
+  drawMap(month, .5 + .5 * vis);
+  mapC.style.opacity = vis;
+  mapC.style.transform = `scale(${1.04 + .1 * (t / DUR) + .06 * eo(clamp(inS3))}) translateX(${-20 * eo(clamp(inS3))}px)`;
+  $("#vig").style.opacity = 1 - .45 * eo(clamp(inS3));
+  $("#rule1").style.transform = `scaleX(${eo(p(t, .55, .7))})`;
+  const mi = Math.round(month); $("#year").textContent = 2000 + Math.floor((mi + 10) / 12); $("#mon").textContent = MON[(mi + 10) % 12];
+  $("#clock").style.opacity = eo(p(t, 7.9, .4)); $("#bar").style.opacity = eo(p(t, 7.9, .4)); $("#bar i").style.width = tl * 100 + "%";
+  if (t > 2.3 && t < 7.2) drawChart(t);
+  if (t > 11.7 && t < 17.1) drawDots(t);
+  if (t > 16.5 && t < 21.7) drawSite5(t);
+  if (t > 21.1 && t < 24.1) drawProof(t);
+  if (t > 23.5 && t < 26.2) drawSite6(t);
+};
+
+window.ready = (async () => {
+  const j = (f) => fetch(D + f).then((r) => r.json());
+  const [tj, buf, meta, geo, a, n, sh] = await Promise.all([j("tiles.json"), fetch(D + "tiles.bin").then((r) => r.arrayBuffer()), j("meta.json"),
+    j("regions.geojson"), j("regions/ALL.json"), j("regions/AU_NSW.json"), fetch("shots/shots.json").then((r) => r.json()), document.fonts.ready]);
+  shots = sh; await Promise.all([...document.images].map((im) => im.decode()));
+  tiles = tj; nM = meta.nMonths; bin = decode(buf, tj.xy.length / 2, nM); all = a; nsw = n;
+  drawBase(geo); buildChart();
+  await Promise.all(['500 100px Fraunces', 'italic 400 100px Fraunces', '500 30px Geist', '500 30px "Geist Mono"'].map((f) => document.fonts.load(f)));
+  window.seek(q.has("t") ? +q.get("t") : 0);
+})();
+
+// preview in a browser: fit to the window and loop. ?t=12 freezes one moment. render.mjs passes ?render=1.
+const fit = () => { $("#stage").style.transform = `scale(${Math.min(innerWidth / 1920, innerHeight / 1080)})`; }; fit(); addEventListener("resize", fit);
+if (!q.has("render") && !q.has("t")) window.ready.then(() => { const t0 = performance.now(); const loop = () => { window.seek(((performance.now() - t0) / 1000) % (DUR + 1)); requestAnimationFrame(loop); }; loop(); });
+</script>
+</body>
+</html>
